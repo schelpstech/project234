@@ -201,6 +201,7 @@ if (isset($_SESSION['current_page'])) {
         'order_by' => 'rectime DESC'
     ];
     $notification_alert = $model->getRows($tblName, $conditions);
+    
     $activityLog = $model->getRows($tblName, $condition);
 
     //My Support Tickets

@@ -5,19 +5,19 @@
           <div class="text-sm text-center copyright text-md-start">
             Copyright © <script>
               document.write(new Date().getFullYear())
-            </script> <a href="https://www.creative-tim.com" class="text-sm text-body ms-1" target="_blank">CRSM Portal</a>
+            </script> <a href="https://crsm.ng" class="text-sm text-body ms-1" target="_blank">CRSM Portal</a>
           </div>
         </div>
         <div class="col-lg-6">
           <ul class="text-white nav nav-footer justify-content-center justify-content-lg-end">
             <li class="nav-item">
-              <a href="https://www.creative-tim.com" class="text-sm nav-link text-body" target="_blank">Secretariat</a>
+              <a href="./manager.php" class="text-sm nav-link text-body" target="_blank">Secretariat</a>
             </li>
             <li class="nav-item">
-              <a href="https://www.creative-tim.com/presentation" class="text-sm nav-link text-body" target="_blank">Board</a>
+              <a href="./manager.php" class="text-sm nav-link text-body" target="_blank">Board</a>
             </li>
             <li class="nav-item">
-              <a href="https://www.creative-tim.com/license" class="text-sm nav-link text-body" target="_blank">Admin</a>
+              <a href="./school.php" class="text-sm nav-link text-body" target="_blank">School</a>
             </li>
           </ul>
         </div>

@@ -22,6 +22,11 @@ class Utility
     }
     return $randomString;
   }
+  /**
+   * Summary of generateRandomDigits
+   * @param mixed $length
+   * @return string
+   */
   public function generateRandomDigits($length)
   {
     $characters = '1234567890';

@@ -109,7 +109,7 @@ class Model
             $i = 0;
             foreach ($conditions['null_check'] as $key => $value) {
                 $pre = ($i > 0) ? ' AND ' : '';
-                $sql .= $pre . $key . " ". $value ;
+                $sql .= $pre . $key . " " . $value;
                 $i++;
             }
         }

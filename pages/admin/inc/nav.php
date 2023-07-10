@@ -18,7 +18,7 @@
                                 <path d="M14 9C13.4477 9 13 9.44771 13 10V16C13 16.5523 13.4477 17 14 17H16C16.5523 17 17 16.5523 17 16V10C17 9.44771 16.5523 9 16 9H14Z" class="color-background" />
                             </svg>
                         </div>
-                        <span class="nav-link-text ms-2"> Admin Dashboard</span>
+                        <span class="nav-link-text ms-2">  Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -221,15 +221,8 @@
                     </a>
                     <div class="collapse " id="pagesExamples5">
                         <ul class="nav border-start ms-4">
-                            
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('newTicket') ?>">
-                                    <span class="sidenav-mini-icon"> N </span>
-                                    <span class="sidenav-normal"> New Ticket </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('ticketLog') ?>">
+                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('ticketLog') ?>">
                                     <span class="sidenav-mini-icon"> M </span>
                                     <span class="sidenav-normal"> My Ticket </span>
                                 </a>
@@ -261,19 +254,19 @@
                     <div class="collapse " id="authExamples6">
                         <ul class="nav border-start ms-4">
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('activity_log') ?>">
+                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('activity_log') ?>">
                                     <span class="sidenav-mini-icon"> L </span>
                                     <span class="sidenav-normal">Activity Log </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('accesscode') ?>">
+                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('accesscode') ?>">
                                     <span class="sidenav-mini-icon"> D </span>
                                     <span class="sidenav-normal"> Reset Password </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('userProfile') ?>">
+                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('userProfile') ?>">
                                     <span class="sidenav-mini-icon"> D </span>
                                     <span class="sidenav-normal"> Manage User </span>
                                 </a>

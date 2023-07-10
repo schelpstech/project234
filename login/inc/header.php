@@ -3,6 +3,9 @@ include '../model/query.php';
 if(isset($_SESSION['active']) && !empty($_SESSION['active'])){
   $utility->notifier('success', 'Welcome! You have an active login session!');
   $model->redirect('../pages/school/index.php');
+}elseif(isset($_SESSION['activeAdmin']) && !empty($_SESSION['activeAdmin'])){
+  $utility->notifier('success', 'Welcome! You have an active login session!');
+  $model->redirect('../pages/admin/index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -14,7 +17,7 @@ if(isset($_SESSION['active']) && !empty($_SESSION['active'])){
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <title>
-    School Login - CRSM Portal
+    Login - CRSM Portal
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Sans:300,400,500,600,700,800|PT+Mono:300,400,500,600,700" rel="stylesheet" />

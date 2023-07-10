@@ -109,3 +109,18 @@ function toggleButton() {
   }
 }
 
+
+function switch_check_rebate() {
+  var selectedValue = $('#rebate').val()
+  if (selectedValue == "Yes") {
+    $('#showRebateAmount').show();
+    $('#showRebateFile').show();
+    $('#rebateAmount').attr('required', '');
+    $('#rebateAmount').attr('data-error', 'Rebate Amount field is required.');
+    $('#rebateFile').attr('required', '');
+    $('#rebateFile').attr('data-error', 'Rebate File field is required.');
+  }else if(selectedValue != "Yes"){
+    $('#showRebateAmount').hide();
+    $('#showRebateFile').hide();
+  }
+}
