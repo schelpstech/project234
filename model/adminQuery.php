@@ -24,11 +24,6 @@ if (isset($_SESSION['activeAdmin'])) {
 
     //Select Corporate Data    
     $tblName = '_tbl_sch_corporate_data';
-    $conditions = [
-        'joinl' => [
-            '_tbl_sch_address' => ' on _tbl_sch_corporate_data.sch_code = _tbl_sch_address.sch_code ',
-        ]
-    ];
     $return = [
         'return_type' => 'count'
     ];
@@ -45,7 +40,7 @@ if (isset($_SESSION['activeAdmin'])) {
         ],
     ];
 
-    $sch_details = $model->getRows($tblName, $conditions);
+    $sch_details = $model->select_all($tblName);
     $sch_count = $model->getRows($tblName, $return);
     $sch_count_primary = $model->getRows($tblName, $primary);
     $sch_count_secondary = $model->getRows($tblName, $secondary);
@@ -69,7 +64,7 @@ if (isset($_SESSION['activeAdmin'])) {
 
     $activityLog = $model->getRows($tblName, $condition);
 
-    
+
     //My Support Tickets
     $tblName = '_tbl_ticket';
     $conditions = [

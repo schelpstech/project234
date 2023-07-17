@@ -1,5 +1,5 @@
 <?php
-include './query.php';
+include '../model/query.php';
 
 if (isset($_POST['variable']) && $_POST['requested'] == 'fetch_region_data') {
     $tblName = 'region_tbl';
@@ -11,7 +11,7 @@ if (isset($_POST['variable']) && $_POST['requested'] == 'fetch_region_data') {
     $response = $model->getRows($tblName, $condition);
     echo '<option value="">select</option>';
     foreach ($response as $data) {
-        echo '<option value="' . $data['region_id'] . '">' . $data['region'] . '</option>';
+        echo '<option value="'. $data['region_id'].'">' . $data['region'] . '</option>';
     }
 }
 

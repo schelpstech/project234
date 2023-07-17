@@ -20,8 +20,13 @@ class User
             // Prepare the statement
             $query = $this->db->prepare($sql);
 
+            if(isset($_SESSION['activeAdmin'])){
+                $user = $_SESSION['activeAdmin'];
+            }else{
+                $user = $_SESSION['active'];
+            }
             // Bind parameters
-            $query->bindParam(":user", $object);
+            $query->bindParam(":user", $user);
             $query->bindParam(":userip", $_SERVER['REMOTE_ADDR']);
             $query->bindParam(":object", $object);
             $query->bindParam(":activity", $activity);

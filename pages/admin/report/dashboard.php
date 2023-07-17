@@ -129,7 +129,22 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <li><a class="dropdown-item"
-                                                    href="../../app/delete.php?ref=<?php echo ($data['sch_code']) ?>&type=facility_details">Remove</a>
+                                                    href="./index.php?pageid=<?php echo base64_encode('Corporate') ?>&schCode=<?php echo ($data['sch_code']) ?>">Corporate Details</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                    href="./index.php?pageid=<?php echo base64_encode('Contact') ?>&schCode=<?php echo ($data['sch_code']) ?>">Contact Details</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                    href="./index.php?pageid=<?php echo base64_encode('Classes') ?>&schCode=<?php echo ($data['sch_code']) ?>">Available Classes</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                    href="./index.php?pageid=<?php echo base64_encode('Approval') ?>&schCode=<?php echo ($data['sch_code']) ?>">Approval Details</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                    href="./index.php?pageid=<?php echo base64_encode('Facility') ?>&schCode=<?php echo ($data['sch_code']) ?>">Facility Details</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                    href="./index.php?pageid=<?php echo base64_encode('Profile') ?>&schCode=<?php echo ($data['sch_code']) ?>">View Profile</a>
                                             </li>
                                         </ul>
                                     </div>

@@ -56,12 +56,12 @@ if (isset($_SESSION['current_page'])) {
         'where' => [
             'sch_code' => $_SESSION['active'],
         ],
-        'joinl' => array(
+        'joinl' => [
             'lga_tbl' => ' on lga_tbl.lga_id = _tbl_sch_address.lga_id',
             'state_tb' => ' on state_tb.state_id = lga_tbl.state_id',
             'region_tbl' => ' on region_tbl.region_id = state_tb.region_id',
             'country_tbl' => ' on country_tbl.country_id = region_tbl.country_id',
-        )
+        ]
     ];
     $sch_phy_address = $model->getRows($tblName, $conditions);
 

@@ -105,7 +105,7 @@ elseif (isset($_POST['replyTicketForm']) && isset($_SESSION['activeAdmin']) ) {
             ];
     
             if ($model->upDate('_tbl_ticket', $ticket_data, $condition) == true && $model->insert_data('_tbl_conversation', $conversation_data) == true) {
-                $user->recordLog($_SESSION['active'], 'Support Ticket Reply', 'A new reply has been updated on support ticket #' . $_SESSION['ticketid'] . ' for school with code : ' . $_SESSION['active']);
+                $user->recordLog( $_POST['sch_code'], 'Support Ticket Reply', 'A new reply has been updated on support ticket #' . $_SESSION['ticketid'] . ' for school with code : ' . $_SESSION['active']);
                 $utility->notifier('success', 'Your reply has been submitted for school with code: ' . $_POST['sch_code']);
                 $model->redirect('../pages/admin/index.php?pageid=' . base64_encode('conversation') . '&ticketid=' . $_SESSION['ticketid']);
             } else {

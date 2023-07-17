@@ -7,7 +7,6 @@ function select_region_type() {
             data: {
                 variable: variable,
                 requested: 'fetch_region_data',
-
             },
             success: function (data) {
                 $("#region_type").html(data);

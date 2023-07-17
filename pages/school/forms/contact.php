@@ -37,7 +37,7 @@
                     <div class="col-md-8">
                         <label for="example-text-input" class="form-control-label">School name</label>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="sch_name"
+                            <input type="text" class="form-control" name="sch_name"disabled
                                 value="<?php echo $sch_corporate_data['sch_name'] ?>" />
                         </div>
                     </div>

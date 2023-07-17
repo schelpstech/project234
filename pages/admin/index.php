@@ -52,6 +52,29 @@ include './inc/navbar.php';
             $include = include "./forms/conversation.php";
         }
 
+        //Corporate Details 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Corporate") {
+            $pageName = "School Corporate Details";
+            $pageDescription = "View and Validate Corporate Details of Selected School";
+            $_SESSION['schCode'] = $_GET['schCode'];
+            $include = include "./forms/corporate.php";
+        }
+
+        //Contact Details 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Contact") {
+            $pageName = "School Contact Details";
+            $pageDescription = "View and Validate  Contact Details of Selected School";
+            $_SESSION['schCode'] = $_GET['schCode'];
+            $include = include "./forms/contact.php";
+        }
+        //Available Class Details 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Classes") {
+            $pageName = "School Contact Details";
+            $pageDescription = "View and Validate  Contact Details of Selected School";
+            $_SESSION['schCode'] = $_GET['schCode'];
+            $include = include "./report/availableClasses.php";
+        }
+
 
         else {
             $pageName = "Admin Dashboard";
@@ -63,7 +86,7 @@ include './inc/navbar.php';
             <div class="d-sm-flex align-items-center">
                 <div>
                     <h6 class="font-weight-semibold text-lg mb-0">
-                        <?php echo $pageName ?? "" ?>
+                        <?php echo "School Code :: ". $_SESSION['schCode'] ?? "" ?>
                     </h6>
                     <p class="text-sm">
                         <?php echo $pageDescription ?? "" ?>
