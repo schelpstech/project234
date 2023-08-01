@@ -120,6 +120,14 @@ if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'userProfile') {
   $_SESSION['module'] = 'school';
   $model->redirect('../pages/school/formviewer.php');
 }
+if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'academic') {
+  $_SESSION['current_page'] = 'Termly Report';
+  $_SESSION['include'] = './forms/academicReport.php';
+  $_SESSION['module'] = 'school';
+  $model->redirect('../pages/school/formviewer.php');
+}
+
+
 
 //Report - Enrolment
 if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'enrolment') {

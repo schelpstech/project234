@@ -100,13 +100,36 @@ if (isset($_POST['submit_class_form']) && isset($_SESSION['current_page']) && ($
         $ifExist = $model->getRows($tblName, $conditions);
 
         if ($ifExist == 0) {
-            $classData = [
-                'schCode' => $_SESSION['active'],
-                'invReference' => $utility->generateRandomDigits(8),
-                'invType' => 'Termly Remittance',
-                'invAmount' => $_SESSION['remittanceDue'],
-                'termRef' => htmlspecialchars($_POST['termID']),
-            ];
+
+            if ($_POST['rebate'] == "Yes") {
+                $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                $maxFileSize = 524288; // 500kb
+                $rebateDocumentUploadPath = '../assets/storage/rebateDocument';
+
+                //Handle Rebate Document Upload
+                $result = $utility->handleUploadedFile('rebateFile', $allowedTypes, $maxFileSize, $rebateDocumentUploadPath);
+                if (isset($_SESSION['fileName']) && $result == 'success') {
+                    $classData = [
+                        'schCode' => $_SESSION['active'],
+                        'invReference' => $utility->generateRandomDigits(8),
+                        'invType' => 'Termly Remittance',
+                        'invAmount' => $_SESSION['remittanceDue'],
+                        'termRef' => htmlspecialchars($_POST['termID']),
+                        'rebate' => htmlspecialchars($_POST['rebate']),
+                        'rebateAmount' => htmlspecialchars($_POST['rebateAmount']),
+                        'rebateFile' => $_SESSION['fileName'],
+                    ];
+                }
+            } elseif ($_POST['rebate'] == "No") {
+                $classData = [
+                    'schCode' => $_SESSION['active'],
+                    'invReference' => $utility->generateRandomDigits(8),
+                    'invType' => 'Termly Remittance',
+                    'invAmount' => $_SESSION['remittanceDue'],
+                    'termRef' => htmlspecialchars($_POST['termID']),
+                    'rebate' => htmlspecialchars($_POST['rebate']),
+                ];
+            }
 
             if ($model->insert_data($tblName, $classData) == true) {
                 $user->recordLog($_SESSION['active'], 'Termly Invoice Generated ', 'A Termly Invoice has been generated for school with code : ' . $_SESSION['active']);

@@ -147,7 +147,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <li><a class="dropdown-item"
-                                                            href="../../app/delete.php?ref=<?php echo ($data['approval_id']) ?>&type=approval_details">Remove</a>
+                                                            href="../../app/delete.php?ref=<?php echo ($data['approval_rec_id']) ?>&type=approval_details">Remove</a>
                                                     </li>
                                                 </ul>
                                             </div>

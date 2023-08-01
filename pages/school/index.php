@@ -231,7 +231,7 @@ include '../../model/dashboard.php';
                             alt="Personnel">
                         <p class="mt-4 mb-0 font-weight-bold">Personnel Record</p>
                         <span class="text-xs">
-                            <?php echo (!empty($count_personnel)) ? "<strong>" . $count_personnel . " Approval records submitted</strong>" : "<strong>No Approval record</strong>" ?>
+                            <?php echo (!empty($count_personnel)) ? "<strong>" . $count_personnel . " Personnel records submitted</strong>" : "<strong>No Personnel record</strong>" ?>
                         </span>
                     </div>
                 </div>
@@ -250,7 +250,7 @@ include '../../model/dashboard.php';
                             alt="Personnel">
                         <p class="mt-4 mb-0 font-weight-bold">Job Vacancy</p>
                         <span class="text-xs">
-                            <?php echo (!empty($count_personnel)) ? "<strong>" . $count_personnel . " Approval records submitted</strong>" : "<strong>No Approval record</strong>" ?>
+                            <?php echo (!empty($count_personnel)) ? "<strong>" . $count_personnel . " Job Vacancy  Posted</strong>" : "<strong>No Job Vacancy Post</strong>" ?>
                         </span>
                     </div>
                 </div>
@@ -269,7 +269,7 @@ include '../../model/dashboard.php';
                             alt="Personnel">
                         <p class="mt-4 mb-0 font-weight-bold">Annual Remittance</p>
                         <span class="text-xs">
-                            <?php echo (!empty($count_personnel)) ? "<strong>" . $count_personnel . " Approval records submitted</strong>" : "<strong>No Approval record</strong>" ?>
+                            <?php echo (!empty($count_personnel)) ? "<strong>" . $count_personnel . " Termly Remittance records submitted</strong>" : "<strong>No Termly Remittance record</strong>" ?>
                         </span>
                     </div>
                 </div>
@@ -288,7 +288,7 @@ include '../../model/dashboard.php';
                             alt="Personnel">
                         <p class="mt-4 mb-0 font-weight-bold">Support Ticket</p>
                         <span class="text-xs">
-                            <?php echo (!empty($count_personnel)) ? "<strong>" . $count_personnel . " Approval records submitted</strong>" : "<strong>No Approval record</strong>" ?>
+                            <?php echo (!empty($count_personnel)) ? "<strong>" . $count_personnel . " Support Ticket Created</strong>" : "<strong>No Support Ticket Created</strong>" ?>
                         </span>
                     </div>
                 </div>

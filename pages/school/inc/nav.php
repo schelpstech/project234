@@ -188,12 +188,16 @@
                     </a>
                     <div class="collapse " id="pagesExamples4">
                         <ul class="nav border-start ms-4">
-                            
-                           
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="#">
-                                    <span class="sidenav-mini-icon"> V </span>
-                                    <span class="sidenav-normal"> View </span>
+                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('academic') ?>">
+                                    <span class="sidenav-mini-icon"> A </span>
+                                    <span class="sidenav-normal">Academic Report </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('academic') ?>">
+                                    <span class="sidenav-mini-icon"> E </span>
+                                    <span class="sidenav-normal">Enrolment Report </span>
                                 </a>
                             </li>
                         </ul>

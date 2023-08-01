@@ -11,9 +11,7 @@ include './inc/navbar.php';
             <div class="col-md-12">
                 <div class="mx-2 mb-3 d-md-flex align-items-center">
                     <div class="mb-3 mb-md-0">
-                        <h5 class="mb-0 font-weight-bold">Admin Profile:
-                            <?php echo $_SESSION['activeAdmin'] ?>
-                        </h5>
+                        
                     </div>
                     <button type="button"
                         class="mb-0 mb-2 btn btn-sm btn-white btn-icon d-flex align-items-center ms-md-auto mb-sm-0 me-2">
@@ -36,17 +34,26 @@ include './inc/navbar.php';
             $include = include "./forms/userprofile.php";
         } elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "activity_log") {
             $pageName = "Activity Log";
+            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                            Working on School with Code :: '. $_SESSION['schCode'] ?? "".'
+                            </h6>';
             $pageDescription = "See information about all the activities that you have done on the portal";
             $include = include "./report/activityLog.php";
         } 
         //Support Tickets
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "ticketLog") {
             $pageName = "Support Ticket Log";
+            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                            Working on School with Code :: '. $_SESSION['schCode'] ?? "".'
+                            </h6>';
             $pageDescription = "See all inquiries and complain ticket request of schools on the portal";
             $include = include "./report/myTickets.php";
         }
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "conversation") {
             $pageName = "Support Ticket Log";
+            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                            Working on School with Code :: '. $_SESSION['schCode'] ?? "".'
+                            </h6>';
             $pageDescription = "See all inquiries and complain ticket request of schools on the portal";
             $_SESSION['ticketid'] = $_GET['ticketid'];
             $include = include "./forms/conversation.php";
@@ -55,6 +62,9 @@ include './inc/navbar.php';
         //Corporate Details 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Corporate") {
             $pageName = "School Corporate Details";
+            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                            Working on School with Code :: '. $_SESSION['schCode'] ?? "".'
+                            </h6>';
             $pageDescription = "View and Validate Corporate Details of Selected School";
             $_SESSION['schCode'] = $_GET['schCode'];
             $include = include "./forms/corporate.php";
@@ -63,21 +73,48 @@ include './inc/navbar.php';
         //Contact Details 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Contact") {
             $pageName = "School Contact Details";
+            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                            Working on School with Code :: '. $_SESSION['schCode'] ?? "".'
+                            </h6>';
             $pageDescription = "View and Validate  Contact Details of Selected School";
             $_SESSION['schCode'] = $_GET['schCode'];
             $include = include "./forms/contact.php";
         }
         //Available Class Details 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Classes") {
+            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                            Working on School with Code :: '. $_SESSION['schCode'] ?? "".'
+                            </h6>';
             $pageName = "School Contact Details";
             $pageDescription = "View and Validate  Contact Details of Selected School";
             $_SESSION['schCode'] = $_GET['schCode'];
             $include = include "./report/availableClasses.php";
         }
-
-
+        //Approval  Details 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Approval") {
+            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                            Working on School with Code :: '. $_SESSION['schCode'] ?? "".'
+                            </h6>';
+            $pageName = "School Contact Details";
+            $pageDescription = "View and Validate  Approval Details of Selected School";
+            $_SESSION['schCode'] = $_GET['schCode'];
+            $include = include "./forms/approval.php";
+        }
+        //Facility  Details 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Facility") {
+            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                            Working on School with Code :: '. $_SESSION['schCode'] ?? "".'
+                            </h6>';
+            $pageName = "School Facility Details";
+            $pageDescription = "View and Validate  Facility Available in the Selected School";
+            $_SESSION['schCode'] = $_GET['schCode'];
+            $include = include "./forms/facilities.php";
+        }
         else {
             $pageName = "Admin Dashboard";
+            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                            signed in as :: '. $_SESSION['activeAdmin'] ?? "".'
+                            </h6>';
             $pageDescription = "CRSM Admin portal";
             $include = include "./report/dashboard.php";
         }
@@ -85,9 +122,7 @@ include './inc/navbar.php';
         <div class="card-header border-bottom pb-0">
             <div class="d-sm-flex align-items-center">
                 <div>
-                    <h6 class="font-weight-semibold text-lg mb-0">
-                        <?php echo "School Code :: ". $_SESSION['schCode'] ?? "" ?>
-                    </h6>
+                    <?php echo $identifier ?? "" ?>
                     <p class="text-sm">
                         <?php echo $pageDescription ?? "" ?>
                     </p>

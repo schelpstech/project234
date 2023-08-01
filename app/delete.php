@@ -52,7 +52,7 @@ if (isset($_GET['ref']) && isset($_GET['type'])) {
             $tblName = '_tbl_approval_record';
             $delete_data = [
                 'sch_code' => $_SESSION['active'],
-                'approval_id' => ($_GET['ref']),
+                'approval_rec_id' => ($_GET['ref']),
             ]; 
             if ($model->delete($tblName, $delete_data) == true) {
                 $user->recordLog($_SESSION['active'], 'Approval Data Delete', 'Approval record was deleted for school with code : ' . $_SESSION['active']);
@@ -94,6 +94,22 @@ if (isset($_GET['ref']) && isset($_GET['type'])) {
             } else {
                 $utility->notifier('dark', 'There was an error deleting this Class Termly Enrolment Record for school with code: ' . $_SESSION['active']);
                 $model->redirect('./router.php?pageid=' . base64_encode('enrolment'));
+            }
+            break;
+
+        case 'personnel_details';
+            $tblName = 'tbl_personnel_record';
+            $delete_data = [
+                'schCode' => $_SESSION['active'],
+                'record_id' => ($_GET['ref']),
+            ]; 
+            if ($model->delete($tblName, $delete_data) == true) {
+                $user->recordLog($_SESSION['active'], 'Personnel Record Delete', 'Personnel Record was deleted for school with code : ' . $_SESSION['active']);
+                $utility->notifier('success', 'You have Successfully deleted a Personnel Record for school with code : ' . $_SESSION['active']);
+                $model->redirect('./router.php?pageid=' . base64_encode('add_personnel'));
+            } else {
+                $utility->notifier('dark', 'There was an error deleting this Personnel Record for school with code: ' . $_SESSION['active']);
+                $model->redirect('./router.php?pageid=' . base64_encode('add_personnel'));
             }
             break;
     }
