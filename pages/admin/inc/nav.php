@@ -22,7 +22,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples1" class="nav-link text-white opacity-9" aria-controls="pagesExamples1" role="button" aria-expanded="false">
+                    <a href="./index.php?pageid=<?php echo base64_encode('schoolProfile') ?>" class="nav-link text-white opacity-9" >
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>spaceship</title>
@@ -42,43 +42,8 @@
                                 </g>
                             </svg>
                         </div>
-                        <span class="nav-link-text ms-2">Profile</span>
+                        <span class="nav-link-text ms-2">School Profile</span>
                     </a>
-                    <div class="collapse " id="pagesExamples1">
-                        <ul class="nav border-start ms-4">
-                            
-                            <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('corporate_form') ?>">
-                                    <span class="sidenav-mini-icon"> Cpt </span>
-                                    <span class="sidenav-normal"> Corporate </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 "  href="../../app/router.php?pageid=<?php echo base64_encode('contact_form') ?>">
-                                    <span class="sidenav-mini-icon"> Cnt </span>
-                                    <span class="sidenav-normal"> Contact </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 "  href="../../app/router.php?pageid=<?php echo base64_encode('availableClasses') ?>">
-                                    <span class="sidenav-mini-icon"> Cls </span>
-                                    <span class="sidenav-normal"> Classes </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('approval_record') ?>">
-                                    <span class="sidenav-mini-icon"> A </span>
-                                    <span class="sidenav-normal"> Approvals </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('facility_record') ?>">
-                                    <span class="sidenav-mini-icon"> F </span>
-                                    <span class="sidenav-normal"> Facilities </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
 
                 <li class="nav-item">

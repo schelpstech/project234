@@ -63,6 +63,7 @@ if (isset($_SESSION['activeAdmin'])) {
     $notification_alert = $model->getRows($tblName, $conditions);
 
     $activityLog = $model->getRows($tblName, $condition);
+    $getallLog = $model->select_all($tblName);
 
 
     //My Support Tickets

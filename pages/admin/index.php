@@ -28,7 +28,13 @@ include './inc/navbar.php';
         <hr class="my-0">
 
         <?php
-        if ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "userProfile") {
+
+        if ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schoolProfile") {
+            $pageName = "School Profile";
+            $pageDescription = "School Profile information";
+            $include = include "./report/profile.php";
+        }
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "userProfile") {
             $pageName = "Admin Profile";
             $pageDescription = "Update profile information";
             $include = include "./forms/userprofile.php";
