@@ -60,10 +60,13 @@ if (isset($_SESSION['activeAdmin'])) {
         ],
         'order_by' => 'rectime DESC'
     ];
+    $conditioned = [
+        'order_by' => 'rectime DESC'
+    ];
     $notification_alert = $model->getRows($tblName, $conditions);
 
     $activityLog = $model->getRows($tblName, $condition);
-    $getallLog = $model->select_all($tblName);
+    $getallLog = $model->getRows($tblName, $conditioned);
 
 
     //My Support Tickets

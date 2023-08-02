@@ -116,6 +116,14 @@ include './inc/navbar.php';
             $_SESSION['schCode'] = $_GET['schCode'];
             $include = include "./forms/facilities.php";
         }
+            //Reset School Password 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "ResetPassword") {
+            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                            Working on Resetting School Portal Access Password</h6>';
+            $pageName = "School Password Reset";
+            $pageDescription = "Reset Password in the Selected School";
+            $include = include "./forms/accesscode.php";
+        }
         else {
             $pageName = "Admin Dashboard";
             $identifier = '<h6 class="font-weight-semibold text-lg mb-0">

@@ -109,3 +109,26 @@ function termlyInvoice() {
         alert("Select Term");
     }
 }
+
+
+//Fetch School Details
+
+function fetchSchDetails() {
+    var variable = $("#schCode").val();
+    if (variable != "") {
+        $.ajax({
+            url: "../../app/ajax_query.php",
+            method: "POST",
+            data: {
+                variable: variable,
+                requested: 'fetchSchDetails',
+            },
+            success: function (data) {
+                $("#schname").html(data);
+            },
+            cache: false,
+        });
+    } else {
+        alert("Enter School Code ");
+    }
+}

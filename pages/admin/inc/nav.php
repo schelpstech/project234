@@ -225,7 +225,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('accesscode') ?>">
+                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('ResetPassword') ?>">
                                     <span class="sidenav-mini-icon"> D </span>
                                     <span class="sidenav-normal"> Reset Password </span>
                                 </a>
