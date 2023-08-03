@@ -28,7 +28,7 @@
                             </div>
                             <div class="mb-1 numbers">
                                 <h5 class="mb-0 text-dark font-weight-bolder">
-                                    22°C
+                                <?php echo $sch_count_primary + $sch_count_secondary?>
                                 </h5>
                             </div>
                             <div class="numbers">

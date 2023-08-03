@@ -113,7 +113,7 @@ if (isset($_POST['submit_class_form']) && isset($_SESSION['current_page']) && ($
                         'schCode' => $_SESSION['active'],
                         'invReference' => $utility->generateRandomDigits(8),
                         'invType' => 'Termly Remittance',
-                        'invAmount' => $_SESSION['remittanceDue'],
+                        'invAmount' => ($_SESSION['remittanceDue'] - htmlspecialchars($_POST['rebateAmount'])),
                         'termRef' => htmlspecialchars($_POST['termID']),
                         'rebate' => htmlspecialchars($_POST['rebate']),
                         'rebateAmount' => htmlspecialchars($_POST['rebateAmount']),
