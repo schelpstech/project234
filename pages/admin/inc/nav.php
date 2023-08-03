@@ -47,7 +47,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples2" class="nav-link text-white opacity-9" aria-controls="pagesExamples2" role="button" aria-expanded="false">
+                <a href="./index.php?pageid=<?php echo base64_encode('personnelProfile') ?>" class="nav-link text-white opacity-9" >
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>customer-support</title>
@@ -66,25 +66,8 @@
                                 </g>
                             </svg>
                         </div>
-                        <span class="nav-link-text ms-2">Personnel</span>
+                        <span class="nav-link-text ms-2">Personnel Profile</span>
                     </a>
-                    <div class="collapse " id="pagesExamples2">
-                        <ul class="nav border-start ms-4">
-                            
-                            <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('add_personnel') ?>">
-                                    <span class="sidenav-mini-icon"> Cpt </span>
-                                    <span class="sidenav-normal"> Manage Personnel </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('post_vacancy') ?>">
-                                    <span class="sidenav-mini-icon"> L </span>
-                                    <span class="sidenav-normal"> Job Vacancy </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
 
                 <li class="nav-item">

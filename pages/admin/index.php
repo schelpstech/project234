@@ -34,6 +34,11 @@ include './inc/navbar.php';
             $pageDescription = "School Profile information";
             $include = include "./report/profile.php";
         }
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "personnelProfile") {
+            $pageName = "School Personnel Profile";
+            $pageDescription = "School Personnel Profile information";
+            $include = include "./report/personnelReport.php";
+        }
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "userProfile") {
             $pageName = "Admin Profile";
             $pageDescription = "Update profile information";
