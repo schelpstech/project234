@@ -32,7 +32,7 @@
                                         style="max-width: 50%; max-height: 50%;" ' ?>>
                                         <br>
                                         <h6 class="mtext-sm text-dark font-weight-semibold mb-0">
-                                            <?php echo $data['sch_code'] ?>
+                                            <?php echo $data['sch'] ?>
                                         </h6>
                                     </div>
                                 </td>

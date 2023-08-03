@@ -79,16 +79,17 @@ if (isset($_SESSION['activeAdmin'])) {
     //Personnel Profile Page
     $tableName = 'tbl_personnel_record';
     $conditions = [
-    'select' => 'DISTINCT tbl_personnel_record.schCode AS sch,
+        'select' => 'DISTINCT tbl_personnel_record.schCode AS sch,
+                _tbl_sch_corporate_data.sch_code,
                  _tbl_sch_corporate_data.sch_name,
                  _tbl_sch_corporate_data.schLogo,
                  COUNT(tbl_personnel_record.schCode) AS num,
                  SUM(CASE WHEN tbl_personnel_record.vetted = 0 THEN 1 ELSE 0 END) AS unvetted,
                  SUM(CASE WHEN tbl_personnel_record.vetted = 1 THEN 1 ELSE 0 END) AS vetted',
-
-    'join' =>'_tbl_sch_corporate_data ON _tbl_sch_corporate_data.sch_code = tbl_personnel_record.schCode',
-    'group_by' => 'tbl_personnel_record.schCode, _tbl_sch_corporate_data.sch_name',
+        'joinl' => [
+            '_tbl_sch_corporate_data' => ' on _tbl_sch_corporate_data.sch_code = tbl_personnel_record.schCode'
+        ],
+        'group_by' => 'tbl_personnel_record.schCode'
     ];
-
     $personnelReport = $model->getRows($tableName, $conditions);
 }

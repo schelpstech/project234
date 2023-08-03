@@ -21,7 +21,7 @@
 
                                         <img <?php echo (isset($data['schLogo']))
                                             ? 'src="../' . $data['schLogo'] . '" 
-                                        style=" max-width: 50%; max-height: 100%;" ' :
+                                        style=" max-width: 50%; max-height: 50%;" ' :
                                             'src="../../assets/storage/logo/default_crsm_sch_logo_upload.png" alt="Image Preview"
                                         style="max-width: 50%; max-height: 50%;" ' ?>>
                                         <br>
