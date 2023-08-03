@@ -80,7 +80,6 @@ if (isset($_SESSION['activeAdmin'])) {
     $tableName = 'tbl_personnel_record';
     $conditions = [
         'select' => 'DISTINCT tbl_personnel_record.schCode AS sch,
-                _tbl_sch_corporate_data.sch_code,
                  _tbl_sch_corporate_data.sch_name,
                  _tbl_sch_corporate_data.schLogo,
                  COUNT(tbl_personnel_record.schCode) AS num,

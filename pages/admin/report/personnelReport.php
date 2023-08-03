@@ -17,8 +17,8 @@
                 </thead>
                 <tbody>
                     <?php
-                    if (!empty($personelReport)) {
-                        foreach ($personelReport as $data) {
+                    if (!empty($personnelReport)) {
+                        foreach ($personnelReport as $data) {
                             ?>
                             <tr>
                                 <td class="text-sm font-weight-normal">
