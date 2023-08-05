@@ -71,7 +71,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples3" class="nav-link text-white opacity-9" aria-controls="pagesExamples3" role="button" aria-expanded="false">
+                    <a href="./index.php?pageid=<?php echo base64_encode('financeProfile') ?>" class="nav-link text-white opacity-9" >
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>credit-card</title>
@@ -88,30 +88,8 @@
                                 </g>
                             </svg>
                         </div>
-                        <span class="nav-link-text ms-2">Finance</span>
+                        <span class="nav-link-text ms-2">School Finance Remittance</span>
                     </a>
-                    <div class="collapse " id="pagesExamples3">
-                        <ul class="nav border-start ms-4">
-                            <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('enrolment') ?>">
-                                    <span class="sidenav-mini-icon"> Bil </span>
-                                    <span class="sidenav-normal"> Billing </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('billGenerator') ?>">
-                                    <span class="sidenav-mini-icon"> Inv </span>
-                                    <span class="sidenav-normal"> Invoices </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('transaction') ?>">
-                                    <span class="sidenav-mini-icon"> Trs </span>
-                                    <span class="sidenav-normal"> Transactions </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
 
                 <li class="nav-item">
