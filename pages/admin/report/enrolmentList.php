@@ -7,18 +7,14 @@
                     <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
                         School Name</th>
                     <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                        Invoices</th>
-                    <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                        Approved Invoice</th>
-                    <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                       Pending Invoice</th>
+                        Number of Terms Filed</th>
                     <th class="text-secondary opacity-7">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                if (!empty($invoiceReport)) {
-                    foreach ($invoiceReport as $data) {
+                if (!empty($enrolmentReport)) {
+                    foreach ($enrolmentReport as $data) {
                         ?>
                         <tr>
                             <td class="text-sm font-weight-normal">
@@ -46,16 +42,6 @@
                                     <?php echo $data['num'] ?>
                                 </h6>
                             </td>
-                            <td class="text-sm font-weight-normal">
-                                <h6 class="mtext-sm text-dark font-weight-semibold mb-0">
-                                    <?php echo $data['vetted'] ?>
-                                </h6>
-                            </td>
-                            <td class="text-sm font-weight-normal">
-                                <h6 class="mtext-sm text-dark font-weight-semibold mb-0">
-                                    <?php echo $data['unvetted'] ?>
-                                </h6>
-                            </td>
                             <td class="align-middle">
                                 <div class="dropdown">
                                     <button class="btn bg-gradient-info dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -64,8 +50,8 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <li><a class="dropdown-item"
-                                                href="./index.php?pageid=<?php echo base64_encode('schInvoicePage') ?>&schCode=<?php echo ($data['sch']) ?>">View
-                                                Invoice</a>
+                                                href="./index.php?pageid=<?php echo base64_encode('enrolmentbyTerm') ?>&schCode=<?php echo ($data['sch']) ?>">View
+                                                Terms</a>
                                         </li>
                                     </ul>
                                 </div>

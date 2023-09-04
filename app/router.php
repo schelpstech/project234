@@ -126,7 +126,13 @@ if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'academic') {
   $_SESSION['module'] = 'school';
   $model->redirect('../pages/school/formviewer.php');
 }
-
+if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'editAcademic') {
+  $_SESSION['current_page'] = 'Termly Report';
+  $_SESSION['reportRef'] =  $_GET['reportRef'];
+  $_SESSION['include'] = './forms/modifyAcademicReport.php';
+  $_SESSION['module'] = 'school';
+  $model->redirect('../pages/school/formviewer.php');
+}
 
 
 //Report - Enrolment

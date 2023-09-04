@@ -39,6 +39,16 @@ include './inc/navbar.php';
             $pageDescription = "School Personnel Profile information";
             $include = include "./report/personnelReport.php";
         }
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "financeProfile") {
+            $pageName = "School Invoice List";
+            $pageDescription = "School Finance Portal";
+            $include = include "./report/financeProfile.php";
+        }
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "enrolmentTable") {
+            $pageName = "School Enrolment Records";
+            $pageDescription = "School Finance Portal";
+            $include = include "./report/enrolmentList.php";
+        }
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "userProfile") {
             $pageName = "Admin Profile";
             $pageDescription = "Update profile information";
@@ -128,6 +138,36 @@ include './inc/navbar.php';
             $pageName = "School Password Reset";
             $pageDescription = "Reset Password in the Selected School";
             $include = include "./forms/accesscode.php";
+        }
+                //School Invoice  Details 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schInvoicePage") {
+            $pageName = "School Invoice Details";
+            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                            Invoices for School with Code :: '. $_SESSION['schCode'] ?? "".'
+                            </h6>';
+            $pageDescription = "View and Validate  Invoices of Selected School";
+            $_SESSION['schCode'] = $_GET['schCode'];
+            $include = include "./report/transaction.php";
+        }
+                //View School  Enrolment Term 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "enrolmentbyTerm") {
+            $pageName = "School Enrolment Record";
+            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                            Termly Enrolment Record for School with Code :: '. $_SESSION['schCode'] ?? "".'
+                            </h6>';
+            $pageDescription = "The terms for which Selected School has created enrolment records";
+            $_SESSION['schCode'] = $_GET['schCode'];
+            $include = include "./report/enrolmentbyTerm.php";
+        }
+                //School Termly Enrolment  Details 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schEnrolmentDetails") {
+            $pageName = "School Invoice Details - Enrolment Record";
+            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                            Termly Enrolment Record for School with Code :: '. $_SESSION['schCode'] ?? "".'
+                            </h6>';
+            $pageDescription = "View and Validate  Invoices of Selected School";
+            $_SESSION['termRef'] = $_GET['termRef'];
+            $include = include "./report/enrolmentRecord.php";
         }
         else {
             $pageName = "Admin Dashboard";

@@ -51,11 +51,11 @@
 
                                     <td class="align-middle text-center text-sm">
                                         <?php
-                                        if ($data['invStatus'] == 0 && $data['vetting'] == 0) {
-                                            echo '<a  href="#" class="btn btn-dark btn-sm me-1" type="button">Pending Validation</a>';
-                                        } elseif ($data['invStatus'] == 0 && $data['vetting'] == 1) {
-                                            echo '<a  href="../../app/router.php?pageid=' . base64_encode('uploadEvidenceofPayment') . '&invoiceNum=' . $data['invReference'] . '" class="btn btn-primary btn-sm me-1" type="button">Pending Payment: Upload Evidence of Payment</a>';
-                                        } elseif ($data['invStatus'] == 1 && $data['vetting'] == 1) {
+                                        if ($data['invType'] == "Termly Remittance" && $data['invStatus'] == 0 && $data['vetting'] == 0) {
+                                            echo '<a  href="./index.php?pageid=' . base64_encode("schEnrolmentDetails") . '&termRef=' . $data["termRef"] . '" class="btn btn-dark btn-sm me-1" type="button">Pending Validation</a>';
+                                        } elseif ($data['invType'] == "Termly Remittance" && $data['invStatus'] == 0 && $data['vetting'] == 1) {
+                                            echo '<a  href="#" class="btn btn-primary btn-sm me-1" type="button">Pending Payment</a>';
+                                        } elseif ($data['invType'] == "Termly Remittance" && $data['invStatus'] == 1 && $data['vetting'] == 1) {
                                             echo '<a href="#" class="btn btn-warning btn-sm me-1" type="button">Payment Awaiting Confirmation</a>';
                                         } elseif ($data['invStatus'] == 2 && $data['vetting'] == 1) {
                                             echo '<a href="#" class="btn btn-success btn-sm me-1" type="button">Payment Confirmed. Download Receipt</a>';

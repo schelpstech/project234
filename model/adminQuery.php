@@ -91,4 +91,79 @@ if (isset($_SESSION['activeAdmin'])) {
         'group_by' => 'tbl_personnel_record.schCode'
     ];
     $personnelReport = $model->getRows($tableName, $conditions);
+
+
+    //Finance Profile Page
+    $tableName = '_tbl_termlyinvoice';
+    $conditions = [
+        'select' => 'DISTINCT _tbl_termlyinvoice.schCode AS sch,
+                 _tbl_sch_corporate_data.sch_name,
+                 _tbl_sch_corporate_data.schLogo,
+                 COUNT(_tbl_termlyinvoice.schCode) AS num,
+                 SUM(CASE WHEN _tbl_termlyinvoice.vetting = 0 THEN 1 ELSE 0 END) AS unvetted,
+                 SUM(CASE WHEN _tbl_termlyinvoice.vetting = 1 THEN 1 ELSE 0 END) AS vetted',
+        'joinl' => [
+            '_tbl_sch_corporate_data' => ' on _tbl_sch_corporate_data.sch_code = _tbl_termlyinvoice.schCode'
+        ],
+        'group_by' => '_tbl_termlyinvoice.schCode'
+    ];
+    $invoiceReport = $model->getRows($tableName, $conditions);
+
+    //Enrolment Report Page
+    $tableName = '_tbl_termly_enrolment';
+    $conditions = [
+        'select' => 'DISTINCT _tbl_termly_enrolment.schCode AS sch,
+                 _tbl_sch_corporate_data.sch_name,
+                 _tbl_sch_corporate_data.schLogo,
+                 COUNT(DISTINCT _tbl_termly_enrolment.termID) AS num',
+        'joinl' => [
+            '_tbl_sch_corporate_data' => ' on _tbl_sch_corporate_data.sch_code = _tbl_termly_enrolment.schCode'
+        ],
+        'group_by' => '_tbl_termly_enrolment.schCode'
+    ];
+    $enrolmentReport = $model->getRows($tableName, $conditions);
+
+    if (isset($_SESSION['schCode'])) {
+        $tblName = '_tbl_termlyinvoice';
+        $conditions = [
+            'where' => [
+                'schCode' => $_SESSION['schCode'],
+            ],
+            'joinl' => [
+                'tblcurrent_term' => ' on _tbl_termlyinvoice.termRef = tblcurrent_term.id',
+            ],
+        ];
+        $invoiceList = $model->getRows($tblName, $conditions);
+    }
+
+    if (isset($_SESSION['schCode']) && isset($_SESSION['termRef'])) {
+
+        $tblName = '_tbl_termly_enrolment';
+        $conditions = [
+            'where' => [
+                '_tbl_termly_enrolment.schCode' => $_SESSION['schCode'],
+                '_tbl_termly_enrolment.termID' => $_SESSION['termRef'],
+            ],
+            'joinl' => [
+                'tblcurrent_term' => ' on _tbl_termly_enrolment.termID = tblcurrent_term.id',
+                'tbl_classes' => ' on _tbl_termly_enrolment.classID = tbl_classes.id',
+            ]
+        ];
+        $enrolmentRecord = $model->getRows($tblName, $conditions);
+    }
+
+    if (isset($_SESSION['schCode'])) {
+
+        $tblName = '_tbl_termly_enrolment';
+        $conditions = [
+            'where' => [
+                '_tbl_termly_enrolment.schCode' => $_SESSION['schCode'],
+            ],
+            'joinl' => [
+                'tblcurrent_term' => ' on _tbl_termly_enrolment.termID = tblcurrent_term.id',
+                'tbl_classes' => ' on _tbl_termly_enrolment.classID = tbl_classes.id',
+            ]
+        ];
+        $allEnrolmentRecord = $model->getRows($tblName, $conditions);
+    }
 }

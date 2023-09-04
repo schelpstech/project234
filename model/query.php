@@ -201,7 +201,7 @@ if (isset($_SESSION['current_page'])) {
         'order_by' => 'rectime DESC'
     ];
     $notification_alert = $model->getRows($tblName, $conditions);
-    
+
     $activityLog = $model->getRows($tblName, $condition);
 
     //My Support Tickets
@@ -299,8 +299,37 @@ if (isset($_SESSION['current_page'])) {
         $invoiceDetails = $model->getRows($tblName, $conditions);
     }
 
+    //Select All Examination Records of School
+    $tblName = 'academicreport';
+    $conditions = [
+        'where' => [
+            'academicreport.schCode' => $_SESSION['active'],
+        ],
+        'joinl' => [
+            'approval_type_tbl' => ' on academicreport.examination = approval_type_tbl.id ',
+            'tbl_classes' => ' on tbl_classes.id = academicreport.classid',
+            'academicsession_tbl' => ' on academicsession_tbl.id = academicreport.examYear',
+        ]
+    ];
+    $academicRecords = $model->getRows($tblName, $conditions);
+
+
+    //Selected Examination Records of School
+    $tblName = 'academicreport';
+    $conditions = [
+        'where' => [
+            'academicreport.schCode' => $_SESSION['active'],
+            'academicreport.acad_record_id ' => $_SESSION['reportRef'],
+        ],
+        'joinl' => [
+            'approval_type_tbl' => ' on academicreport.examination = approval_type_tbl.id ',
+            'tbl_classes' => ' on tbl_classes.id = academicreport.classid',
+            'academicsession_tbl' => ' on academicsession_tbl.id = academicreport.examYear',
+        ],
+        'return_type' => 'single',
+    ];
+    $selectedAcademicRecords = $model->getRows($tblName, $conditions);
+
 }
-
-
 
 ?>
