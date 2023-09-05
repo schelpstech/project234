@@ -169,7 +169,7 @@ elseif (isset($_POST['submit_facility_record']) && isset($_SESSION['current_page
 elseif (isset($_POST['submit_rebate_letter']) && isset($_SESSION['current_page']) && ($_SESSION['current_page']) == 'availableClasses') {
     $allowedTypes = array('image/jpeg', 'image/png', 'image/gif');
     $maxFileSize = 524288; // 500kb
-    $uploadPath = '../assets/storage/rebate';
+    $uploadPath = '../assets/storage/rebateDocument';
 
     $result = $utility->handleUploadedFile('rebateLetter', $allowedTypes, $maxFileSize, $uploadPath);
     if (isset($_SESSION['fileName']) && $result == 'success') {
