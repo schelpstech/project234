@@ -127,7 +127,7 @@ if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'academic') {
   $model->redirect('../pages/school/formviewer.php');
 }
 if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'editAcademic') {
-  $_SESSION['current_page'] = 'Termly Report';
+  $_SESSION['current_page'] = 'Termly Academic Report';
   $_SESSION['reportRef'] =  $_GET['reportRef'];
   $_SESSION['include'] = './forms/modifyAcademicReport.php';
   $_SESSION['module'] = 'school';
@@ -142,7 +142,28 @@ if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'enrolment') {
   $_SESSION['module'] = 'school';
   $model->redirect('../pages/school/formviewer.php');
 }
+//Rebate Application
+if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'reBate') {
+  $_SESSION['current_page'] = 'availableClasses';
+  $_SESSION['include'] = './forms/rebate.php';
+  $_SESSION['module'] = 'school';
+  $model->redirect('../pages/school/formviewer.php');
+}
+//Report - Jesus Time
+if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'jesusTime') {
+  $_SESSION['current_page'] = 'Termly Report';
+  $_SESSION['include'] = './forms/jesusTime.php';
+  $_SESSION['module'] = 'school';
+  $model->redirect('../pages/school/formviewer.php');
+}
 
+if (isset($_GET['pageid']) && isset($_GET['reportRef']) && base64_decode($_GET['pageid']) == 'editJTreport') {
+  $_SESSION['reportRef'] = $_GET['reportRef'];
+  $_SESSION['current_page'] = 'JT Termly Report';
+  $_SESSION['include'] = './forms/editJTreport.php';
+  $_SESSION['module'] = 'school';
+  $model->redirect('../pages/school/formviewer.php');
+}
 if (isset($_GET['pageid']) && isset($_GET['enrolmentRef']) && base64_decode($_GET['pageid']) == 'editEnrolment') {
   $_SESSION['enrolmentRef'] = $_GET['enrolmentRef'];
   $_SESSION['action'] = $_GET['action'];

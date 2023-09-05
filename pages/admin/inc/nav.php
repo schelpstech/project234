@@ -71,7 +71,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples4" class="nav-link text-white opacity-9" aria-controls="pagesExamples4" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#pagesExamples4" class="nav-link text-white opacity-9" aria-controls="pagesExamples400" role="button" aria-expanded="false">
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>document</title>
@@ -90,7 +90,7 @@
                         </div>
                         <span class="nav-link-text ms-2">Account Department</span>
                     </a>
-                    <div class="collapse " id="pagesExamples4">
+                    <div class="collapse " id="pagesExamples400">
                         <ul class="nav border-start ms-4">
                             
                            

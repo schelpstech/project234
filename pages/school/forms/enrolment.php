@@ -48,7 +48,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Select Term</label>
-                            <select type="text" class="form-control" name="termID" id="termID">
+                            <select type="text" class="form-control" name="termID" id="termID" required="yes">
                                 <option value="">select</option>
                                 <?php
                                 $option = $model->select_all('tblcurrent_term');

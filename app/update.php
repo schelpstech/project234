@@ -165,7 +165,38 @@ elseif (isset($_POST['submit_facility_record']) && isset($_SESSION['current_page
 
 
 
-} else {
+}//Submit Rebate Application
+elseif (isset($_POST['submit_rebate_letter']) && isset($_SESSION['current_page']) && ($_SESSION['current_page']) == 'availableClasses') {
+    $allowedTypes = array('image/jpeg', 'image/png', 'image/gif');
+    $maxFileSize = 524288; // 500kb
+    $uploadPath = '../assets/storage/rebate';
+
+    $result = $utility->handleUploadedFile('rebateLetter', $allowedTypes, $maxFileSize, $uploadPath);
+    if (isset($_SESSION['fileName']) && $result == 'success') {
+        $tblName = '_tbl_rebate_record';
+        $approval_data = [
+            'schCode' => $_SESSION['active'],
+            'rebateRef' => $utility->generateRandomString(8),
+            'rebateTerm' => htmlspecialchars($_POST['termID']),
+            'numLearners' => htmlspecialchars($_POST['numLearners']),
+            'amountRebate' => htmlspecialchars($_POST['amountRebate']),
+            'rebateLetter' => $uploadPath . '/' . $_SESSION['fileName'],
+        ];
+        if ($model->insert_data($tblName, $approval_data) == true) {
+            $user->recordLog($_POST['sch_code'], 'Rebate application  submission', 'A new Rebate application  was submitted for school with code : ' . $_SESSION['active']);
+            $utility->notifier('success', 'Rebate application has been submitted for review.');
+            $model->redirect('./router.php?pageid=' . base64_encode('reBate'));
+        } else {
+            $utility->notifier('danger', 'Your submission failed! Please try again');
+            $model->redirect('./router.php?pageid=' . base64_encode('reBate'));
+        }
+
+    } else {
+        $utility->notifier('danger', $result);
+        $model->redirect('./router.php?pageid=' . base64_encode('reBate'));
+    }
+
+}else {
     $utility->notifier('dark', 'Sorry we didnt understand your request');
     $model->redirect('./router.php?pageid=' . base64_encode('school_dashboard'));
 }

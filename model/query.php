@@ -313,23 +313,63 @@ if (isset($_SESSION['current_page'])) {
     ];
     $academicRecords = $model->getRows($tblName, $conditions);
 
+    if (isset($_SESSION['reportRef']) && $_SESSION['current_page'] == 'Termly Academic Report') {
+        //Selected Examination Records of School
+        $tblName = 'academicreport';
+        $conditions = [
+            'where' => [
+                'academicreport.schCode' => $_SESSION['active'],
+                'academicreport.acad_record_id' => $_SESSION['reportRef'],
+            ],
+            'joinl' => [
+                'approval_type_tbl' => ' on academicreport.examination = approval_type_tbl.id ',
+                'tbl_classes' => ' on tbl_classes.id = academicreport.classid',
+                'academicsession_tbl' => ' on academicsession_tbl.id = academicreport.examYear',
+            ],
+            'return_type' => 'single',
+        ];
+        $selectedAcademicRecords = $model->getRows($tblName, $conditions);
+    }
 
-    //Selected Examination Records of School
-    $tblName = 'academicreport';
+    //Select All Rebate Applications of School
+    $tblName = '_tbl_rebate_record';
     $conditions = [
         'where' => [
-            'academicreport.schCode' => $_SESSION['active'],
-            'academicreport.acad_record_id ' => $_SESSION['reportRef'],
+            'schCode' => $_SESSION['active'],
         ],
         'joinl' => [
-            'approval_type_tbl' => ' on academicreport.examination = approval_type_tbl.id ',
-            'tbl_classes' => ' on tbl_classes.id = academicreport.classid',
-            'academicsession_tbl' => ' on academicsession_tbl.id = academicreport.examYear',
-        ],
-        'return_type' => 'single',
+            'tblcurrent_term' => ' on _tbl_rebate_record.rebateTerm = tblcurrent_term.id',
+        ]
     ];
-    $selectedAcademicRecords = $model->getRows($tblName, $conditions);
+    $rebateRecords = $model->getRows($tblName, $conditions);
 
+    //Select All Jesus Time Report of School
+    $tblName = '_termly_report_jesustime';
+    $conditions = [
+        'where' => [
+            '_termly_report_jesustime.schCode' => $_SESSION['active'],
+        ],
+        'joinl' => [
+            'tblcurrent_term' => ' on _termly_report_jesustime.termRef = tblcurrent_term.id',
+        ]
+    ];
+    $JTRecords = $model->getRows($tblName, $conditions);
+
+    if (isset($_SESSION['reportRef']) && $_SESSION['current_page'] == 'JT Termly Report') {
+        //Selected Jesus Time Records of School
+        $tblName = '_termly_report_jesustime';
+        $conditions = [
+            'where' => [
+                '_termly_report_jesustime.schCode' => $_SESSION['active'],
+                '_termly_report_jesustime.JT_reportID' => $_SESSION['reportRef'],
+            ],
+            'joinl' => [
+                'tblcurrent_term' => ' on _termly_report_jesustime.termRef = tblcurrent_term.id',
+            ],
+            'return_type' => 'single',
+        ];
+        $selectedJTRecords = $model->getRows($tblName, $conditions);
+    }
 }
 
 ?>

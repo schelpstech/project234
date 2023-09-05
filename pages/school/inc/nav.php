@@ -151,6 +151,12 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
+                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('reBate') ?>">
+                                    <span class="sidenav-mini-icon"> Reb </span>
+                                    <span class="sidenav-normal"> Rebate Application</span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
                                 <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('billGenerator') ?>">
                                     <span class="sidenav-mini-icon"> Inv </span>
                                     <span class="sidenav-normal"> Invoices </span>
@@ -198,6 +204,12 @@
                                 <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('academic') ?>">
                                     <span class="sidenav-mini-icon"> E </span>
                                     <span class="sidenav-normal">Enrolment Report </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('jesusTime') ?>">
+                                    <span class="sidenav-mini-icon"> E </span>
+                                    <span class="sidenav-normal">Jesus Time </span>
                                 </a>
                             </li>
                         </ul>
