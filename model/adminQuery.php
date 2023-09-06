@@ -166,4 +166,13 @@ if (isset($_SESSION['activeAdmin'])) {
         ];
         $allEnrolmentRecord = $model->getRows($tblName, $conditions);
     }
+
+    //Select All Rebate Applications of School
+    $tblName = '_tbl_rebate_record';
+    $conditions = [
+        'joinl' => [
+            'tblcurrent_term' => ' on _tbl_rebate_record.rebateTerm = tblcurrent_term.id',
+        ]
+    ];
+    $rebateRecords = $model->getRows($tblName, $conditions);
 }

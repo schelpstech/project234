@@ -44,6 +44,11 @@ include './inc/navbar.php';
             $pageDescription = "School Finance Portal";
             $include = include "./report/financeProfile.php";
         }
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "rebateManager") {
+            $pageName = "School Rebate Application";
+            $pageDescription = "School Finance Portal";
+            $include = include "./report/rebatelog.php";
+        }
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "enrolmentTable") {
             $pageName = "School Enrolment Records";
             $pageDescription = "School Finance Portal";
@@ -168,6 +173,16 @@ include './inc/navbar.php';
             $pageDescription = "View and Validate  Invoices of Selected School";
             $_SESSION['termRef'] = $_GET['termRef'];
             $include = include "./report/enrolmentRecord.php";
+        }
+                //School Rebate Application  Details 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "rebateDetails") {
+            $pageName = "School Rebate Application  Details";
+            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                            Rebate Application  Details for School with Code :: '. $_SESSION['schCode'] ?? "".'
+                            </h6>';
+            $pageDescription = "View and Validate  Rebate Application  of Selected School";
+            $_SESSION['rebateRef'] = $_GET['rebateRef'];
+            $include = include "./forms/rebateDetails.php";
         }
         else {
             $pageName = "Admin Dashboard";
