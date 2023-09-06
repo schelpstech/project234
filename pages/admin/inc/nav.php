@@ -71,7 +71,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples4" class="nav-link text-white opacity-9" aria-controls="pagesExamples400" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#pagesExamples400" class="nav-link text-white opacity-9" aria-controls="pagesExamples400" role="button" aria-expanded="false">
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>document</title>
@@ -101,7 +101,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="#">
+                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('rebateManager') ?>">
                                     <span class="sidenav-mini-icon"> V </span>
                                     <span class="sidenav-normal"> Rebate Manager </span>
                                 </a>
@@ -113,7 +113,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="#">
+                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('transactionManager') ?>">
                                     <span class="sidenav-mini-icon"> V </span>
                                     <span class="sidenav-normal"> Transaction Manager </span>
                                 </a>
@@ -146,6 +146,12 @@
                         <ul class="nav border-start ms-4">
                             
                            
+                            <li class="nav-item ">
+                                <a class="nav-link text-white opacity-9 " href="#">
+                                    <span class="sidenav-mini-icon"> V </span>
+                                    <span class="sidenav-normal"> View </span>
+                                </a>
+                            </li>
                             <li class="nav-item ">
                                 <a class="nav-link text-white opacity-9 " href="#">
                                     <span class="sidenav-mini-icon"> V </span>
