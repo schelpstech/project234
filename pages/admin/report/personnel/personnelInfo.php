@@ -11,7 +11,7 @@
                         approval by the secretariat</p>
                 </div>
                 <div class="ms-auto d-flex">
-                    <a type="button" href="../../app/router.php?pageid=<?php echo base64_encode('add_personnel') ?>"class="mb-0 btn btn-sm btn-dark me-2">
+                    <a type="button" href="../../app/adminRouter.php?pageid=<?php echo base64_encode('schPersonnelList') ?>&schCode=<?php echo ($_SESSION['schCode']) ?>" class="mb-0 btn btn-sm btn-dark me-2">
                         <strong>Back</strong>
                     </a>
 
