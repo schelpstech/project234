@@ -8,7 +8,13 @@
                         <h6 class="font-weight-semibold text-lg mb-0">Workforce Overview</h6>
                         <p class="text-sm">See information about all personnel of the selected school</p>
                     </div>
+                    <div class="ms-auto d-flex">
+                    <a type="button" href="../../app/adminRouter.php?pageid=<?php echo base64_encode('personnelProfile') ?>" class="mb-0 btn btn-sm btn-dark me-2">
+                        <strong>Back</strong>
+                    </a>
                 </div>
+                </div>
+               
             </div>
             <div class="card-body px-0 py-0">
                 <div class="table-responsive">
