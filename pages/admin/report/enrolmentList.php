@@ -3,6 +3,7 @@
         <table class="table table-flush" id="datatable-search">
             <thead class="thead-light">
                 <tr>
+                    <th class="text-secondary text-xs font-weight-semibold opacity-7">S/N</th>
                     <th class="text-secondary text-xs font-weight-semibold opacity-7">School Code</th>
                     <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
                         School Name</th>
@@ -13,20 +14,17 @@
             </thead>
             <tbody>
                 <?php
+                $count = 1;
                 if (!empty($enrolmentReport)) {
                     foreach ($enrolmentReport as $data) {
                         ?>
                         <tr>
                             <td class="text-sm font-weight-normal">
+                                <?php echo $count ++;?>
+                            </td>
+                            <td class="text-sm font-weight-normal">
 
                                 <div class="align-items-center">
-
-                                    <img <?php echo (isset($data['schLogo']))
-                                        ? 'src="../' . $data['schLogo'] . '" 
-                                        style=" max-width: 50%; max-height: 50%;" ' :
-                                        'src="../../assets/storage/logo/default_crsm_sch_logo_upload.png" alt="Image Preview"
-                                        style="max-width: 50%; max-height: 50%;" ' ?>>
-                                    <br>
                                     <h6 class="mtext-sm text-dark font-weight-semibold mb-0">
                                         <?php echo $data['sch'] ?>
                                     </h6>
@@ -50,7 +48,7 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <li><a class="dropdown-item"
-                                                href="./index.php?pageid=<?php echo base64_encode('enrolmentbyTerm') ?>&schCode=<?php echo ($data['sch']) ?>">View
+                                                href="../../app/adminRouter.php?pageid=<?php echo base64_encode('enrolmentbyTerm') ?>&schCode=<?php echo ($data['sch']) ?>">View
                                                 Terms</a>
                                         </li>
                                     </ul>

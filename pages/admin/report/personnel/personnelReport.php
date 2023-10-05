@@ -24,13 +24,6 @@
                                 <td class="text-sm font-weight-normal">
 
                                     <div class="align-items-center">
-
-                                        <img <?php echo (isset($data['schLogo']))
-                                            ? 'src="../' . $data['schLogo'] . '" 
-                                        style=" max-width: 50%; max-height: 50%;" ' :
-                                            'src="../../assets/storage/logo/default_crsm_sch_logo_upload.png" alt="Image Preview"
-                                        style="max-width: 50%; max-height: 50%;" ' ?>>
-                                        <br>
                                         <h6 class="mtext-sm text-dark font-weight-semibold mb-0">
                                             <?php echo $data['sch'] ?>
                                         </h6>
@@ -58,28 +51,13 @@
                                 </td>
                                 <td class="align-middle">
                                     <div class="dropdown">
-                                        <button class="btn bg-gradient-info dropdown-toggle" type="button"
+                                        <button class="btn bg-gradient-primary dropdown-toggle" type="button"
                                             id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                             Action
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <li><a class="dropdown-item"
-                                                    href="./index.php?pageid=<?php echo base64_encode('Corporate') ?>&schCode=<?php echo ($data['sch_code']) ?>">Corporate Details</a>
-                                            </li>
-                                            <li><a class="dropdown-item"
-                                                    href="./index.php?pageid=<?php echo base64_encode('Contact') ?>&schCode=<?php echo ($data['sch_code']) ?>">Contact Details</a>
-                                            </li>
-                                            <li><a class="dropdown-item"
-                                                    href="./index.php?pageid=<?php echo base64_encode('Classes') ?>&schCode=<?php echo ($data['sch_code']) ?>">Available Classes</a>
-                                            </li>
-                                            <li><a class="dropdown-item"
-                                                    href="./index.php?pageid=<?php echo base64_encode('Approval') ?>&schCode=<?php echo ($data['sch_code']) ?>">Approval Details</a>
-                                            </li>
-                                            <li><a class="dropdown-item"
-                                                    href="./index.php?pageid=<?php echo base64_encode('Facility') ?>&schCode=<?php echo ($data['sch_code']) ?>">Facility Details</a>
-                                            </li>
-                                            <li><a class="dropdown-item"
-                                                    href="./index.php?pageid=<?php echo base64_encode('Profile') ?>&schCode=<?php echo ($data['sch_code']) ?>">View Profile</a>
+                                                    href="../../app/adminRouter.php?pageid=<?php echo base64_encode('schPersonnelList') ?>&schCode=<?php echo ($data['sch']) ?>">View Staff Records</a>
                                             </li>
                                         </ul>
                                     </div>

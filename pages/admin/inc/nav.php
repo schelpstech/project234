@@ -22,7 +22,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="./index.php?pageid=<?php echo base64_encode('schoolProfile') ?>" class="nav-link text-white opacity-9" >
+                    <a href="../../app/adminRouter.php?pageid=<?php echo base64_encode('schoolProfile') ?>" class="nav-link text-white opacity-9" >
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>spaceship</title>
@@ -47,7 +47,7 @@
                 </li>
 
                 <li class="nav-item">
-                <a href="./index.php?pageid=<?php echo base64_encode('personnelProfile') ?>" class="nav-link text-white opacity-9" >
+                <a href="../../app/adminRouter.php?pageid=<?php echo base64_encode('personnelProfile') ?>" class="nav-link text-white opacity-9" >
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>customer-support</title>
@@ -95,25 +95,25 @@
                             
                            
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('enrolmentTable') ?>">
+                                <a class="nav-link text-white opacity-9 " href="../../app/adminRouter.php?pageid=<?php echo base64_encode('enrolmentTable') ?>">
                                     <span class="sidenav-mini-icon"> V </span>
                                     <span class="sidenav-normal"> Termly Enrolment Records </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('rebateManager') ?>">
+                                <a class="nav-link text-white opacity-9 " href="../../app/adminRouter.php?pageid=<?php echo base64_encode('rebateManager') ?>">
                                     <span class="sidenav-mini-icon"> V </span>
                                     <span class="sidenav-normal"> Rebate Manager </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('financeProfile') ?>">
+                                <a class="nav-link text-white opacity-9 " href="../../app/adminRouter.php?pageid=<?php echo base64_encode('financeProfile') ?>">
                                     <span class="sidenav-mini-icon"> V </span>
                                     <span class="sidenav-normal"> Invoice Manager </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('transactionManager') ?>">
+                                <a class="nav-link text-white opacity-9 " href="../../app/adminRouter.php?pageid=<?php echo base64_encode('transactionManager') ?>">
                                     <span class="sidenav-mini-icon"> V </span>
                                     <span class="sidenav-normal"> Transaction Manager </span>
                                 </a>
@@ -184,7 +184,7 @@
                     <div class="collapse " id="pagesExamples5">
                         <ul class="nav border-start ms-4">
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('ticketLog') ?>">
+                                <a class="nav-link text-white opacity-9 " href="../../app/adminRouter.php?pageid=<?php echo base64_encode('ticketLog') ?>">
                                     <span class="sidenav-mini-icon"> M </span>
                                     <span class="sidenav-normal"> My Ticket </span>
                                 </a>
@@ -216,19 +216,19 @@
                     <div class="collapse " id="authExamples6">
                         <ul class="nav border-start ms-4">
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('activity_log') ?>">
+                                <a class="nav-link text-white opacity-9 " href="../../app/adminRouter.php?pageid=<?php echo base64_encode('activity_log') ?>">
                                     <span class="sidenav-mini-icon"> L </span>
                                     <span class="sidenav-normal">Activity Log </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('ResetPassword') ?>">
+                                <a class="nav-link text-white opacity-9 " href="../../app/adminRouter.php?pageid=<?php echo base64_encode('ResetPassword') ?>">
                                     <span class="sidenav-mini-icon"> D </span>
                                     <span class="sidenav-normal"> Reset Password </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('userProfile') ?>">
+                                <a class="nav-link text-white opacity-9 " href="../../app/adminRouter.php?pageid=<?php echo base64_encode('userProfile') ?>">
                                     <span class="sidenav-mini-icon"> D </span>
                                     <span class="sidenav-normal"> Manage User </span>
                                 </a>

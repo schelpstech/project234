@@ -1,8 +1,10 @@
+
 <div class="card-body px-0 py-0">
         <div class="table-responsive">
             <table class="table table-flush" id="datatable-search">
                 <thead class="thead-light">
                     <tr>
+                        <th class="text-secondary text-xs font-weight-semibold opacity-7">S/N</th>
                         <th class="text-secondary text-xs font-weight-semibold opacity-7">School Code</th>
                         <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
                             School Name</th>
@@ -11,20 +13,22 @@
                 </thead>
                 <tbody>
                     <?php
+                    $count =1;
                     if (!empty($sch_details)) {
                         foreach ($sch_details as $data) {
                             ?>
                             <tr>
+                                 <td class="text-sm font-weight-normal">
+
+                                    <div class="align-items-center">
+                                        <h6 class="mtext-sm text-dark font-weight-semibold mb-0">
+                                            <?php echo $count++ ?>
+                                        </h6>
+                                    </div>
+                                </td>
                                 <td class="text-sm font-weight-normal">
 
                                     <div class="align-items-center">
-
-                                        <img <?php echo (isset($data['schLogo']))
-                                            ? 'src="../' . $data['schLogo'] . '" 
-                                        style=" max-width: 50%; max-height: 50%;" ' :
-                                            'src="../../assets/storage/logo/default_crsm_sch_logo_upload.png" alt="Image Preview"
-                                        style="max-width: 50%; max-height: 50%;" ' ?>>
-                                        <br>
                                         <h6 class="mtext-sm text-dark font-weight-semibold mb-0">
                                             <?php echo $data['sch_code'] ?>
                                         </h6>

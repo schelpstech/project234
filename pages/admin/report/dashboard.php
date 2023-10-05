@@ -33,7 +33,7 @@
                             </div>
                             <div class="numbers">
                                 <p class="mb-0 text-sm text-dark text-capitalize font-weight-bold opacity-7">
-                                    Schools with Complete Profile</p>
+                                    Schools updating their Profile</p>
                             </div>
                         </div>
                     </div>

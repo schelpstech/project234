@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 if (file_exists('../../controller/start.inc.php')) {
     include '../../controller/start.inc.php';
 } elseif (file_exists('../controller/start.inc.php')) {
@@ -45,6 +50,21 @@ if (isset($_SESSION['activeAdmin'])) {
     $sch_count_primary = $model->getRows($tblName, $primary);
     $sch_count_secondary = $model->getRows($tblName, $secondary);
 
+
+
+    //Select School Name of Active School   
+    if (isset($_SESSION['schCode'])) {
+
+        $tblName = '_tbl_sch_corporate_data';
+        $conditions = [
+            'return_type' => 'single',
+            'where' => [
+                'sch_code' => $_SESSION['schCode'],
+            ]
+        ];
+        $sch_corporate_data = $model->getRows($tblName, $conditions);
+    }
+
     //Populate Log
     $tblName = 'log';
     $conditions = [
@@ -64,7 +84,6 @@ if (isset($_SESSION['activeAdmin'])) {
         'order_by' => 'rectime DESC'
     ];
     $notification_alert = $model->getRows($tblName, $conditions);
-
     $activityLog = $model->getRows($tblName, $condition);
     $getallLog = $model->getRows($tblName, $conditioned);
 
@@ -75,6 +94,8 @@ if (isset($_SESSION['activeAdmin'])) {
         'order_by' => 'RecordTime DESC',
     ];
     $ticketlog = $model->getRows($tblName, $conditions);
+
+
 
     //Personnel Profile Page
     $tableName = 'tbl_personnel_record';
@@ -91,6 +112,40 @@ if (isset($_SESSION['activeAdmin'])) {
         'group_by' => 'tbl_personnel_record.schCode'
     ];
     $personnelReport = $model->getRows($tableName, $conditions);
+
+    if (isset($_SESSION['schCode']) && $_SESSION['pageName'] == "School Personnel List") {
+
+
+        //Selected School Personnel List
+        $condition = [
+            'where' => [
+                'tbl_personnel_record.schCode' => $_SESSION['schCode'],
+            ],
+            'joinl' => [
+                'job_position_tbl' => ' on job_position_tbl.pos_id = tbl_personnel_record.positionRef',
+                'qualification_tbl' => ' on qualification_tbl.id = tbl_personnel_record.credentialType',
+            ]
+        ];
+        $schPersonnelList = $model->getRows($tableName, $condition);
+    }
+
+
+    if (isset($_SESSION['schCode']) && isset($_SESSION['personnelRef']) && $_SESSION['pageName'] == "School Personnel Information Page") {
+        
+        //Individual School Personnel Information 
+        $condition = [
+            'where' => [
+                'tbl_personnel_record.schCode' => $_SESSION['schCode'],
+                'tbl_personnel_record.record_id' => $_SESSION['personnelRef'],
+            ],
+            'return_type' => 'single',
+            'joinl' => [
+                'job_position_tbl' => ' on job_position_tbl.pos_id = tbl_personnel_record.positionRef',
+                'qualification_tbl' => ' on qualification_tbl.id = tbl_personnel_record.credentialType',
+            ]
+        ];
+        $schPersonnelInfo = $model->getRows($tableName, $condition);
+    }
 
 
     //Finance Profile Page

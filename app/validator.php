@@ -93,7 +93,28 @@ if (!empty($_SESSION['activeAdmin']) && isset($_SESSION['schCode'])) {
             $utility->notifier('dark', 'Facility information was not updated for ' . $_SESSION['schCode']);
             $model->redirect('../pages/admin/index.php?pageid=' . base64_encode('Facility') . '&schCode=' . $_SESSION['schCode']);
         }
-    } else {
+    }
+        //Personnel Data
+        if (isset($_POST['updatePersonnelRecord'])) {
+            $tblName = 'tbl_personnel_record';
+            $condition = [
+                'tbl_personnel_record.schCode' => $_SESSION['schCode'],
+                'tbl_personnel_record.record_id' => $_SESSION['personnelRef'],
+            ];
+            $personnel_data = [
+                'vetted' => $_POST['validation']
+            ];
+            if ($model->upDate($tblName, $personnel_data, $condition) == true) {
+                $user->recordLog($_SESSION['schCode'], 'Personnel Data Validation', 'A validation remark has been added on the Personnel information of a staff with record ID : '. $_SESSION['personnelRef'].' in school with code : ' . $_SESSION['schCode']);
+                $utility->notifier('success', 'You have Successfully submitted a validation remark for this staff in school with code : ' . $_SESSION['schCode']);
+                $model->redirect('../pages/admin/index.php?pageid=' . base64_encode('personnelInfoPage') . '&personnelRef=' . $_SESSION['personnelRef']);
+            } else {
+                $utility->notifier('dark', 'No corporate information was updated for ' . $_SESSION['schCode']);
+                $model->redirect('../pages/admin/index.php?pageid=' . base64_encode('personnelInfoPage') . '&personnelRef=' . $_SESSION['personnelRef']);
+            }
+        }
+    
+    else {
         $utility->notifier('danger', 'Your request failed');
         $model->redirect('../pages/admin/index.php');
     }
