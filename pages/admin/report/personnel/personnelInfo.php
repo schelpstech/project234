@@ -147,16 +147,32 @@
                     </div>
                 </div>
                 <div class="row">
-                    
                     <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label">Credential</i>:</label>
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Highest Educational Qualification</label>
+                            <select type="text" class="form-control" name="identity" required="yes">
+                                <option value="<?php echo ($schPersonnelInfo['id']) ?? "" ?>"><?php echo ($schPersonnelInfo['qualification']) ?? "" ?></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Means of Identifcation</label>
+                            <select type="text" class="form-control" name="identity" required="yes">
+                                <option value="<?php echo ($schPersonnelInfo['idCardType']) ?? "" ?>"><?php echo ($schPersonnelInfo['idCardType']) ?? "" ?></option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
                         <img id="preview" <?php echo (isset($schPersonnelInfo['credentialFile'])) ? 'src="../' . $schPersonnelInfo['credentialFile'] . ' "
                              style="max-width: 100%; max-height: 100%;"' :
                             'src="#" alt="Image Preview"
                             style="display:none; max-width: 100%; max-height: 100%;" '?>>
                     </div>
                     <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label">Identity Card</i>:</label>
                         <img id="preview" <?php echo (isset($schPersonnelInfo['idCardFile'])) ? 'src="../' . $schPersonnelInfo['idCardFile'] . ' "
                              style="max-width: 100%; max-height: 100%;"' :
                             'src="#" alt="Image Preview"
