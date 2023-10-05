@@ -84,20 +84,21 @@ function preview3rdImage(input) {
 }
 
 
-if (document.getElementById('table_id')) {
-  $(document)
-    .ready(function () {
-      $('#table_id')
-        .DataTable();
-    });
-}
 
-if (document.getElementById('datatable-search')) {
-  const dataTableBasic = new simpleDatatables.DataTable("#datatable-search", {
-    searchable: true,
-    fixedHeight: true
+$(document).ready(function() {
+  var dataTable = $('#datatable-search').DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+      '','copy', 'csv', 'excel', 'pdf' ,'print'// You can include other export options as needed
+    ]
   });
-}
+
+  // Create a separate print button
+  $('#print-button').on('click', function() {
+    dataTable.button('4').trigger(); // '0' corresponds to the 'copy' button; adjust the index based on your needs
+  });
+});
+
 
 function toggleButton() {
   var checkbox = document.getElementById("confirmInvoice");
@@ -119,8 +120,13 @@ function switch_check_rebate() {
     $('#rebateAmount').attr('data-error', 'Rebate Amount field is required.');
     $('#rebateFile').attr('required', '');
     $('#rebateFile').attr('data-error', 'Rebate File field is required.');
-  }else if(selectedValue != "Yes"){
+  } else if (selectedValue != "Yes") {
     $('#showRebateAmount').hide();
     $('#showRebateFile').hide();
   }
 }
+
+
+
+
+

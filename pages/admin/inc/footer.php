@@ -63,10 +63,6 @@
   }
 </script>
 
-
-
-<script src="../../assets/js/plugins/jquery-3.6.0.min.js"></script>
-<script src="../../assets/js/plugins/datatables.js"></script>
 <script src="../../assets/js/core/popper.min.js"></script>
 <script src="../../assets/js/core/bootstrap.min.js"></script>
 <script src="../../assets/js/plugins/perfect-scrollbar.min.js"></script>

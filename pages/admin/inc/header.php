@@ -46,6 +46,27 @@ if (!isset($_SESSION['activeAdmin']) || empty($_SESSION['activeAdmin'])) {
     <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
     <link href="../../assets/css/jquery.dataTables.css" rel="stylesheet" />
     <link id="pagestyle" href="../../assets/css/corporate-ui-dashboard.min.css?v=1.0.0" rel="stylesheet" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- DataTables JavaScript -->
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- Buttons CSS -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/buttons/2.1.1/css/buttons.bootstrap4.min.css">
+    <!-- Buttons JavaScript -->
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <style>
         .async-hide {
             opacity: 0 !important

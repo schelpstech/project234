@@ -11,7 +11,7 @@ include './inc/navbar.php';
             <div class="col-md-12">
                 <div class="mx-2 mb-3 d-md-flex align-items-center">
                     <div class="mb-3 mb-md-0">
-                    <?php echo $_SESSION['pageName'] ?? "" ?>
+                    <h4><?php echo $_SESSION['pageName'] ?? "" ?></h4>
                     </div>
                     <button type="button"
                         class="mb-0 mb-2 btn btn-sm btn-white btn-icon d-flex align-items-center ms-md-auto mb-sm-0 me-2">
@@ -34,7 +34,7 @@ include './inc/navbar.php';
         } 
 
 
-//Personnel Pages Starts
+//***Personnel Pages Starts
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "personnelProfile") {
             $include = include "./report/personnel/personnelReport.php";
         } 
@@ -44,15 +44,29 @@ include './inc/navbar.php';
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "personnelInfoPage") {
             $include = include "./report/personnel/personnelInfo.php";
         } 
-//Personnel Pages Ends
+//***Personnel Pages Ends
+
+
+//**** Enrolment Starts
+
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "enrolmentTable") {
+            $include = include "./report/Enrolment/enrolmentList.php";
+        }
+        //View School  Enrolment Term 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "enrolmentbyTerm") {
+            $include = include "./report/Enrolment/enrolmentbyTerm.php";
+        }
+        //School Termly Enrolment  Details 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schEnrolmentDetails") {
+            $include = include "./report/Enrolment/enrolmentRecord.php";
+        }
+//**** Enrolment Ends
 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "financeProfile") {
             $include = include "./report/financeProfile.php";
         } elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "rebateManager") {
             $include = include "./report/rebatelog.php";
-        } elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "enrolmentTable") {
-            $include = include "./report/enrolmentList.php";
-        } elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "userProfile") {
+        }  elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "userProfile") {
             $include = include "./forms/userprofile.php";
         } elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "activity_log") {
             $include = include "./report/activityLog.php";
@@ -95,14 +109,7 @@ include './inc/navbar.php';
         }
 
 
-        //View School  Enrolment Term 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "enrolmentbyTerm") {
-            $include = include "./report/enrolmentbyTerm.php";
-        }
-        //School Termly Enrolment  Details 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schEnrolmentDetails") {
-            $include = include "./report/enrolmentRecord.php";
-        }
+       
         //School Rebate Application  Details 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "rebateDetails") {
             $include = include "./forms/rebateDetails.php";
@@ -114,12 +121,7 @@ include './inc/navbar.php';
 
         <div class="card-header border-bottom pb-0">
             <div class="d-sm-flex align-items-center">
-                <div>
-                    <?php echo $_SESSION['identifier'] ?? "" ?>
-                    <p class="text-sm">
-                        <?php echo $_SESSION['pageDescription'] ?? "" ?>
-                    </p>
-                </div>
+                    <?php echo $_SESSION['pageDescription'] ?? "" ?>
             </div>
         </div>
         <?php

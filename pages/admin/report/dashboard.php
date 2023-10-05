@@ -10,7 +10,7 @@
                             </div>
                             <div class="mb-1 numbers">
                                 <h5 class="mb-0 text-lg text-dark font-weight-bolder">
-                                    <?php echo $sch_count?>
+                                    <?php echo $sch_count ?>
                                 </h5>
                             </div>
                             <div class="numbers">
@@ -24,11 +24,12 @@
                     <div class="border card">
                         <div class="p-4 text-start card-body">
                             <div class="mb-3 text-center shadow bg-dark icon icon-shape border-radius-md">
-                                <i class="text-lg text-white fa-solid fa-address-card opacity-10" aria-hidden="true"></i>
+                                <i class="text-lg text-white fa-solid fa-address-card opacity-10"
+                                    aria-hidden="true"></i>
                             </div>
                             <div class="mb-1 numbers">
                                 <h5 class="mb-0 text-dark font-weight-bolder">
-                                <?php echo $sch_count_primary + $sch_count_secondary?>
+                                    <?php echo $sch_count_primary + $sch_count_secondary ?>
                                 </h5>
                             </div>
                             <div class="numbers">
@@ -48,7 +49,7 @@
                             </div>
                             <div class="mb-1 numbers">
                                 <h4 class="mb-0 text-xl text-dark font-weight-bolder">
-                                    <?php echo $sch_count_primary?>
+                                    <?php echo $sch_count_primary ?>
                                 </h4>
                             </div>
                             <div class="numbers">
@@ -66,7 +67,7 @@
                             </div>
                             <div class="mb-1 numbers">
                                 <h5 class="mb-0 text-dark font-weight-bolder">
-                                    <?php echo $sch_count_secondary?>
+                                    <?php echo $sch_count_secondary ?>
                                 </h5>
                             </div>
                             <div class="numbers">
@@ -84,63 +85,80 @@
         </div>
     </div>
 </div>
-    
 
 
-<div class="card-body px-0 py-0">
+<div class="border shadow-xs card">
+    <div class="pb-0 card-header border-bottom">
+        <div class="card border shadow-xs mb-4">
+            <div class="card-header border-bottom pb-0">
+                <div class="d-sm-flex align-items-center">
+                    <div>
+                        <h6 class="font-weight-semibold text-lg mb-0">Portal Activity Overview</h6>
+                        <p class="text-sm">See information about all school</p>
+                    </div>
+                    <div class="ms-auto d-flex">
+                        <button type="button" class="mb-0 btn btn-sm btn-dark me-2" onclick="generatePDF();">
+                            <strong>Print</strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body px-0 py-0">
+                <div class="table-responsive">
+                    <table class="table table-flush" id="datatable-search">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="text-secondary text-xs font-weight-semibold opacity-7">Activity ID</th>
+                                <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
+                                    Description</th>
+                                <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
+                                    Initiated by</th>
+                                <th class="text-secondary opacity-7">Activity Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if (!empty($getallLog)) {
+                                foreach ($getallLog as $data) {
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                <?php echo $data['object'] . "-" . $data['id'] ?>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                <?php echo $data['activity'] . " - " ?>
+                                            </p>
+                                            <i class="text-sm text-dark font-weight-semibold mb-0 ">
 
-    <div class="table-responsive">
-        <table class="table table-flush" id="datatable-search">
-            <thead class="thead-light">
-                <tr>
-                    <th class="text-secondary text-xs font-weight-semibold opacity-7">Activity ID</th>
-                    <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                        Description</th>
-                    <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                        Initiated by</th>
-                    <th class="text-secondary opacity-7">Activity Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if (!empty($getallLog)) {
-                    foreach ($getallLog as $data) {
-                        ?>
-                        <tr>
-                            <td>
-                                <p class="text-sm text-dark font-weight-semibold mb-0">
-                                    <?php echo $data['object'] . "-" . $data['id'] ?>
-                                </p>
-                            </td>
-                            <td>
-                                <p class="text-sm text-dark font-weight-semibold mb-0">
-                                    <?php echo $data['activity'] . " - " ?>
-                                </p>
-                                <i class="text-sm text-dark font-weight-semibold mb-0 ">
-                                    
-                                        <small>
-                                            <?php
-                                                echo $data['description']
-                                            ?>
-                                        </small>
-                                </i>
-                            </td>
-                            <td class="align-middle text-center text-sm">
-                                <p class="text-sm text-dark font-weight-semibold mb-0">
-                                    <?php echo $data['user_name'] . "<br>" . $data['uip'] ?>
-                                </p>
-                            </td>
-                            <td class="align-middle">
-                                <p class="text-sm text-dark font-weight-semibold mb-0">
-                                    <?php echo $data['rectime'] ?>
-                                </p>
-                            </td>
-                        </tr>
-                        <?php
-                    }
-                }
-                ?>
-            </tbody>
-        </table>
+                                                <small>
+                                                    <?php
+                                                    echo $data['description']
+                                                        ?>
+                                                </small>
+                                            </i>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                <?php echo $data['user_name'] . "<br>" . $data['uip'] ?>
+                                            </p>
+                                        </td>
+                                        <td class="align-middle">
+                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                <?php echo $data['rectime'] ?>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -150,7 +150,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Highest Educational Qualification</label>
-                            <select type="text" class="form-control" name="identity" required="yes">
+                            <select type="text" class="form-control" disabled name="identity" required="yes">
                                 <option value="<?php echo ($schPersonnelInfo['id']) ?? "" ?>"><?php echo ($schPersonnelInfo['qualification']) ?? "" ?></option>
                             </select>
                         </div>
@@ -158,7 +158,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Means of Identifcation</label>
-                            <select type="text" class="form-control" name="identity" required="yes">
+                            <select type="text" class="form-control" disabled name="identity" required="yes">
                                 <option value="<?php echo ($schPersonnelInfo['idCardType']) ?? "" ?>"><?php echo ($schPersonnelInfo['idCardType']) ?? "" ?></option>
                             </select>
                         </div>

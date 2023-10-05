@@ -34,6 +34,9 @@ elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) === "personne
     $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
 } 
 
+
+
+
 elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "financeProfile") {
     $_SESSION['pageName'] = "School Invoice List";
     $_SESSION['pageDescription']  = "School Finance Portal";
@@ -42,11 +45,10 @@ elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "financePr
     $_SESSION['pageName'] = "School Rebate Application";
     $_SESSION['pageDescription']  = "School Finance Portal";
     $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
-} elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "enrolmentTable") {
-    $_SESSION['pageName'] = "School Enrolment Records";
-    $_SESSION['pageDescription']  = "School Finance Portal";
-    $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
-} elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "userProfile") {
+}
+
+
+elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "userProfile") {
     $_SESSION['pageName'] = "Admin Profile";
     $_SESSION['pageDescription']  = "Update profile information";
     $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
@@ -152,28 +154,37 @@ elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schInvoic
     $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
 }
 
+//******Enrolment Starts
+            //Enrolment Page
+            elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "enrolmentTable") {
+                $_SESSION['pageName'] = "School Enrolment Records";
+                $_SESSION['pageDescription']  = "School Finance Portal";
+                $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
+            }
 
-//View School  Enrolment Term 
-elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "enrolmentbyTerm") {
-    $_SESSION['schCode'] = $_GET['schCode'];
-    $_SESSION['pageName'] = "School Enrolment Record";
-    $_SESSION['identifier']  = '<h6 class="font-weight-semibold text-lg mb-0">
-                    Termly Enrolment Record for School with Code :: ' . $_SESSION['schCode'] ?? "" . '
-                    </h6>';
-    $_SESSION['pageDescription']  = "The terms for which Selected School has created enrolment records";
 
-    $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
-}
-//School Termly Enrolment  Details 
-elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schEnrolmentDetails") {
-    $_SESSION['pageName'] = "School Invoice Details - Enrolment Record";
-    $_SESSION['identifier']  = '<h6 class="font-weight-semibold text-lg mb-0">
-                    Termly Enrolment Record for School with Code :: ' . $_SESSION['schCode'] ?? "" . '
-                    </h6>';
-    $_SESSION['pageDescription']  = "View and Validate  Invoices of Selected School";
-    $_SESSION['termRef'] = $_GET['termRef'];
-    $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
-}
+            //View School  Enrolment Term 
+            elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "enrolmentbyTerm") {
+                $_SESSION['schCode'] = $_GET['schCode'];
+                $_SESSION['pageName'] = "Termly School Enrolment Record";
+                $_SESSION['pageDescription']  = '
+                                Termly Enrolment Record for School with Code :: ' . $_SESSION['schCode'] ?? "";
+
+                $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
+            }
+
+
+            //School Termly Enrolment  Details 
+            elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schEnrolmentDetails") {
+                
+                $_SESSION['termRef'] = $_GET['termRef'];
+                $_SESSION['pageName'] = "School Enrolment Record - Class -Tuition Breakdown";
+                $_SESSION['pageDescription']  =  'Termly Enrolment Record for School with Code :: '.$_SESSION['schCode'];
+                $model->redirect('../pages/admin/index.php?pageid='.$_GET['pageid']);
+            }
+
+//******Enrolment Ends
+
 //School Rebate Application  Details 
 elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "rebateDetails") {
     $_SESSION['pageName'] = "School Rebate Application  Details";
