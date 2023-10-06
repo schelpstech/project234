@@ -1,3 +1,18 @@
+<div class="pb-0 card-header border-bottom">
+    <div class="mb-3 d-sm-flex align-items-center">
+        <div>
+            <h6 class="mb-0 text-lg font-weight-semibold"> Support Tickets <?php echo $_SESSION['ticketid'] ?>  Created by ::
+                <?php echo $sch_corporate_data['sch_name'] ?>
+            </h6>
+        </div>
+        <div class="ms-auto d-flex">
+            <a type="button" href="../../app/adminRouter.php?pageid=<?php echo base64_encode('ticketLog') ?>"
+                class="mb-0 btn btn-sm btn-dark me-2">
+                <strong>Back</strong>
+            </a>
+        </div>
+    </div>
+</div>
 <div class="px-5 py-4 container-fluid">
     <div class="row gx-4">
         <div class="col-lg-8">
