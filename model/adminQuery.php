@@ -163,15 +163,45 @@ if (isset($_SESSION['activeAdmin'])) {
     $activityLog = $model->getRows($tblName, $condition);
     $getallLog = $model->getRows($tblName, $conditioned);
 
+//*********Support Ticket Starts
 
     //My Support Tickets
     $tblName = '_tbl_ticket';
     $conditions = [
+        'joinl' => [
+            '_tbl_sch_corporate_data' => ' on _tbl_sch_corporate_data.sch_code = _tbl_ticket.schCode'
+        ],
         'order_by' => 'RecordTime DESC',
     ];
     $ticketlog = $model->getRows($tblName, $conditions);
+    if (isset($_SESSION['ticketid'])) {
+        $tblName = '_tbl_conversation';
+        $conditions = [
+            'where' => [
+                '_tbl_conversation.ticketID' => $_SESSION['ticketid'],
+            ],
+            'joinl' => [
+                '_tbl_ticket' => ' on _tbl_ticket.ticketRefNumber = _tbl_conversation.ticketID',
+            ],
+            'order_by' => '_tbl_conversation.rec_time DESC',
+        ];
+        $chatHistory = $model->getRows($tblName, $conditions);
+    
+        $tblName = '_tbl_ticket';
+        $conditions = [
+            'where' => [
+                'ticketRefNumber' => $_SESSION['ticketid'],
+            ],
+            'return_type' => 'single',
+        ];
+        $chatDetails = $model->getRows($tblName, $conditions);
+    
+    }
 
 
+//*********Support Ticket Ends
+
+//*********Personnel Starts
 
     //Personnel Profile Page
     $tableName = 'tbl_personnel_record';
@@ -223,22 +253,8 @@ if (isset($_SESSION['activeAdmin'])) {
         $schPersonnelInfo = $model->getRows($tableName, $condition);
     }
 
+//*********Personnel Ends
 
-    //Finance Profile Page
-    $tableName = '_tbl_termlyinvoice';
-    $conditions = [
-        'select' => 'DISTINCT _tbl_termlyinvoice.schCode AS sch,
-                 _tbl_sch_corporate_data.sch_name,
-                 _tbl_sch_corporate_data.schLogo,
-                 COUNT(_tbl_termlyinvoice.schCode) AS num,
-                 SUM(CASE WHEN _tbl_termlyinvoice.vetting = 0 THEN 1 ELSE 0 END) AS unvetted,
-                 SUM(CASE WHEN _tbl_termlyinvoice.vetting = 1 THEN 1 ELSE 0 END) AS vetted',
-        'joinl' => [
-            '_tbl_sch_corporate_data' => ' on _tbl_sch_corporate_data.sch_code = _tbl_termlyinvoice.schCode'
-        ],
-        'group_by' => '_tbl_termlyinvoice.schCode'
-    ];
-    $invoiceReport = $model->getRows($tableName, $conditions);
 
 
     //******** Enrolment Starts
@@ -292,21 +308,9 @@ if (isset($_SESSION['activeAdmin'])) {
     //******** Enrolment Ends
 
 
-    if (isset($_SESSION['schCode'])) {
-        $tblName = '_tbl_termlyinvoice';
-        $conditions = [
-            'where' => [
-                'schCode' => $_SESSION['schCode'],
-            ],
-            'joinl' => [
-                'tblcurrent_term' => ' on _tbl_termlyinvoice.termRef = tblcurrent_term.id',
-            ],
-        ];
-        $invoiceList = $model->getRows($tblName, $conditions);
-    }
 
 
-    //******** Rebate Starts
+ //******** Rebate Starts
 
     $tblName = '_tbl_rebate_record';
     $conditions = [
@@ -334,5 +338,34 @@ if (isset($_SESSION['activeAdmin'])) {
 
 }
 
+
+if (isset($_SESSION['schCode'])) {
+    $tblName = '_tbl_termlyinvoice';
+    $conditions = [
+        'where' => [
+            'schCode' => $_SESSION['schCode'],
+        ],
+        'joinl' => [
+            'tblcurrent_term' => ' on _tbl_termlyinvoice.termRef = tblcurrent_term.id',
+        ],
+    ];
+    $invoiceList = $model->getRows($tblName, $conditions);
+
+}
+//Finance Profile Page
+$tableName = '_tbl_termlyinvoice';
+$conditions = [
+    'select' => 'DISTINCT _tbl_termlyinvoice.schCode AS sch,
+             _tbl_sch_corporate_data.sch_name,
+             _tbl_sch_corporate_data.schLogo,
+             COUNT(_tbl_termlyinvoice.schCode) AS num,
+             SUM(CASE WHEN _tbl_termlyinvoice.vetting = 0 THEN 1 ELSE 0 END) AS unvetted,
+             SUM(CASE WHEN _tbl_termlyinvoice.vetting = 1 THEN 1 ELSE 0 END) AS vetted',
+    'joinl' => [
+        '_tbl_sch_corporate_data' => ' on _tbl_sch_corporate_data.sch_code = _tbl_termlyinvoice.schCode'
+    ],
+    'group_by' => '_tbl_termlyinvoice.schCode'
+];
+$invoiceReport = $model->getRows($tableName, $conditions);
 
 //******** Rebate Ends

@@ -73,11 +73,9 @@ elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "userProfi
 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "conversation") {
             $_SESSION['ticketid'] = $_GET['ticketid'];
-            $_SESSION['pageName'] = "Support Ticket Log";
-            $_SESSION['identifier']  = '<h6 class="font-weight-semibold text-lg mb-0">
-                            Working on School with Code :: ' . $_SESSION['schCode'] ?? "" . '
-                            </h6>';
-            $_SESSION['pageDescription']  = "See all inquiries and complain ticket request of schools on the portal";
+            $_SESSION['schCode'] = $_GET['schCode'];
+            $_SESSION['pageName'] = "Support Ticket ::".$_GET['ticketid'];
+            $_SESSION['pageDescription']  = 'Working on inquiries and complain ticket request of  School with Code :: ' . $_SESSION['schCode'] ?? "";
             $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
         }
 //******Support Ticket Ends */

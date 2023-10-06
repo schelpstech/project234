@@ -16,6 +16,8 @@
                         <tr>
                             <th class="text-secondary text-xs font-weight-semibold opacity-7">Ticket ID</th>
                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
+                                Created by</th>
+                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
                                 Subject</th>
                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
                                 Ticket Status</th>
@@ -35,6 +37,11 @@
                                     </td>
                                     <td>
                                         <p class="text-sm text-dark font-weight-semibold mb-0">
+                                            <?php echo $data['schCode']." - ".$data['sch_name'] ?>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p class="text-sm text-dark font-weight-semibold mb-0">
                                             <?php
                                             switch ($data['ticketType']) {
                                                 case '1':
@@ -50,11 +57,11 @@
                                     <td class="align-middle text-center text-sm">
                                         <?php
                                         if ($data['ticketStatus'] == 0) {
-                                            echo '<a  href="./index.php?pageid=' . base64_encode('conversation') . '&ticketid='.$data['ticketRefNumber'].'" class="btn btn-danger btn-sm me-1" type="button">closed</a>';
+                                            echo '<a  href="../../app/adminRouter.php?pageid=' . base64_encode('conversation') . '&ticketid='.$data['ticketRefNumber'].'&schCode='.$data['schCode'].'" class="btn btn-danger btn-sm me-1" type="button">closed</a>';
                                         } elseif ($data['ticketStatus'] == 1 && $data['lastReply'] == 11) {
-                                            echo '<a href="./index.php?pageid=' . base64_encode('conversation') . '&ticketid='.$data['ticketRefNumber'].'" class="btn btn-warning btn-sm me-1" type="button">Awaiting feedback</a>';
+                                            echo '<a href="../../app/adminRouter.php?pageid=' . base64_encode('conversation') . '&ticketid='.$data['ticketRefNumber'].'&schCode='.$data['schCode'].'" class="btn btn-warning btn-sm me-1" type="button">Awaiting feedback</a>';
                                         } elseif ($data['ticketStatus'] == 1 && $data['lastReply'] == 22) {
-                                            echo '<a href="./index.php?pageid=' . base64_encode('conversation') . '&ticketid='.$data['ticketRefNumber'].'" class="btn btn-dark btn-sm me-1" type="button">Answered</a>';
+                                            echo '<a href="../../app/adminRouter.php?pageid=' . base64_encode('conversation') . '&ticketid='.$data['ticketRefNumber'].'&schCode='.$data['schCode'].'" class="btn btn-dark btn-sm me-1" type="button">Answered</a>';
                                         }
                                         ?>
                                     </td>

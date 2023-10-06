@@ -1,28 +1,3 @@
-<?php
-if (isset($_SESSION['ticketid'])) {
-    $tblName = '_tbl_conversation';
-    $conditions = [
-        'where' => [
-            '_tbl_conversation.ticketID' => $_SESSION['ticketid'],
-        ],
-        'joinl' => [
-            '_tbl_ticket' => ' on _tbl_ticket.ticketRefNumber = _tbl_conversation.ticketID',
-        ],
-        'order_by' => '_tbl_conversation.rec_time DESC',
-    ];
-    $chatHistory = $model->getRows($tblName, $conditions);
-
-    $tblName = '_tbl_ticket';
-    $conditions = [
-        'where' => [
-            'ticketRefNumber' => $_SESSION['ticketid'],
-        ],
-        'return_type' => 'single',
-    ];
-    $chatDetails = $model->getRows($tblName, $conditions);
-
-}
-?>
 <div class="px-5 py-4 container-fluid">
     <div class="row gx-4">
         <div class="col-lg-8">
