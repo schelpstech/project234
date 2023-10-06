@@ -26,8 +26,8 @@
                                 <th class="text-secondary text-xs font-weight-semibold opacity-7">Corporate Data</th>
                                 <th class="text-secondary text-xs font-weight-semibold opacity-7">Contact</th>
                                 <th class="text-secondary text-xs font-weight-semibold opacity-7">Available Classes</th>
-                                <th class="text-secondary text-xs font-weight-semibold opacity-7">Facility Records</th>
                                 <th class="text-secondary text-xs font-weight-semibold opacity-7">Approval Records</th>
+                                <th class="text-secondary text-xs font-weight-semibold opacity-7">Facility Records</th>
                             </tr>
                         </thead>
                         <tbody>

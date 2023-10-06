@@ -15,17 +15,18 @@
             <div class="border shadow-xs card">
                 <div class="pb-0 card-header border-bottom">
                     <div class="mb-3 d-sm-flex align-items-center">
-                        <div>
-                            <h6 class="mb-0 text-lg font-weight-semibold">CRSM School Corporate Information Form</h6>
-                            <p class="mb-2 text-sm mb-sm-0"></p>
-                        </div>
-                        <div class="ms-auto d-flex">
-                            <a type="button"
-                                href="./index.php"
-                                class="mb-0 btn btn-sm btn-dark me-2">
-                                <strong>Home</strong>
-                            </a>
-                        </div>
+                    <div>
+                                <h6 class="mb-0 text-lg font-weight-semibold"> Corporate Information for
+                                    <?php echo $sch_corporate_data['sch_name'] ?>
+                                </h6>
+                            </div>
+                            <div class="ms-auto d-flex">
+                                <a type="button"
+                                    href="../../app/adminRouter.php?pageid=<?php echo base64_encode('schoolProfile') ?>"
+                                    class="mb-0 btn btn-sm btn-dark me-2">
+                                    <strong>Back</strong>
+                                </a>
+                            </div>
                     </div>
                     <form role="form" class="text-start" autocomplete="off" action="../../app/validator.php" method="post"
                         enctype="multipart/form-data">

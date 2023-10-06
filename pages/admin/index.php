@@ -85,27 +85,33 @@ include './inc/navbar.php';
             $include = include "./forms/conversation.php";
         }
 
+
+//******* School Profile Starts */
         //Corporate Details 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Corporate") {
-            $include = include "./forms/corporate.php";
+            $include = include "./forms/schoolProfile/corporate.php";
         }
 
         //Contact Details 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Contact") {
-            $include = include "./forms/contact.php";
+            $include = include "./forms/schoolProfile/contact.php";
         }
         //Available Class Details 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Classes") {
-            $include = include "./report/availableClasses.php";
+            $include = include "./report/schoolProfile/availableClasses.php";
         }
         //Approval  Details 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Approval") {
-            $include = include "./forms/approval.php";
+            $include = include "./forms/schoolProfile/approval.php";
         }
         //Facility  Details 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Facility") {
-            $include = include "./forms/facilities.php";
+            $include = include "./forms/schoolProfile/facilities.php";
         }
+
+//******* School Profile Ends */
+
+
         //Reset School Password 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "ResetPassword") {
             $include = include "./forms/accesscode.php";

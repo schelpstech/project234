@@ -22,7 +22,7 @@ if (!empty($_SESSION['activeAdmin']) && isset($_SESSION['schCode'])) {
     }
 
     //Contact Data
-    if (
+    elseif (
         isset($_POST['Update_phone_form'])
         || isset($_POST['Update_email_form'])
         || isset($_POST['Update_address_form'])
@@ -56,7 +56,7 @@ if (!empty($_SESSION['activeAdmin']) && isset($_SESSION['schCode'])) {
     }
 
     //Approval Data
-    if (isset($_POST['Update_approval_form'])) {
+    elseif (isset($_POST['Update_approval_form'])) {
         $tblName = '_tbl_approval_record';
         $infoType = 'School Approval ';
         $condition = [
@@ -76,7 +76,7 @@ if (!empty($_SESSION['activeAdmin']) && isset($_SESSION['schCode'])) {
     }
 
     //Facility Data
-    if (isset($_POST['Update_facility_form'])) {
+    elseif (isset($_POST['Update_facility_form'])) {
         $tblName = '_sch_facility_record';
         $infoType = 'School Facility ';
         $condition = [
@@ -95,7 +95,7 @@ if (!empty($_SESSION['activeAdmin']) && isset($_SESSION['schCode'])) {
         }
     }
         //Personnel Data
-        if (isset($_POST['updatePersonnelRecord'])) {
+        elseif (isset($_POST['updatePersonnelRecord'])) {
             $tblName = 'tbl_personnel_record';
             $condition = [
                 'tbl_personnel_record.schCode' => $_SESSION['schCode'],
@@ -109,14 +109,12 @@ if (!empty($_SESSION['activeAdmin']) && isset($_SESSION['schCode'])) {
                 $utility->notifier('success', 'You have Successfully submitted a validation remark for this staff in school with code : ' . $_SESSION['schCode']);
                 $model->redirect('../pages/admin/index.php?pageid=' . base64_encode('personnelInfoPage') . '&personnelRef=' . $_SESSION['personnelRef']);
             } else {
-                $utility->notifier('dark', 'No corporate information was updated for ' . $_SESSION['schCode']);
+                $utility->notifier('dark', 'No Personnel Data Validation was updated for ' . $_SESSION['schCode']);
                 $model->redirect('../pages/admin/index.php?pageid=' . base64_encode('personnelInfoPage') . '&personnelRef=' . $_SESSION['personnelRef']);
             }
         }
-    
-
-                //Rebate Application
-        if (isset($_POST['Update_rebate_application_form'])) {
+        //Rebate Application
+     elseif (isset($_POST['Update_rebate_application_form'])) {
             $tblName = '_tbl_rebate_record';
             $condition = [
                 'rebateRef' => $_SESSION['rebateRef'],
@@ -135,7 +133,10 @@ if (!empty($_SESSION['activeAdmin']) && isset($_SESSION['schCode'])) {
             }
         }
     else {
-        $utility->notifier('danger', 'Your request failed');
+        $utility->notifier('danger', 'Your couldnt verify your request');
         $model->redirect('../pages/admin/index.php');
     }
+}else {
+    $utility->notifier('danger', 'Your request failed');
+    $model->redirect('../pages/admin/index.php');
 }
