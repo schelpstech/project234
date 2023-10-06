@@ -114,6 +114,26 @@ if (!empty($_SESSION['activeAdmin']) && isset($_SESSION['schCode'])) {
             }
         }
     
+
+                //Rebate Application
+        if (isset($_POST['Update_rebate_application_form'])) {
+            $tblName = '_tbl_rebate_record';
+            $condition = [
+                'rebateRef' => $_SESSION['rebateRef'],
+                'schCode' => $_SESSION['schCode']
+            ];
+            $personnel_data = [
+                'rebateStatus' => $_POST['validation']
+            ];
+            if ($model->upDate($tblName, $personnel_data, $condition) == true) {
+                $user->recordLog($_SESSION['schCode'], 'Rebate Application', 'A validation remark has been added on the Rebate Application Reference  : '. $_SESSION['rebateRef'].' in school with code : ' . $_SESSION['schCode']);
+                $utility->notifier('success', 'You have Successfully submitted a validation remark for Rebate Application  with Reference code : ' . $_SESSION['rebateRef']);
+                $model->redirect('../pages/admin/index.php?pageid=' . base64_encode('rebateDetails') . '&rebateRef=' . $_SESSION['rebateRef']. '&schCode=' . $_SESSION['schCode']);
+            } else {
+                $utility->notifier('dark', 'No Validation remark was recorded for Rebate Application  with Reference code : ' . $_SESSION['rebateRef']);
+                $model->redirect('../pages/admin/index.php?pageid=' . base64_encode('rebateDetails') . '&rebateRef=' . $_SESSION['rebateRef']. '&schCode=' . $_SESSION['schCode']);
+            }
+        }
     else {
         $utility->notifier('danger', 'Your request failed');
         $model->redirect('../pages/admin/index.php');

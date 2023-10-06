@@ -306,8 +306,8 @@ if (isset($_SESSION['activeAdmin'])) {
     }
 
 
+    //******** Rebate Starts
 
-    //Select All Rebate Applications of School
     $tblName = '_tbl_rebate_record';
     $conditions = [
         'joinl' => [
@@ -315,4 +315,24 @@ if (isset($_SESSION['activeAdmin'])) {
         ]
     ];
     $rebateRecords = $model->getRows($tblName, $conditions);
+
+
+    if (isset($_SESSION['schCode']) && isset($_SESSION['rebateRef'])) {
+        $tblName = '_tbl_rebate_record';
+        $conditions = [
+            'where' => [
+                'rebateRef' => $_SESSION['rebateRef'],
+                'schCode' => $_SESSION['schCode']
+            ],
+            'return_type' => 'single',
+            'joinl' => [
+                'tblcurrent_term' => ' on _tbl_rebate_record.rebateTerm = tblcurrent_term.id',
+            ]
+        ];
+        $rebateView = $model->getRows($tblName, $conditions);
+    }
+
 }
+
+
+//******** Rebate Ends
