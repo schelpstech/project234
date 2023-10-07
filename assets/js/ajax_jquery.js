@@ -105,6 +105,18 @@ function termlyInvoice() {
             },
             cache: false,
         });
+        $.ajax({
+            url: "../../app/ajax_query.php",
+            method: "POST",
+            data: {
+                variable: variable,
+                requested: 'fetchApprovedRebate'
+            },
+            success: function (data) {
+                $("#rebate").html(data);
+            },
+            cache: false,
+        });
     } else {
         alert("Select Term");
     }

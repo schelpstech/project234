@@ -64,3 +64,23 @@ if (isset($_POST['variable']) && $_POST['requested'] == 'fetchSchDetails' && iss
     }
     
 }
+
+//Fetch Applicable Rebate
+if (isset($_POST['variable']) && $_POST['requested'] == 'fetchApprovedRebate') {
+    $tblName = '_tbl_rebate_record';
+    $condition = [
+        'return_type' => 'single',
+        'where' => [
+            'schCode' => $_SESSION['active'],
+            'rebateTerm' => $_POST['variable'],
+            'rebateStatus' => 1,
+        ]
+    ];
+    $response = $model->getRows($tblName, $condition);
+    if(!empty($response)){
+        echo '<option value="'.$response['rebateRef']."-".$response['amountRebate'].'">'.$response['rebateRef']." - ".$utility->money($response['amountRebate']). '</option>';
+    }else{
+        echo '<option value="0">No Approved Rebate For Selected Term</option>';
+    }
+    
+}

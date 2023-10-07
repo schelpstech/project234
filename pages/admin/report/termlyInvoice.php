@@ -1,146 +1,118 @@
-<?php
-include '../../../model/query.php';
-
-unset($_SESSION['remittanceDue']);
-
-if (isset($_POST['variable'])) {
-    $tblName = '_tbl_termly_enrolment';
-    $conditions = [
-        'where' => [
-            '_tbl_termly_enrolment.schCode' => $_SESSION['active'],
-            '_tbl_termly_enrolment.termID' => $_POST['variable'],
-        ],
-        'joinl' => [
-            'tblcurrent_term' => ' on _tbl_termly_enrolment.termID = tblcurrent_term.id',
-            'tbl_classes' => ' on _tbl_termly_enrolment.classID = tbl_classes.id',
-        ]
-    ];
-    $enrolmentRecord = $model->getRows($tblName, $conditions);
-
-    //Sum Total Remittance 
-    $tblName = '_tbl_termly_enrolment';
-    $conditions = [
-        'select' => 'SUM(tuition * population) as totalsum',
-        'where' => [
-            'schCode' => $_SESSION['active'],
-            'termID' => $_POST['variable'],
-        ],
-        'return_type' => 'single'
-    ];
-    $sumtotal = $model->getRows($tblName, $conditions);
-
-    if (isset($sumtotal['totalsum'])) {
-        $_SESSION['remittanceDue'] = $sumtotal['totalsum'] * 0.02;
-    }
-}
-
-?>
-<br>
-<div class="col-lg-12 col-md-12 ">
-    <div class="border shadow-xs card">
-        <div class="pb-0 card-header border-bottom">
-            <div class="card border shadow-xs mb-4">
-                <div class="card-header border-bottom pb-0">
-                    <div class="d-sm-flex align-items-center">
-                        <div>
-                            <h6 class="font-weight-semibold text-lg mb-0">Remittance for this Term</h6>
-                        </div>
-                        <div class="ms-auto d-flex">
-                            <button type="button" class="mb-0 btn btn-sm btn-dark me-2">
-                                <?php
-                                if (isset($sumtotal['totalsum'])) {
-                                    echo $utility->money($_SESSION['remittanceDue']);
-                                } ?>
-                            </button>
-                        </div>
-                    </div>
-
+<div class="px-5 py-4 container-fluid">
+      <div class="mt-3 mt-lg-4 row">
+        <div class="mx-auto col-md-8 col-sm-10">
+          <form class="" action="index.html" method="post">
+            <div class="border border-white shadow-xs card blur my-sm-5">
+              <div class="px-4 pt-4 text-center bg-transparent card-header">
+                <div class="row justify-content-between">
+                  <div class="mt-3 col-md-4 text-start">
+                    <h6>
+                      St. Independence Embankment, 050105 Bucharest, Romania
+                    </h6>
+                    <p class="d-block text-secondary">tel: +4 (074) 1090873</p>
+                  </div>
+                  <div class="mt-3 col-lg-3 col-md-7 text-md-end text-start">
+                    <h6 class="mt-2 mb-0 d-block">Billed to: John Doe</h6>
+                    <p class="text-secondary">4006 Locust View Drive<br>
+                      San Francisco CA<br>
+                      California
+                    </p>
+                  </div>
                 </div>
-                <div class="card-body px-0 py-0">
-
+                <br>
+                <div class="row justify-content-md-between">
+                  <div class="mt-auto col-md-4">
+                    <h6 class="mb-0 text-start text-secondary">
+                      Invoice no
+                    </h6>
+                    <h5 class="mb-0 text-start">
+                      #0453119
+                    </h5>
+                  </div>
+                  <div class="mt-auto col-lg-5 col-md-7">
+                    <div class="mt-4 row mt-md-5 text-md-end text-start">
+                      <div class="col-md-6">
+                        <h6 class="mb-0 text-secondary">Invoice date:</h6>
+                      </div>
+                      <div class="col-md-6">
+                        <h6 class="mb-0 text-dark">20/07/2021</h6>
+                      </div>
+                    </div>
+                    <div class="row text-md-end text-start">
+                      <div class="col-md-6">
+                        <h6 class="mb-0 text-secondary">Due date:</h6>
+                      </div>
+                      <div class="col-md-6">
+                        <h6 class="mb-0 text-dark">29/07/2021</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="px-4 card-body">
+                <div class="row">
+                  <div class="col-12">
                     <div class="table-responsive">
-                        <table class="table table-flush" id="datatable-search">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7">S/N</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7">Term</th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7">Class Name</th>
-                                    <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                                        Class Population</th>
-                                    <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                                        Class Tuition Fee</th>
-                                    <th class="text-secondary opacity-7">Remittance</th>
-                                    <th class="text-secondary opacity-7">Cumulative</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $count = 1;
-                                $sum = 0;
-                                if (!empty($enrolmentRecord)) {
-                                    foreach ($enrolmentRecord as $data) {
-                                        ?>
-                                        <tr>
-                                            <td class="text-sm font-weight-normal">
-
-                                                <div class="align-items-center">
-                                                    <h6 class="mtext-sm text-dark font-weight-semibold mb-0">
-                                                        <?php echo $count++ ?>
-                                                    </h6>
-                                                </div>
-                                            </td>
-                                            <td class="text-sm font-weight-normal">
-
-                                                <div class="align-items-center">
-                                                    <h6 class="mtext-sm text-dark font-weight-semibold mb-0">
-                                                        <?php echo $data['termVariable'] ?>
-                                                    </h6>
-                                                </div>
-                                            </td>
-                                            <td class="text-sm font-weight-normal" style="width:10%; word-wrap: normal;">
-                                                <p class=" text-sm text-dark font-weight-semibold mb-0">
-                                                    <?php
-                                                    echo $data['className']
-                                                        ?>
-                                                </p>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <?php
-                                                echo $data['population']
-                                                    ?>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <?php
-                                                echo $utility->money($data['tuition'])
-                                                    ?>
-                                            </td>
-                                            <td class="align-middle">
-                                                <strong>
-                                                    <?php
-                                                    echo $utility->money(($data['population'] * $data['tuition']) * 0.02)
-                                                        ?>
-                                                </strong>
-                                            </td>
-                                            <td class="align-middle">
-                                                <strong>
-                                                    <?php
-                                                    $sum += ($data['population'] * $data['tuition']) * 0.02;
-                                                    echo $utility->money($sum)
-                                                        ?>
-                                                </strong>
-                                            </td>
-
-                                        </tr>
-                                        <?php
-                                    }
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+                      <table class="table text-right">
+                        <thead class="text-white bg-dark">
+                          <tr>
+                            <th scope="col" class="rounded-start pe-2 text-start ps-2">Item</th>
+                            <th scope="col" class="pe-2">Qty</th>
+                            <th scope="col" class="pe-2" colspan="2">Rate</th>
+                            <th scope="col" class="rounded-end pe-2">Amount</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="text-sm text-dark text-start">Premium Support</td>
+                            <td class="text-sm text-dark ps-4">1</td>
+                            <td class="text-sm text-dark ps-4" colspan="2">$ 9.00</td>
+                            <td class="text-sm text-dark ps-4">$ 9.00</td>
+                          </tr>
+                          <tr>
+                            <td class="text-sm text-dark text-start">Corporate - Dashboard PRO</td>
+                            <td class="text-sm text-dark ps-4">3</td>
+                            <td class="text-sm text-dark ps-4" colspan="2">$ 99.00</td>
+                            <td class="text-sm text-dark ps-4">$ 297.00</td>
+                          </tr>
+                          <tr>
+                            <td class="text-sm text-dark text-start">Parts for service</td>
+                            <td class="text-sm text-dark ps-4">1</td>
+                            <td class="text-sm text-dark ps-4" colspan="2">$ 89.00</td>
+                            <td class="text-sm text-dark ps-4">$ 89.00</td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <th></th>
+                            <th></th>
+                            <th class="h5 ps-4" colspan="2">Total</th>
+                            <th colspan="1" class="text-right h5 ps-4">$ 395.00</th>
+                          </tr>
+                        </tfoot>
+                      </table>
                     </div>
-
+                  </div>
                 </div>
+              </div>
+              <div class="px-4 pb-4 mt-4 card-footer mt-md-5">
+                <div class="row">
+                  <div class="text-left col-lg-5">
+                    <h5>Thank you!</h5>
+                    <p class="text-sm text-secondary">If you encounter any issues related to the invoice you can contact us at:</p>
+                    <h6 class="mb-0 text-secondary">
+                      email:
+                      <span class="text-dark">support@creative-tim.com</span>
+                    </h6>
+                  </div>
+                  <div class="mt-3 col-lg-7 text-md-end mt-md-0">
+                    <button class="mb-0 text-white btn bg-dark mt-lg-7" onClick="window.print()" type="button" name="button"><i class="fa-solid fa-print me-2"></i>Print</button>
+                  </div>
+                </div>
+              </div>
             </div>
+          </form>
         </div>
+      </div>
+     
     </div>
-</div>

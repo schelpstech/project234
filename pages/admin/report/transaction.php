@@ -3,8 +3,16 @@
         <div class="card-header border-bottom pb-0">
             <div class="d-sm-flex align-items-center">
                 <div>
-                    <h6 class="font-weight-semibold text-lg mb-0">Transactions</h6>
-                    <p class="text-sm">See information about all personnel of the school</p>
+                    <h6 class="font-weight-semibold text-lg mb-0">Termly Invoices of
+                        <?php echo $sch_corporate_data['sch_name'] ?>
+                    </h6>
+                </div>
+                <div class="ms-auto d-flex">
+                    <a type="button"
+                        href="../../app/adminRouter.php?pageid=<?php echo base64_encode('financeProfile') ?>"
+                        class="mb-0 btn btn-sm btn-dark me-2">
+                        <strong>Back</strong>
+                    </a>
                 </div>
             </div>
         </div>
@@ -18,7 +26,11 @@
                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 align-middle">
                                 Invoice Type</th>
                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 align-middle">
-                                Amount</th>
+                                Bill Amount</th>
+                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 align-middle">
+                                Rebate Amount</th>
+                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 align-middle">
+                                 Amount Payable</th>
                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 align-middle">
                                 Status</th>
                             <th class="text-secondary opacity-7 align-middle">Created</th>
@@ -41,28 +53,61 @@
                                             <?php echo $data['invType'] ?>
                                         </p>
                                     </td>
-                                    <td class="align-middle">
+                                    <td class="text-center align-middle">
                                         <strong>
                                             <p class="text-sm text-dark font-weight-semibold mb-0">
                                                 <?php echo $utility->money($data['invAmount']) ?>
                                             </p>
                                         </strong>
                                     </td>
-
+                                    <td class="text-center align-middle">
+                                        <strong>
+                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                <?php echo $utility->money($data['rebateAmount']) ?>
+                                            </p>
+                                        </strong>
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <strong>
+                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                <?php echo $utility->money($data['amountPayable']) ?>
+                                            </p>
+                                        </strong>
+                                    </td>
                                     <td class="align-middle text-center text-sm">
                                         <?php
-                                        if ($data['invType'] == "Termly Remittance" && $data['invStatus'] == 0 && $data['vetting'] == 0) {
-                                            echo '<a  href="./index.php?pageid=' . base64_encode("schEnrolmentDetails") . '&termRef=' . $data["termRef"] . '" class="btn btn-dark btn-sm me-1" type="button">Pending Validation</a>';
-                                        } elseif ($data['invType'] == "Termly Remittance" && $data['invStatus'] == 0 && $data['vetting'] == 1) {
-                                            echo '<a  href="#" class="btn btn-primary btn-sm me-1" type="button">Pending Payment</a>';
-                                        } elseif ($data['invType'] == "Termly Remittance" && $data['invStatus'] == 1 && $data['vetting'] == 1) {
-                                            echo '<a href="#" class="btn btn-warning btn-sm me-1" type="button">Payment Awaiting Confirmation</a>';
-                                        } elseif ($data['invStatus'] == 2 && $data['vetting'] == 1) {
-                                            echo '<a href="#" class="btn btn-success btn-sm me-1" type="button">Payment Confirmed. Download Receipt</a>';
-                                        } else {
-                                            echo '<a  href="#" class="btn btn-danger btn-sm me-1" type="button">Contact Support</a>';
+                                        $invType = $data['invType'];
+                                        $invStatus = $data['invStatus'];
+                                        $vetting = $data['vetting'];
+
+                                        switch ($invType) {
+                                            case "Termly Remittance":
+                                                if ($invStatus == 0 && $vetting == 0) {
+                                                    echo
+                                                        '<a href="../../app/adminRouter.php?pageid=' . base64_encode("InvoiceDetails") . '&termRef=' . $data["termRef"] . '"
+                                                                    class="btn btn-dark btn-sm me-1" type="button">
+                                                                    Pending Validation. Click to Validate
+                                                        </a>';
+                                                } elseif ($invStatus == 0 && $vetting == 1) {
+                                                    echo '<a href="#" class="btn btn-primary btn-sm me-1" type="button">Pending Payment</a>';
+                                                } elseif ($invStatus == 1 && $vetting == 1) {
+                                                    echo '<a href="#" class="btn btn-warning btn-sm me-1" type="button">Payment Awaiting Confirmation</a>';
+                                                } elseif ($invStatus == 2 && $vetting == 1) {
+                                                    echo '<a href="#" class="btn btn-success btn-sm me-1" type="button">Payment Confirmed. Download Receipt</a>';
+                                                } else {
+                                                    echo '<a href="#" class="btn btn-danger btn-sm me-1" type="button">Contact Support</a>';
+                                                }
+                                                break;
+
+                                            default:
+                                                echo '<a href="#" class="btn btn-danger btn-sm me-1" type="button">Contact Support</a>';
+                                                break;
                                         }
                                         ?>
+
+
+
+
                                     </td>
 
                                     <td class="align-middle">

@@ -62,12 +62,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="example-text-input" class="form-control-label">Rebate Application</label>
-                            <select type="text" class="form-control" name="rebate" id="rebate" required="yes"
-                                onchange="switch_check_rebate();">
-                                <option value="">Select</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
+                            <label for="example-text-input" class="form-control-label">Rebate Applicable</label>
+                            <select type="text" class="form-control" name="rebate" id="rebate" required="yes">
                             </select>
                         </div>
                     </div>
@@ -76,20 +72,7 @@
                 </div>
                 <hr>
                 <hr>
-                <div class="row">
-                    <div class="col-md-6" id="showRebateAmount" style="display: none;">
-                        <div class="form-group">
-                            <label for="example-text-input" class="form-control-label">Rebate Amount</label>
-                            <input type="number" class="form-control" name="rebateAmount" id="rebateAmount">
-                        </div>
-                    </div>
-                    <div class="col-md-6" id="showRebateFile" style="display: none;">
-                        <div class="form-group">
-                            <label for="example-text-input" class="form-control-label">Rebate Approval Letter</label>
-                            <input type="file" class="form-control" name="rebateFile" id="rebateFile">
-                        </div>
-                    </div>
-                </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-check">

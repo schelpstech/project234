@@ -14,12 +14,16 @@
                 <table class="table table-flush" id="datatable-search">
                     <thead class="thead-light">
                         <tr>
-                            <th class="text-secondary text-xs font-weight-semibold opacity-7">Invoice ID</th>
-                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 align-middle">
+                            <th class="text-center text-xs font-weight-semibold ">Invoice ID</th>
+                            <th class="text-center text-xs font-weight-semibold ">
                                 Invoice Type</th>
-                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 align-middle">
-                                Amount</th>
-                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 align-middle">
+                            <th class="text-center text-xs font-weight-semibold ">
+                                Bill Amount</th>
+                            <th class="text-center text-xs font-weight-semibold ">
+                                Rebate Amount</th>
+                            <th class="text-center text-xs font-weight-semibold ">
+                                 Amount Payable</th>
+                            <th class="text-center text-xs font-weight-semibold ">
                                 Status</th>
                             <th class="text-secondary opacity-7 align-middle">Created</th>
                         </tr>
@@ -35,21 +39,35 @@
                                             <?php echo $data['invReference'] ?>
                                         </p>
                                     </td>
-                                    <td class="align-middle">
+                                    <td class=" text-center  align-middle">
                                         <p class="text-sm text-dark font-weight-semibold mb-0">
                                             <?php echo $data['termVariable'] ?> -
                                             <?php echo $data['invType'] ?>
                                         </p>
                                     </td>
-                                    <td class="align-middle">
+                                    <td class="text-center align-middle">
                                         <strong>
                                             <p class="text-sm text-dark font-weight-semibold mb-0">
                                                 <?php echo $utility->money($data['invAmount']) ?>
                                             </p>
                                         </strong>
                                     </td>
+                                    <td class="text-center align-middle">
+                                        <strong>
+                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                <?php echo $utility->money($data['rebateAmount']) ?>
+                                            </p>
+                                        </strong>
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <strong>
+                                            <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                <?php echo $utility->money($data['amountPayable']) ?>
+                                            </p>
+                                        </strong>
+                                    </td>
 
-                                    <td class="align-middle text-center text-sm">
+                                    <td class="text-center align-middle text-center text-sm">
                                         <?php
                                         if ($data['invStatus'] == 0 && $data['vetting'] == 0) {
                                             echo '<a  href="#" class="btn btn-dark btn-sm me-1" type="button">Pending Validation</a>';

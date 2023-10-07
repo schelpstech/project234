@@ -9,36 +9,30 @@
                         approval by the secretariat</p>
                 </div>
                 <div class="ms-auto d-flex">
-                    <a type="button" href="../../app/router.php?pageid=<?php echo base64_encode('school_dashboard') ?>"
-                        class="mb-0 btn btn-sm btn-dark me-2">
+                    <a type="button" href="../../app/router.php?pageid=<?php echo base64_encode('school_dashboard') ?>" class="mb-0 btn btn-sm btn-dark me-2">
                         <strong>Home</strong>
                     </a>
                 </div>
             </div>
-
-            <form role="form" class="text-start" autocomplete="off" action="../../app/classHandler.php" method="post"
-                enctype="multipart/form-data">
+            <form role="form" class="text-start" autocomplete="off" action="../../app/classHandler.php" method="post" enctype="multipart/form-data">
                 <hr>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">School code:</label>
-                            <input type="text" class="form-control" value="<?php echo $_SESSION['active'] ?>"
-                                disabled />
+                            <input type="text" class="form-control" value="<?php echo $_SESSION['active'] ?>" disabled />
                         </div>
                     </div>
                     <div class="col-md-4" style="display: none;" hidden="yes">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">School code:</label>
-                            <input type="text" class="form-control" value="<?php echo $_SESSION['active'] ?>"
-                                name="sch_code" />
+                            <input type="text" class="form-control" value="<?php echo $_SESSION['active'] ?>" name="sch_code" />
                         </div>
                     </div>
                     <div class="col-md-8">
                         <label for="example-text-input" class="form-control-label">School name</label>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="sch_name" disabled
-                                value="<?php echo $sch_corporate_data['sch_name'] ?>" />
+                            <input type="text" class="form-control" name="sch_name" disabled value="<?php echo $sch_corporate_data['sch_name'] ?>" />
                         </div>
                     </div>
 
@@ -53,7 +47,7 @@
                                 <?php
                                 $option = $model->select_all('tblcurrent_term');
                                 foreach ($option as $data) {
-                                    echo '<option value="' . $data['id'] . '">' . $data['termVariable'].'</option>';
+                                    echo '<option value="' . $data['id'] . '">' . $data['termVariable'] . '</option>';
                                 }
                                 ?>
                             </select>
@@ -66,7 +60,7 @@
                                 <option value="">select</option>
                                 <?php
                                 foreach ($availableClass as $data) {
-                                    echo '<option value="' . $data['id'] . '">' . $data['className'].'</option>';
+                                    echo '<option value="' . $data['id'] . '">' . $data['className'] . '</option>';
                                 }
                                 ?>
                             </select>
@@ -82,18 +76,17 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label">Class Tuition Fee <i>(per student)</i>
+                        <label for="example-text-input" class="form-control-label">Class Tuition Fee <i>(per
+                                student)</i>
                             </i>:</label>
                         <div class="form-group">
                             <input type="number" min="1" class="form-control" name="tuition" id="tuition" />
                         </div>
                     </div>
                 </div>
-
-
-
                 <hr>
-                <button type="submit" name="submit_enrolment_form" class="btn btn-dark active btn-lg w-100">Submit Termly Class
+                <button type="submit" name="submit_enrolment_form" class="btn btn-dark active btn-lg w-100">Submit
+                    Termly Class
                     Billing Information</button>
             </form>
         </div>
@@ -114,7 +107,6 @@
                     </div>
                 </div>
                 <div class="card-body px-0 py-0">
-
                     <div class="table-responsive">
                         <table class="table table-flush" id="datatable-search">
                             <thead class="thead-light">
@@ -135,7 +127,7 @@
                                 $count = 1;
                                 if (!empty($enrolmentList)) {
                                     foreach ($enrolmentList as $data) {
-                                        ?>
+                                ?>
                                         <tr>
                                             <td class="text-sm font-weight-normal">
 
@@ -156,50 +148,63 @@
                                             <td class="text-sm font-weight-normal" style="width:10%; word-wrap: normal;">
                                                 <p class=" text-sm text-dark font-weight-semibold mb-0">
                                                     <?php
-                                                    echo $data['className'] 
-                                                        ?>
+                                                    echo $data['className']
+                                                    ?>
                                                 </p>
                                             </td>
                                             <td class="align-middle text-center text-sm">
                                                 <?php
                                                 echo $data['population']
-                                                    ?>
+                                                ?>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                            <?php
+                                                <?php
                                                 echo $utility->money($data['tuition'])
+                                                ?>
+                                            </td>
+                                            <td class="align-middle">
+                                                <strong>
+                                                    <?php
+                                                    echo $utility->money(($data['population'] * $data['tuition']) * 0.02)
                                                     ?>
+                                                </strong>
                                             </td>
                                             <td class="align-middle">
-                                            <strong> <?php
-                                                echo $utility->money(($data['population'] * $data['tuition']) * 0.02)
-                                                    ?></strong>
-                                            </td>
-                                            <td class="align-middle">
-                                                <div class="dropdown">
-                                                    <button class="btn bg-gradient-dark dropdown-toggle" type="button"
-                                                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Action
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <li><a class="dropdown-item"
-                                                                href="../../app/router.php?pageid=<?php echo base64_encode('editEnrolment') ?>&enrolmentRef=<?php echo($data['recordid']) ?>&action=0">Edit</a>
-                                                        </li>
-                                                        <li><a class="dropdown-item"
-                                                                href="../../app/router.php?pageid=<?php echo base64_encode('editEnrolment') ?>&enrolmentRef=<?php echo($data['recordid']) ?>&action=1">Remove</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                <?php
+
+                                                if ($data['filed'] == 0) {
+                                                    echo '
+                                                            <div class="dropdown">
+                                                                <button class="btn bg-gradient-dark dropdown-toggle" type="button"
+                                                                    id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    Action
+                                                                </button>
+                                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                    <li><a class="dropdown-item"
+                                                                            href="../../app/router.php?pageid=' . base64_encode("editEnrolment") . '&enrolmentRef=' . $data['recordid'] . '&action=0">Edit</a>
+                                                                    </li>
+                                                                    <li><a class="dropdown-item"
+                                                                            href="../../app/router.php?pageid=' . base64_encode("editEnrolment") . '&enrolmentRef=' . $data['recordid'] . '&action=0">Remove</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>';
+                                                } else {
+                                                    echo '<button class="btn bg-gradient-danger  type="button"
+                                                                aria-expanded="false">
+                                                                    Locked
+                                                        </button>';
+                                                }
+
+                                                ?>
                                             </td>
                                         </tr>
-                                        <?php
+                                <?php
                                     }
                                 }
                                 ?>
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>

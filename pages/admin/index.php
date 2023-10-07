@@ -70,10 +70,23 @@ include './inc/navbar.php';
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "rebateDetails") {
             $include = include "./report/rebate/rebateview.php";
         }
-///**** Rebate Ends
+//**** Rebate Ends
+
+
+//******Invoice Manager Starts
+
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "financeProfile") {
             $include = include "./report/financeProfile.php";
-        } elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "userProfile") {
+        } 
+
+        //School Invoice  Details 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schInvoicePage") {
+            $include = include "./report/transaction.php";
+        }
+        
+//******Invoice Manager Ends
+
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "userProfile") {
             $include = include "./forms/userprofile.php";
         } elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "activity_log") {
             $include = include "./report/activityLog.php";
@@ -116,10 +129,7 @@ include './inc/navbar.php';
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "ResetPassword") {
             $include = include "./forms/accesscode.php";
         }
-        //School Invoice  Details 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schInvoicePage") {
-            $include = include "./report/transaction.php";
-        }
+        
         else {
             $include = include "./report/dashboard.php";
         }

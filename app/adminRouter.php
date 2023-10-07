@@ -38,11 +38,6 @@ if ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schoolProfile
 
 
 
-elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "financeProfile") {
-    $_SESSION['pageName'] = "School Invoice List";
-    $_SESSION['pageDescription']  = "School Finance Portal";
-    $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
-}
 
 
 elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "userProfile") {
@@ -150,17 +145,7 @@ elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "ResetPass
     $_SESSION['pageDescription']  = "Reset Password in the Selected School";
     $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
 }
-//School Invoice  Details 
-elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schInvoicePage") {
-    $_SESSION['schCode'] = $_GET['schCode'];
-    $_SESSION['pageName'] = "School Invoice Details";
-    $_SESSION['identifier']  = '<h6 class="font-weight-semibold text-lg mb-0">
-                    Invoices for School with Code :: ' . $_SESSION['schCode'] ?? "" . '
-                    </h6>';
-    $_SESSION['pageDescription']  = "View and Validate  Invoices of Selected School";
 
-    $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
-}
 
 //******Enrolment Starts
             //Enrolment Page
@@ -214,6 +199,22 @@ elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schInvoic
 //******Rebate Ends
 
 
+//******Invoice Manager Starts
+
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "financeProfile") {
+            $_SESSION['pageName'] = "School Invoice List";
+            $_SESSION['pageDescription']  = "School Finance Portal";
+            $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
+        }
+
+        //School Invoice  Details 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schInvoicePage") {
+            $_SESSION['schCode'] = $_GET['schCode'];
+            $_SESSION['pageName'] = "School Termly Remittance Invoice";
+            $_SESSION['pageDescription']  = 'View and Validate Invoices of Selected School with Code :: ' . $_SESSION['schCode'] ?? "";
+            $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
+        }
+//******Invoice Manager Ends
 else {
     $_SESSION['pageName'] = "Admin Dashboard";
     $_SESSION['identifier']  = '<h6 class="font-weight-semibold text-lg mb-0">
