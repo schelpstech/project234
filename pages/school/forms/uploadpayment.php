@@ -61,8 +61,8 @@
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Invoice Amount</label>
                             <select type="text" class="form-control" name="termAmount" id="termAmount">
-                                <option value="<?php echo $invoiceDetails['invAmount'] ?>">
-                                    <?php echo $invoiceDetails['invAmount'] ?>
+                                <option value="<?php echo $invoiceDetails['amountPayable'] ?>">
+                                    <?php echo $invoiceDetails['amountPayable'] ?>
                                 </option>
                             </select>
                         </div>
@@ -75,7 +75,6 @@
                             <select type="text" class="form-control" name="paymentType" id="paymentType">
                                 <option value="">select</option>
                                 <option value="full">Full</option>
-                                <option value="part">Part</option>
                             </select>
                         </div>
                     </div>

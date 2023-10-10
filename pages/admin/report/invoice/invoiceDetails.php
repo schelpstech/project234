@@ -8,16 +8,13 @@
                     </h6>
                 </div>
                 <div class="ms-auto d-flex">
-                    <a type="button"
-                        href="../../app/adminRouter.php?pageid=<?php echo base64_encode('financeProfile') ?>"
-                        class="mb-0 btn btn-sm btn-dark me-2">
+                    <a type="button" href="../../app/adminRouter.php?pageid=<?php echo base64_encode('financeProfile') ?>" class="mb-0 btn btn-sm btn-dark me-2">
                         <strong>Back</strong>
                     </a>
                 </div>
             </div>
         </div>
         <div class="card-body px-0 py-0">
-
             <div class="table-responsive">
                 <table class="table table-flush" id="datatable-search">
                     <thead class="thead-light">
@@ -30,7 +27,7 @@
                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 align-middle">
                                 Rebate Amount</th>
                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 align-middle">
-                                 Amount Payable</th>
+                                Amount Payable</th>
                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 align-middle">
                                 Status</th>
                             <th class="text-secondary opacity-7 align-middle">Created</th>
@@ -40,7 +37,7 @@
                         <?php
                         if (!empty($invoiceList)) {
                             foreach ($invoiceList as $data) {
-                                ?>
+                        ?>
                                 <tr>
                                     <td>
                                         <p class="text-sm text-dark font-weight-semibold mb-0">
@@ -84,12 +81,13 @@
                                             case "Termly Remittance":
                                                 if ($invStatus == 0 && $vetting == 0) {
                                                     echo
-                                                        '<a href="../../app/adminRouter.php?pageid=' . base64_encode("InvoiceDetails") . '&termRef=' . $data["termRef"] . '"
+                                                    '<a href="../../app/adminRouter.php?pageid=' . base64_encode("termlyRemittanceInvoice") . '&termRef=' . $data["termRef"] . '"
                                                                     class="btn btn-dark btn-sm me-1" type="button">
                                                                     Pending Validation. Click to Validate
                                                         </a>';
                                                 } elseif ($invStatus == 0 && $vetting == 1) {
-                                                    echo '<a href="#" class="btn btn-primary btn-sm me-1" type="button">Pending Payment</a>';
+                                                    echo '<a href="../../app/adminRouter.php?pageid=' . base64_encode("termlyRemittanceInvoice") . '&termRef=' . $data["termRef"] . '"
+                                                     class="btn btn-primary btn-sm me-1" type="button">Pending Payment</a>';
                                                 } elseif ($invStatus == 1 && $vetting == 1) {
                                                     echo '<a href="#" class="btn btn-warning btn-sm me-1" type="button">Payment Awaiting Confirmation</a>';
                                                 } elseif ($invStatus == 2 && $vetting == 1) {
@@ -98,25 +96,19 @@
                                                     echo '<a href="#" class="btn btn-danger btn-sm me-1" type="button">Contact Support</a>';
                                                 }
                                                 break;
-
                                             default:
                                                 echo '<a href="#" class="btn btn-danger btn-sm me-1" type="button">Contact Support</a>';
                                                 break;
                                         }
                                         ?>
-
-
-
-
                                     </td>
-
                                     <td class="align-middle">
                                         <p class="text-sm text-dark font-weight-semibold mb-0">
                                             <?php echo $data['recordTime'] ?>
                                         </p>
                                     </td>
                                 </tr>
-                                <?php
+                        <?php
                             }
                         }
                         ?>

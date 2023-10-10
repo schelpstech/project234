@@ -76,12 +76,17 @@ include './inc/navbar.php';
 //******Invoice Manager Starts
 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "financeProfile") {
-            $include = include "./report/financeProfile.php";
+            $include = include "./report/invoice/financeProfile.php";
         } 
 
-        //School Invoice  Details 
+        //School Created Invoice  Details 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schInvoicePage") {
-            $include = include "./report/transaction.php";
+            $include = include "./report/invoice/invoiceDetails.php";
+        }
+
+        //School Termly remittance Invoice  Details 
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "termlyRemittanceInvoice") {
+            $include = include "./report/invoice/termlyInvoice.php";
         }
         
 //******Invoice Manager Ends

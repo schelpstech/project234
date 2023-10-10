@@ -368,4 +368,20 @@ $conditions = [
 ];
 $invoiceReport = $model->getRows($tableName, $conditions);
 
+if (isset($_SESSION['schCode']) && isset($_SESSION['termRef'])) {
+    $tableName = '_tbl_termlyinvoice';
+    $conditions = [
+        'where' => [
+            '_tbl_termlyinvoice.schCode' => $_SESSION['schCode'],
+            '_tbl_termlyinvoice.termRef' => $_SESSION['termRef'],
+        ],
+        'joinl' => [
+            'tblcurrent_term' => ' on _tbl_termlyinvoice.termRef = tblcurrent_term.id'
+        ],
+        'return_type' => 'single',
+    ];
+    $termlyRemittance = $model->getRows($tableName, $conditions);
+}
+
+
 //******** Rebate Ends

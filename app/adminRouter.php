@@ -169,7 +169,6 @@ elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "ResetPass
 
             //School Termly Enrolment  Details 
             elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schEnrolmentDetails") {
-
                 $_SESSION['termRef'] = $_GET['termRef'];
                 $_SESSION['pageName'] = "School Enrolment Record - Class -Tuition Breakdown";
                 $_SESSION['pageDescription']  =  'Termly Enrolment Record for School with Code :: '.$_SESSION['schCode'];
@@ -210,9 +209,17 @@ elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "ResetPass
         //School Invoice  Details 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schInvoicePage") {
             $_SESSION['schCode'] = $_GET['schCode'];
-            $_SESSION['pageName'] = "School Termly Remittance Invoice";
+            $_SESSION['pageName'] = "School Termly Invoice";
             $_SESSION['pageDescription']  = 'View and Validate Invoices of Selected School with Code :: ' . $_SESSION['schCode'] ?? "";
             $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
+        }
+
+         //School Invoice  Details 
+         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "termlyRemittanceInvoice") {
+            $_SESSION['termRef'] = $_GET['termRef'];
+            $_SESSION['pageName'] = "School Termly Remittance Invoice";
+            $_SESSION['pageDescription']  = 'View and Validate the invoice of Selected Term in the School with Code :: ' . $_SESSION['schCode'] ?? "";
+            $model->redirect('../pages/admin/index.php?pageid='.$_GET['pageid']);
         }
 //******Invoice Manager Ends
 else {
