@@ -106,14 +106,14 @@ elseif (isset($_POST['replyTicketForm']) && isset($_SESSION['activeAdmin']) ) {
             if ($model->upDate('_tbl_ticket', $ticket_data, $condition) == true && $model->insert_data('_tbl_conversation', $conversation_data) == true) {
                 $user->recordLog( $_POST['sch_code'], 'Support Ticket Reply', 'A new reply has been updated on support ticket #' . $_SESSION['ticketid'] . ' for school with code : ' . $_POST['schCode']);
                 $utility->notifier('success', 'Your reply has been submitted for school with code: ' . $_POST['sch_code']);
-                $model->redirect('../app/adminRouter.php?pageid=' . base64_encode('conversation') . '&ticketid=' . $_SESSION['ticketid'].'&schCode='.$_POST['schCode']);
+                $model->redirect('./adminRouter.php?pageid=' . base64_encode('conversation') . '&ticketid=' . $_SESSION['ticketid'].'&schCode='.$_POST['schCode']);
             } else {
                 $utility->notifier('dark', 'There was an error submitting the reply to your support ticket for school with code: ' . $_POST['sch_code']);
-                $model->redirect('../app/adminRouter.php?pageid=' . base64_encode('conversation') . '&ticketid=' . $_SESSION['ticketid'].'&schCode='.$_POST['schCode']);
+                $model->redirect('./adminRouter.php?pageid=' . base64_encode('conversation') . '&ticketid=' . $_SESSION['ticketid'].'&schCode='.$_POST['schCode']);
             }
         } else {
             $utility->notifier('danger', 'There are some missing fields. Ensure all fields are inputed.');
-            $model->redirect('../app/adminRouter.php?pageid=' . base64_encode('conversation') . '&ticketid=' . $_SESSION['ticketid'].'&schCode='.$_POST['schCode']);
+            $model->redirect('./adminRouter.php?pageid=' . base64_encode('conversation') . '&ticketid=' . $_SESSION['ticketid'].'&schCode='.$_POST['schCode']);
         }
     
 }
