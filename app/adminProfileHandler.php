@@ -1,5 +1,7 @@
 <?php
 include '../model/query.php';
+
+
 //Change Password
 if (isset($_POST['profileUpdate']) && isset($_SESSION['current_page']) && ($_SESSION['current_page']) == 'Authentication') {
     //Check Token

@@ -7,7 +7,11 @@ if ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schoolProfile
     $_SESSION['pageDescription']  = "School Profile information";
     $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
 } 
-
+elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schoolCreate") {
+    $_SESSION['pageName'] = "Create New CRSM School Profile";
+    $_SESSION['pageDescription']  = "Create New CRSM School Profile on the CRSM Portal";
+    $model->redirect('../pages/admin/index.php?pageid=' . $_GET['pageid']);
+} 
 //******** Personnel Starts
             //Personnel Reports
             elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "personnelProfile") {

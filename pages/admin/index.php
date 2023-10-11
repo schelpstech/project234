@@ -30,9 +30,11 @@ include './inc/navbar.php';
         <?php
 
         if ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schoolProfile") {
-            $include = include "./report/profile.php";
+            $include = include "./report/profile/profile.php";
         } 
-
+        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schoolCreate") {
+            $include = include "./report/profile/createSchool.php";
+        }
 
 //***Personnel Pages Starts
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "personnelProfile") {
