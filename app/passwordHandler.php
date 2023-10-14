@@ -16,8 +16,10 @@ if (isset($_POST['changePassword']) && isset($_SESSION['current_page']) && ($_SE
     ];
     $user_details = $model->getRows($tblName, $conditions);
 
-    //Verify existing password
+// Check if password is a new variable
+    if(convert_uuencode($newpwd) != $user_details['user_password']){
 
+    //Verify existing password
     if($user_details['user_password'] === 'abcd1234'){
         if($oldpwd === $user_details['user_password'] && $newpwd == $confirmpwd && strlen($newpwd) >= 8 && strlen($newpwd) <=16 ){
             $condition = [
@@ -63,6 +65,10 @@ if (isset($_POST['changePassword']) && isset($_SESSION['current_page']) && ($_SE
             $model->redirect('./router.php?pageid=' . base64_encode('accesscode'));
         }
     }
+}else {
+    $utility->notifier('dark', 'Ooops: You can not change your password to your existing password Try again! ');
+    $model->redirect('./router.php?pageid=' . base64_encode('accesscode'));
+}
 
 
 }elseif (isset($_POST['resetSchPassword']) && isset($_SESSION['activeAdmin']) ) {
