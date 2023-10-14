@@ -49,7 +49,7 @@ if (isset($_POST['go_@head']) && $_POST['go_@head'] === ' login _now_ ') {
             $password = $login_details['user_password'];
         }
 
-        if ($password === "abcd1234" && $password === $userpwd) {
+        if ($password === "abcd1234" && $password == $userpwd) {
             //Check Active Status
             if (isset($login_details['access_status']) && $login_details['access_status'] == 1) {
                 $_SESSION['active'] = $_POST["school_code"];
@@ -61,7 +61,7 @@ if (isset($_POST['go_@head']) && $_POST['go_@head'] === ' login _now_ ') {
                 $utility->notifier('danger', 'Access Denied! Contact administrator');
                 $model->redirect($_SERVER['HTTP_REFERER']);
             }
-        } elseif ($password != "abcd1234" && $password === convert_uuencode($userpwd)) {
+        } elseif ($password != "abcd1234" && $password == convert_uuencode($userpwd)) {
             //Check Active Status
             if (isset($login_details['access_status']) && $login_details['access_status'] == 1) {
                 $_SESSION['active'] = $_POST["school_code"];
