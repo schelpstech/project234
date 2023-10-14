@@ -26,7 +26,7 @@ if (isset($_POST['changePassword']) && isset($_SESSION['current_page']) && ($_SE
                 'user_name' => $_SESSION['active'],
             ];
             $password_data = [
-                'user_password' => convert_uuencode($newpwd) ,
+                'user_password' => htmlspecialchars(convert_uuencode($newpwd)),
             ];
 
             if ($model->upDate($tblName, $password_data, $condition) == true) {
@@ -48,7 +48,7 @@ if (isset($_POST['changePassword']) && isset($_SESSION['current_page']) && ($_SE
                 'user_name' => $_SESSION['active'],
             ];
             $password_data = [
-                'user_password' => convert_uuencode($newpwd) ,
+                'user_password' => htmlspecialchars(convert_uuencode($newpwd)),
             ];
 
             if ($model->upDate($tblName, $password_data, $condition) == true) {
