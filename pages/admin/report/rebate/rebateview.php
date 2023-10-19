@@ -28,7 +28,7 @@
                                     <a class="d-block blur-shadow-image">
                                         <iframe width="1200" height="800" src="../<?php echo $rebateView['rebateLetter'] ?>" 
                                                 title="<?php echo $rebateView['termVariable'] ?> Rebate Application for <?php echo $sch_corporate_data['sch_name'] ?>" 
-                                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+                                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="yes">
                                         </iframe>
                                     </a>
                                 </div>
