@@ -82,7 +82,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="example-text-input" class="form-control-label">Rebate Application
-                            Letter - PDF Only</i>:</label>
+                            Document - PDF Only</i>: <a style="color: red;" href="../../assets/storage/rebateDocument/rebatetemplate.xlsx">Click to download template</a></label>
                         <div class="form-group">
                             <input type="file" class="form-control" name="rebateLetter" required="yes"
                                 accept=".pdf" />
