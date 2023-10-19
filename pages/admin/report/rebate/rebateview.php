@@ -26,8 +26,9 @@
                             <div class="card card-blog card-plain">
                                 <div class="position-relative">
                                     <a class="d-block blur-shadow-image">
-                                        <img src="../<?php echo $rebateView['rebateLetter'] ?>" alt="img-blur-shadow"
-                                            class="img-fluid shadow border-radius-lg">
+                                        <iframe src="../<?php echo $rebateView['rebateLetter'] ?>" alt="img-blur-shadow"
+                                            class="img-fluid shadow border-radius-lg" width="100%" height="100%" >
+                                        </iframe>
                                     </a>
                                 </div>
                                 <div class="card-body px-0 pt-4">

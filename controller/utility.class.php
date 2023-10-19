@@ -115,7 +115,7 @@ class Utility
   
     // Check if the file type is allowed
     if (!in_array($fileType, $allowedTypes)) {
-      return "Invalid file type. Please upload an image file.";
+      return "Invalid file type. Please upload a file in the required format.";
     }
   
     // Check if the file size is within the limit
