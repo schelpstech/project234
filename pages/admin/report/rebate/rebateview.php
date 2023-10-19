@@ -27,7 +27,7 @@
                                 <div class="position-relative">
                                     <a class="d-block blur-shadow-image">
                                         <iframe src="../<?php echo $rebateView['rebateLetter'] ?>" alt="img-blur-shadow"
-                                            class="img-fluid shadow border-radius-lg" width="100%" height="100%" >
+                                            class="img-fluid shadow border-radius-lg" width="auto" height="auto" >
                                         </iframe>
                                     </a>
                                 </div>
