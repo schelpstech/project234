@@ -26,8 +26,9 @@
                             <div class="card card-blog card-plain">
                                 <div class="position-relative">
                                     <a class="d-block blur-shadow-image">
-                                        <iframe src="../<?php echo $rebateView['rebateLetter'] ?>" alt="img-blur-shadow"
-                                            class="img-fluid shadow border-radius-lg" width="100%" height="800px" >
+                                        <iframe width="600" height="800" src="../<?php echo $rebateView['rebateLetter'] ?>" 
+                                                title="<?php echo $rebateView['termVariable'] ?> Rebate Application for <?php echo $sch_corporate_data['sch_name'] ?>" 
+                                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
                                         </iframe>
                                     </a>
                                 </div>
