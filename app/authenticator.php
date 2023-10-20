@@ -18,7 +18,7 @@ if (isset($_POST['go_@head']) && $_POST['go_@head'] === ' login _now_ ') {
     if (!isset($_POST["password"])) {
         $notification_message .= 'Password field must not be empty!.<br/>';
     } else {
-        $userpwd = htmlspecialchars($_POST["password"]);
+        $userpwd = ($_POST["password"]);
     }
 
     //check if username exist 
@@ -61,7 +61,7 @@ if (isset($_POST['go_@head']) && $_POST['go_@head'] === ' login _now_ ') {
                 $utility->notifier('danger', 'Access Denied! Contact administrator');
                 $model->redirect($_SERVER['HTTP_REFERER']);
             }
-        } elseif ($password != "abcd1234" && $password === convert_uuencode($userpwd)) {
+        } elseif ($password != "abcd1234" && $password === $utility->inputEncode($userpwd)) {
             //Check Active Status
             if (isset($login_details['access_status']) && $login_details['access_status'] == 1) {
                 $_SESSION['active'] = $_POST["school_code"];
@@ -86,7 +86,7 @@ if (isset($_POST['go_@head']) && $_POST['go_@head'] === ' login _now_ ') {
         $utility->notifier('danger', 'Access Denied! Invalid Login Credentials!');
         $model->redirect($_SERVER['HTTP_REFERER']);
     }
-}elseif (isset($_POST['adminAuthenticator']) && $_POST['adminAuthenticator'] === ' login _now_ ') {
+} elseif (isset($_POST['adminAuthenticator']) && $_POST['adminAuthenticator'] === ' login _now_ ') {
     // Retrieve form input
 
     if (!isset($_POST["username"])) {
@@ -101,9 +101,9 @@ if (isset($_POST['go_@head']) && $_POST['go_@head'] === ' login _now_ ') {
         $userpwd = htmlspecialchars($_POST["password"]);
     }
 
-     //check if username exist 
+    //check if username exist 
     $tblName = "_tbl_admin_access";
-     $conditions = [
+    $conditions = [
         'return_type' => 'count',
         'where' => [
             'accessName' => $userid,
@@ -128,7 +128,7 @@ if (isset($_POST['go_@head']) && $_POST['go_@head'] === ' login _now_ ') {
         if (isset($login_details['accessKey'])) {
             $password = $login_details['accessKey'];
         }
-if ( $userpwd === convert_uudecode($password)) {
+        if ($userpwd === convert_uudecode($password)) {
             //Check Active Status
             if (isset($login_details['accessStatus']) && $login_details['accessStatus'] == 1) {
                 $_SESSION['activeAdmin'] = $_POST["username"];
@@ -153,9 +153,7 @@ if ( $userpwd === convert_uudecode($password)) {
         $utility->notifier('danger', 'Access Denied! Invalid Login Credentials!');
         $model->redirect($_SERVER['HTTP_REFERER']);
     }
-
-
-}elseif (isset($_POST['log_out_user']) && base64_decode($_POST['log_out_user']) == 'log_out_user_form') {
+} elseif (isset($_POST['log_out_user']) && base64_decode($_POST['log_out_user']) == 'log_out_user_form') {
 
     $user->recordLog($_SESSION['active'], 'Logout', 'Closed Session');
     $model->log_out_user();

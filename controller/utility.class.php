@@ -151,7 +151,52 @@ class Utility
     // Return the calculated age
     return $ageInterval->y;
 }
-  
+
+public function inputEncode($input)
+{
+    // Step 1: Base64 encode
+    $base64Encoded = base64_encode($input);
+
+    // Step 2: Hexadecimal encoding of the Base64-encoded data
+    $hexEncoded = bin2hex($base64Encoded);
+
+    return $hexEncoded;
+}
+
+public function inputDecode($encodedData)
+{
+    // Step 1: Hexadecimal to binary
+    $binary = hex2bin($encodedData);
+
+    // Step 2: Base64 decoding of the binary data
+    $decodedBase64 = base64_decode($binary);
+
+    return $decodedBase64;
+}
+
+public function encodePassword($input)
+{
+    // Step 1: Base64 encode
+    $base64Encoded = base64_encode($input);
+
+    // Step 2: Hexadecimal encoding of the Base64-encoded data
+    $hexEncoded = bin2hex($base64Encoded);
+
+    // Generate a salt for bcrypt (typically, the salt is automatically generated)
+    $salt = password_hash($hexEncoded, PASSWORD_BCRYPT);
+
+    // Hash the password with bcrypt and the generated salt
+    $hashedPassword = password_hash($hexEncoded, PASSWORD_BCRYPT, ['salt' => $salt]);
+
+    return $hashedPassword;
+}
+
+public function verifyPassword($inputPassword, $storedHashedPassword)
+{
+    // Verify the password using bcrypt
+    return password_verify($inputPassword, $storedHashedPassword);
+}
+
 
 }
 
