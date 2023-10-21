@@ -138,7 +138,8 @@ include '../../model/dashboard.php';
                         <div class="d-flex mb-4">
                             <small class="mb-0">validation: </small>
                             <div class="form-check form-switch ms-auto">
-                                <input class="form-check-input" disabled <?php echo ($check_corporate['vetting'] == 1) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
+                                <input class="form-check-input" disabled
+                                    <?php echo ($check_corporate['vetting'] == 1) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
                                     type="checkbox" id="flexSwitchCheckHumidity">
                             </div>
                         </div>
@@ -157,7 +158,8 @@ include '../../model/dashboard.php';
                         <div class="d-flex mb-4">
                             <small class="mb-0">validation: </small>
                             <div class="form-check form-switch ms-auto">
-                                <input class="form-check-input" disabled <?php echo ((!empty($check_phone['vetted'])) && (!empty($check_email['vetted'])) && $check_phone['vetted'] == 1 && $check_email['vetted'] == 1 && $check_address['vetted'] == 1) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
+                                <input class="form-check-input" disabled
+                                    <?php echo ((!empty($check_phone['vetted'])) && (!empty($check_email['vetted'])) && $check_phone['vetted'] == 1 && $check_email['vetted'] == 1 && $check_address['vetted'] == 1) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
                                     type="checkbox" id="flexSwitchCheckHumidity">
                             </div>
                         </div>
@@ -182,7 +184,8 @@ include '../../model/dashboard.php';
                         <div class="d-flex mb-4">
                             <small class="mb-0">validation: </small>
                             <div class="form-check form-switch ms-auto">
-                                <input class="form-check-input" disabled <?php echo ($count_approvals >= 1 && $vetted_approvals >= 1 && $count_approvals == $vetted_approvals) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
+                                <input class="form-check-input" disabled
+                                    <?php echo ($count_approvals >= 1 && $vetted_approvals >= 1 && $count_approvals == $vetted_approvals) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
                                     type="checkbox" id="flexSwitchCheckHumidity">
                             </div>
                         </div>
@@ -201,12 +204,12 @@ include '../../model/dashboard.php';
                         <div class="d-flex mb-4">
                             <small class="mb-0">validation: </small>
                             <div class="form-check form-switch ms-auto">
-                                <input class="form-check-input" disabled <?php echo ($count_facility >= 1 && $vetted_facility >= 1 && $count_facility == $vetted_facility) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
+                                <input class="form-check-input" disabled
+                                    <?php echo ($count_facility >= 1 && $vetted_facility >= 1 && $count_facility == $vetted_facility) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
                                     type="checkbox" id="flexSwitchCheckHumidity">
                             </div>
                         </div>
-                        <img src="../../assets/img/small-logos/school.svg" width="150" height="150"
-                            class="avatar avatar-lg" alt="logo spotify">
+                        <img src="../../assets/img/small-logos/facility.png" class="avatar avatar-md   me-3 " alt="Facility">
                         <p class="mt-4 font-weight-bold mb-0">Facility Records</p>
                         <span class="text-xs">
                             <?php echo (!empty($count_facility)) ? "<strong>" . $count_facility . " Facility records submitted</strong>" : "<strong>No Facility record</strong>" ?>
@@ -223,7 +226,8 @@ include '../../model/dashboard.php';
                         <div class="d-flex mb-4">
                             <small class="mb-0">validation: </small>
                             <div class="form-check form-switch ms-auto">
-                                <input class="form-check-input" disabled <?php echo ($count_personnel >= 1 && $vetted_personnel >= 1 && $count_personnel == $vetted_personnel) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
+                                <input class="form-check-input" disabled
+                                    <?php echo ($count_personnel >= 1 && $vetted_personnel >= 1 && $count_personnel == $vetted_personnel) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
                                     type="checkbox" id="flexSwitchCheckHumidity">
                             </div>
                         </div>
@@ -240,17 +244,18 @@ include '../../model/dashboard.php';
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="d-flex mb-4">
-                            <small class="mb-0">Active: </small>
+                            <small class="mb-0">validation: </small>
                             <div class="form-check form-switch ms-auto">
-                                <input class="form-check-input" disabled <?php echo ($count_personnel >= 1 && $vetted_personnel >= 1 && $count_personnel == $vetted_personnel) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
+                                <input class="form-check-input" disabled
+                                    <?php echo ($JTreport_status >= 1) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
                                     type="checkbox" id="flexSwitchCheckHumidity">
                             </div>
                         </div>
-                        <img src="../../assets/img/small-logos/vacancy.svg" class="avatar avatar-md   me-3 "
+                        <img src="../../assets/img/small-logos/jesus.svg" class="avatar avatar-md   me-3 "
                             alt="Personnel">
-                        <p class="mt-4 mb-0 font-weight-bold">Job Vacancy</p>
+                        <p class="mt-4 mb-0 font-weight-bold">Termly Jesus Time Report</p>
                         <span class="text-xs">
-                            <?php echo (!empty($count_personnel)) ? "<strong>" . $count_personnel . " Job Vacancy  Posted</strong>" : "<strong>No Job Vacancy Post</strong>" ?>
+                            <?php echo (!empty($JTreport_status)) ? "<strong> Submitted</strong>" : "<strong>No Jesus Time Report for this Term </strong>" ?>
                         </span>
                     </div>
                 </div>
@@ -261,15 +266,16 @@ include '../../model/dashboard.php';
                         <div class="d-flex mb-4">
                             <small class="mb-0">validation: </small>
                             <div class="form-check form-switch ms-auto">
-                                <input class="form-check-input" disabled <?php echo ($count_personnel >= 1 && $vetted_personnel >= 1 && $count_personnel == $vetted_personnel) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
+                                <input class="form-check-input" disabled
+                                    <?php echo ($enrolmentReport_status >= 1 && $countClasses == $enrolmentReport_status) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
                                     type="checkbox" id="flexSwitchCheckHumidity">
                             </div>
                         </div>
-                        <img src="../../assets/img/small-logos/payment.svg" class="avatar avatar-md   me-3 "
+                        <img src="../../assets/img/small-logos/enrolment.svg" class="avatar avatar-md   me-3 "
                             alt="Personnel">
-                        <p class="mt-4 mb-0 font-weight-bold">Annual Remittance</p>
+                        <p class="mt-4 mb-0 font-weight-bold">Termly Enrolment Report</p>
                         <span class="text-xs">
-                            <?php echo (!empty($count_personnel)) ? "<strong>" . $count_personnel . " Termly Remittance records submitted</strong>" : "<strong>No Termly Remittance record</strong>" ?>
+                            <?php echo (!empty($enrolmentReport_status)) ? "<strong>" . $enrolmentReport_status ." of ".$countClasses." Termly Enrolment records submitted</strong>" : "<strong>No Termly Enrolment record</strong>" ?>
                         </span>
                     </div>
                 </div>
@@ -278,17 +284,18 @@ include '../../model/dashboard.php';
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="d-flex mb-4">
-                            <small class="mb-0">active: </small>
+                            <small class="mb-0">validation: </small>
                             <div class="form-check form-switch ms-auto">
-                                <input class="form-check-input" disabled <?php echo ($count_personnel >= 1 && $vetted_personnel >= 1 && $count_personnel == $vetted_personnel) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
+                                <input class="form-check-input" disabled
+                                    <?php echo ($count_acad_report >= 1 && $vetted_acad_report >= 1 && $count_acad_report == $vetted_acad_report) ? ' style="background-color:green;" checked ' : ' style="background-color:grey;" ' ?>
                                     type="checkbox" id="flexSwitchCheckHumidity">
                             </div>
                         </div>
-                        <img src="../../assets/img/small-logos/ticket.svg" class="avatar avatar-md   me-3 "
+                        <img src="../../assets/img/small-logos/academic.jpg" class="avatar avatar-md   me-3 "
                             alt="Personnel">
-                        <p class="mt-4 mb-0 font-weight-bold">Support Ticket</p>
+                        <p class="mt-4 mb-0 font-weight-bold">Termly Academic Report</p>
                         <span class="text-xs">
-                            <?php echo (!empty($count_personnel)) ? "<strong>" . $count_personnel . " Support Ticket Created</strong>" : "<strong>No Support Ticket Created</strong>" ?>
+                            <?php echo (!empty($count_acad_report)) ? "<strong>" . $count_acad_report . " Termly Academic Report submitted</strong>" : "<strong>No Termly Academic Report Submitted</strong>" ?>
                         </span>
                     </div>
                 </div>
