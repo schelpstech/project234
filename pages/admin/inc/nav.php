@@ -22,7 +22,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples440" class="nav-link text-white opacity-9" aria-controls="pagesExamples400" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#schoolmanager" class="nav-link text-white opacity-9" aria-controls="schoolmanager" role="button" aria-expanded="false">
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>document</title>
@@ -41,7 +41,7 @@
                         </div>
                         <span class="nav-link-text ms-2">School Manager</span>
                     </a>
-                    <div class="collapse " id="pagesExamples440">
+                    <div class="collapse " id="schoolmanager">
                         <ul class="nav border-start ms-4">
                             
                            
@@ -85,7 +85,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples400" class="nav-link text-white opacity-9" aria-controls="pagesExamples400" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#financemgr" class="nav-link text-white opacity-9" aria-controls="financemgr" role="button" aria-expanded="false">
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>document</title>
@@ -104,7 +104,7 @@
                         </div>
                         <span class="nav-link-text ms-2">Account Department</span>
                     </a>
-                    <div class="collapse " id="pagesExamples400">
+                    <div class="collapse " id="financemgr">
                         <ul class="nav border-start ms-4">
                             
                            
@@ -137,7 +137,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples4" class="nav-link text-white opacity-9" aria-controls="pagesExamples4" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#schreportmgr" class="nav-link text-white opacity-9" aria-controls="schreportmgr" role="button" aria-expanded="false">
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>document</title>
@@ -156,7 +156,7 @@
                         </div>
                         <span class="nav-link-text ms-2">Report</span>
                     </a>
-                    <div class="collapse " id="pagesExamples4">
+                    <div class="collapse " id="schreportmgr">
                         <ul class="nav border-start ms-4">
                             
                            
@@ -177,7 +177,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples5" class="nav-link text-white opacity-9" aria-controls="pagesExamples5" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#schsupportmgr" class="nav-link text-white opacity-9" aria-controls="schsupportmgr" role="button" aria-expanded="false">
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg class="text-dark" width="16px" height="16px" viewBox="0 0 42 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>basket</title>
@@ -195,7 +195,7 @@
                         </div>
                         <span class="nav-link-text ms-2">Support</span>
                     </a>
-                    <div class="collapse " id="pagesExamples5">
+                    <div class="collapse " id="schsupportmgr">
                         <ul class="nav border-start ms-4">
                             <li class="nav-item ">
                                 <a class="nav-link text-white opacity-9 " href="../../app/adminRouter.php?pageid=<?php echo base64_encode('ticketLog') ?>">
@@ -208,7 +208,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#authExamples6" class="nav-link text-white opacity-9" aria-controls="authExamples6" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#authmgr" class="nav-link text-white opacity-9" aria-controls="authmgr" role="button" aria-expanded="false">
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>settings</title>
@@ -227,7 +227,7 @@
                         </div>
                         <span class="nav-link-text ms-2">Authentication</span>
                     </a>
-                    <div class="collapse " id="authExamples6">
+                    <div class="collapse " id="authmgr">
                         <ul class="nav border-start ms-4">
                             <li class="nav-item ">
                                 <a class="nav-link text-white opacity-9 " href="../../app/adminRouter.php?pageid=<?php echo base64_encode('activity_log') ?>">
@@ -252,21 +252,5 @@
                 </li>
                 
             </ul>
-        </div>
-        <div class="sidenav-footer mx-4 my-3 pt-3">
-            <div class="card border-0 border-radius-md" id="sidenavCard">
-                <div class="card-body  text-start  p-3 w-100">
-                    <div class="mb-3">
-                        <i class="fas fa-file text-primary" id="sidenavCardIcon"></i>
-                    </div>
-                    <div class="docs-info">
-                        <h6 class="font-weight-bold up mb-2">Need help?</h6>
-                        <a href="../../app/router.php?pageid=<?php echo base64_encode('newTicket') ?>" target="_blank" class="font-weight-bold text-sm mb-0 icon-move-right mt-auto w-100 mb-0">
-                            Contact Support
-                            <i class="fas fa-arrow-right-long text-sm ms-1" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
     </aside>

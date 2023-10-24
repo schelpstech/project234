@@ -22,7 +22,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples1" class="nav-link text-white opacity-9" aria-controls="pagesExamples1" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#schoolprofile" class="nav-link text-white opacity-9" aria-controls="schoolprofile" role="button" aria-expanded="false">
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>spaceship</title>
@@ -44,7 +44,7 @@
                         </div>
                         <span class="nav-link-text ms-2">Profile</span>
                     </a>
-                    <div class="collapse " id="pagesExamples1">
+                    <div class="collapse " id="schoolprofile">
                         <ul class="nav border-start ms-4">
                             
                             <li class="nav-item ">
@@ -82,7 +82,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples2" class="nav-link text-white opacity-9" aria-controls="pagesExamples2" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#schoolpersonnel" class="nav-link text-white opacity-9" aria-controls="schoolpersonnel" role="button" aria-expanded="false">
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>customer-support</title>
@@ -103,7 +103,7 @@
                         </div>
                         <span class="nav-link-text ms-2">Personnel</span>
                     </a>
-                    <div class="collapse " id="pagesExamples2">
+                    <div class="collapse " id="schoolpersonnel">
                         <ul class="nav border-start ms-4">
                             
                             <li class="nav-item ">
@@ -123,7 +123,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples3" class="nav-link text-white opacity-9" aria-controls="pagesExamples3" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#schoolfinance" class="nav-link text-white opacity-9" aria-controls="schoolfinance" role="button" aria-expanded="false">
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>credit-card</title>
@@ -142,7 +142,7 @@
                         </div>
                         <span class="nav-link-text ms-2">Finance</span>
                     </a>
-                    <div class="collapse " id="pagesExamples3">
+                    <div class="collapse " id="schoolfinance">
                         <ul class="nav border-start ms-4">
                             <li class="nav-item ">
                                 <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('enrolment') ?>">
@@ -173,7 +173,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples4" class="nav-link text-white opacity-9" aria-controls="pagesExamples4" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#schoolreports" class="nav-link text-white opacity-9" aria-controls="schoolreports" role="button" aria-expanded="false">
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>document</title>
@@ -192,7 +192,7 @@
                         </div>
                         <span class="nav-link-text ms-2">Report</span>
                     </a>
-                    <div class="collapse " id="pagesExamples4">
+                    <div class="collapse " id="schoolreports">
                         <ul class="nav border-start ms-4">
                             <li class="nav-item ">
                                 <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('academic') ?>">
@@ -217,7 +217,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples5" class="nav-link text-white opacity-9" aria-controls="pagesExamples5" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#schoolsupport" class="nav-link text-white opacity-9" aria-controls="schoolsupport" role="button" aria-expanded="false">
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg class="text-dark" width="16px" height="16px" viewBox="0 0 42 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>basket</title>
@@ -235,7 +235,7 @@
                         </div>
                         <span class="nav-link-text ms-2">Support</span>
                     </a>
-                    <div class="collapse " id="pagesExamples5">
+                    <div class="collapse " id="schoolsupport">
                         <ul class="nav border-start ms-4">
                             
                             <li class="nav-item ">
@@ -255,7 +255,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#authExamples6" class="nav-link text-white opacity-9" aria-controls="authExamples6" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#schoolauth" class="nav-link text-white opacity-9" aria-controls="schoolauth" role="button" aria-expanded="false">
                         <div class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                             <svg width="16px" height="16px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>settings</title>
@@ -274,7 +274,7 @@
                         </div>
                         <span class="nav-link-text ms-2">Authentication</span>
                     </a>
-                    <div class="collapse " id="authExamples6">
+                    <div class="collapse " id="schoolauth">
                         <ul class="nav border-start ms-4">
                             <li class="nav-item ">
                                 <a class="nav-link text-white opacity-9 " href="../../app/router.php?pageid=<?php echo base64_encode('activity_log') ?>">
