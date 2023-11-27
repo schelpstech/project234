@@ -153,7 +153,8 @@ if (isset($_SESSION['activeAdmin'])) {
         'order_by' => 'rectime DESC'
     ];
     $conditioned = [
-        'order_by' => 'rectime DESC'
+        'order_by' => 'rectime DESC',
+        'limit' => '100',
     ];
     $notification_alert = $model->getRows($tblName, $conditions);
     $activityLog = $model->getRows($tblName, $condition);
