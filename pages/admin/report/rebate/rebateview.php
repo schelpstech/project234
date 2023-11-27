@@ -35,7 +35,7 @@
                                 <div class="card-body px-0 pt-4">
 
                                     <p class="text-primary font-weight-bold text-sm text-uppercase">
-                                        <?php echo $rebateView['recordTime'] ?>
+                                        <?php echo $rebateView['rebateRecordTime'] ?>
                                     </p>
                                     <?php
                                     echo ($rebateView['rebateStatus'] == 1) ?

@@ -55,7 +55,7 @@
                       </div>
                       <div class="col-md-6">
                         <h6 class="mb-0 text-start">
-                          <?php echo ltrim($termlyRemittance['recordTime'], 10) ?? "" ?>
+                          <?php echo ltrim($termlyRemittance['invRecordTime'], 10) ?? "" ?>
                         </h6>
                       </div>
                     </div>

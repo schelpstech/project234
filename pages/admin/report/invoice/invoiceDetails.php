@@ -104,7 +104,7 @@
                                     </td>
                                     <td class="align-middle">
                                         <p class="text-sm text-dark font-weight-semibold mb-0">
-                                            <?php echo $data['recordTime'] ?>
+                                            <?php echo $data['invRecordTime'] ?>
                                         </p>
                                     </td>
                                 </tr>
