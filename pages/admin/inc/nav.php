@@ -233,6 +233,12 @@
                                     <span class="sidenav-normal"> Manage User </span>
                                 </a>
                             </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white opacity-9 " href="./index.php?pageid=<?php echo base64_encode('managesession') ?>">
+                                    <span class="sidenav-mini-icon"> D </span>
+                                    <span class="sidenav-normal"> Manage Session </span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

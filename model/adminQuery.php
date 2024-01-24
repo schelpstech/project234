@@ -12,6 +12,7 @@ if (file_exists('../../controller/start.inc.php')) {
 
 
 if (isset($_SESSION['activeAdmin'])) {
+    
     //Active Term
     $tblName = 'tblcurrent_term';
     $conditions = [
@@ -175,4 +176,7 @@ if (isset($_SESSION['activeAdmin'])) {
         ]
     ];
     $rebateRecords = $model->getRows($tblName, $conditions);
+
+   
+   
 }

@@ -20,7 +20,7 @@ include './inc/navbar.php';
                                 <span class="visually-hidden">New</span>
                             </span>
                         </span>
-                        <span class="btn-inner--text">Session: 2022/2023</span>
+                        <span class="btn-inner--text">Session: <?php echo $currentTerm['termVariable'] ?? "No Active Term"; ?></span>
                     </button>
                 </div>
             </div>
@@ -144,6 +144,16 @@ include './inc/navbar.php';
             $pageDescription = "Reset Password in the Selected School";
             $include = include "./forms/accesscode.php";
         }
+        
+            //Manage Session and Term
+            elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "managesession") {
+                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
+                                Create, Activate and Deactivate Terms and Session</h6>';
+                $pageName = "Academic Session Manager";
+                $pageDescription = "Manage Academic Session and Terms";
+                $include = include "./forms/managesession.php";
+            }
+
                 //School Invoice  Details 
         elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schInvoicePage") {
             $pageName = "School Invoice Details";
