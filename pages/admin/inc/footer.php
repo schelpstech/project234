@@ -23,8 +23,7 @@
 </footer>
 <div class="col-md-4">
 
-  <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification"
-    aria-hidden="true">
+  <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
     <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -42,8 +41,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
           <form action="../../app/authenticator.php" method="post">
-            <button type="submit" name="log_out_user" value="<?php echo base64_encode('log_out_user_form') ?>"
-              class="btn btn-danger">Log me Out</button>
+            <button type="submit" name="log_out_user" value="<?php echo base64_encode('log_out_user_form') ?>" class="btn btn-danger">Log me Out</button>
           </form>
         </div>
       </div>
@@ -63,10 +61,6 @@
   }
 </script>
 
-
-
-<script src="../../assets/js/plugins/jquery-3.6.0.min.js"></script>
-<script src="../../assets/js/plugins/datatables.js"></script>
 <script src="../../assets/js/core/popper.min.js"></script>
 <script src="../../assets/js/core/bootstrap.min.js"></script>
 <script src="../../assets/js/plugins/perfect-scrollbar.min.js"></script>

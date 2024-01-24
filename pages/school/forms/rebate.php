@@ -82,19 +82,14 @@
                     </div>
                     <div class="col-md-6">
                         <label for="example-text-input" class="form-control-label">Rebate Application
-                            Letter</i>:</label>
+                            Document - PDF Only</i>: <a style="color: red;" href="../../assets/storage/rebateDocument/rebatetemplate.xlsx">Click to download template</a></label>
                         <div class="form-group">
                             <input type="file" class="form-control" name="rebateLetter" required="yes"
-                                accept="image/png, image/gif, image/jpeg" size="524288" onchange="previewImage(this)" />
+                                accept=".pdf" />
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-8 offset-2">
-                        <img id="preview" src="#" alt="Image Preview"
-                            style="display:none; max-width: 100%; max-height: 100%;">
-                    </div>
-                </div>
+                
                 <hr>
                 <button type="submit" name="submit_rebate_letter" class="btn btn-dark active btn-lg w-100">Submit
                     Rebate Application

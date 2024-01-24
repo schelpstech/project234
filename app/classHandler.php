@@ -29,20 +29,34 @@ if (isset($_POST['submit_class_form']) && isset($_SESSION['current_page']) && ($
         'return_type' => 'count',
     ];
     $ifExist = $model->getRows($tblName, $conditions);
-    if ($ifExist == 0) {
-        $classData = [
+    $conditions = [
+        'where' => [
             'schCode' => $_SESSION['active'],
             'termID' => htmlspecialchars($_POST['termID']),
-            'classID' => htmlspecialchars($_POST['classID']),
-            'population' => htmlspecialchars($_POST['classPOP']),
-            'tuition' => htmlspecialchars($_POST['tuition']),
-        ];
-        if ($model->insert_data($tblName, $classData) == true) {
-            $user->recordLog($_SESSION['active'], 'Termly Enrolment Record', 'A termly class enrolment record has been added to school with code : ' . $_SESSION['active']);
-            $utility->notifier('success', 'A new termly class enrolment record has been added to school with code : ' . $_SESSION['active']);
-            $model->redirect('./router.php?pageid=' . base64_encode('enrolment'));
+            'filed' => 1,
+        ],
+        'return_type' => 'count',
+    ];
+    $filingStatus = $model->getRows($tblName, $conditions);
+    if ($ifExist == 0) {
+        if ($filingStatus == 0) {
+            $classData = [
+                'schCode' => $_SESSION['active'],
+                'termID' => htmlspecialchars($_POST['termID']),
+                'classID' => htmlspecialchars($_POST['classID']),
+                'population' => htmlspecialchars($_POST['classPOP']),
+                'tuition' => htmlspecialchars($_POST['tuition']),
+            ];
+            if ($model->insert_data($tblName, $classData) == true) {
+                $user->recordLog($_SESSION['active'], 'Termly Enrolment Record', 'A termly class enrolment record has been added to school with code : ' . $_SESSION['active']);
+                $utility->notifier('success', 'A new termly class enrolment record has been added to school with code : ' . $_SESSION['active']);
+                $model->redirect('./router.php?pageid=' . base64_encode('enrolment'));
+            } else {
+                $utility->notifier('danger', 'We are unable to submit enrolment record for selected class! Please try again');
+                $model->redirect('./router.php?pageid=' . base64_encode('enrolment'));
+            }
         } else {
-            $utility->notifier('danger', 'We are unable to submit enrolment record for selected class! Please try again');
+            $utility->notifier('danger', 'Unauthorised! An Invoice has been generated for the selected term! Please contact secretariat');
             $model->redirect('./router.php?pageid=' . base64_encode('enrolment'));
         }
     } else {
@@ -101,37 +115,37 @@ if (isset($_POST['submit_class_form']) && isset($_SESSION['current_page']) && ($
 
         if ($ifExist == 0) {
 
-            if ($_POST['rebate'] == "Yes") {
-                $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-                $maxFileSize = 524288; // 500kb
-                $rebateDocumentUploadPath = '../assets/storage/rebateDocument';
-
-                //Handle Rebate Document Upload
-                $result = $utility->handleUploadedFile('rebateFile', $allowedTypes, $maxFileSize, $rebateDocumentUploadPath);
-                if (isset($_SESSION['fileName']) && $result == 'success') {
-                    $classData = [
-                        'schCode' => $_SESSION['active'],
-                        'invReference' => $utility->generateRandomDigits(8),
-                        'invType' => 'Termly Remittance',
-                        'invAmount' => ($_SESSION['remittanceDue'] - htmlspecialchars($_POST['rebateAmount'])),
-                        'termRef' => htmlspecialchars($_POST['termID']),
-                        'rebate' => htmlspecialchars($_POST['rebate']),
-                        'rebateAmount' => htmlspecialchars($_POST['rebateAmount']),
-                        'rebateFile' => $_SESSION['fileName'],
-                    ];
-                }
-            } elseif ($_POST['rebate'] == "No") {
-                $classData = [
-                    'schCode' => $_SESSION['active'],
-                    'invReference' => $utility->generateRandomDigits(8),
-                    'invType' => 'Termly Remittance',
-                    'invAmount' => $_SESSION['remittanceDue'],
-                    'termRef' => htmlspecialchars($_POST['termID']),
-                    'rebate' => htmlspecialchars($_POST['rebate']),
-                ];
+            if (strlen($_POST['rebate']) > 1) {
+                // Split the string at the hyphen ("-")
+                $parts = explode("-", $_POST['rebate']);
+                // Assign each part to separate variables
+                $rebateRef = $parts[0];
+                $rebateAmount = $parts[1];
+            } else {
+                $rebateRef = "N/A";
+                $rebateAmount = 0;
             }
+            $invoiceData = [
+                'schCode' => $_SESSION['active'],
+                'invReference' => $utility->generateRandomDigits(8),
+                'invType' => 'Termly Remittance',
+                'amountPayable' => (intval($_SESSION['remittanceDue']) - intval($rebateAmount)),
+                'termRef' => htmlspecialchars($_POST['termID']),
+                'rebate' => $rebateRef,
+                'rebateAmount' => $rebateAmount,
+                'invAmount' => intval($_SESSION['remittanceDue'])
+            ];
+            $tableName = '_tbl_termly_enrolment';
+            $condition = [
+                'schCode' => $_SESSION['active'],
+                'termID' => htmlspecialchars($_POST['termID']),
+            ];
+            $classData = [
+                'filed' => 1
+            ];
 
-            if ($model->insert_data($tblName, $classData) == true) {
+
+            if (($model->upDate($tableName, $classData, $condition) == true) && ($model->insert_data($tblName, $invoiceData) == true)) {
                 $user->recordLog($_SESSION['active'], 'Termly Invoice Generated ', 'A Termly Invoice has been generated for school with code : ' . $_SESSION['active']);
                 $utility->notifier('success', 'A Termly Invoice has been generated successfully for school with code : ' . $_SESSION['active']);
                 $model->redirect('./router.php?pageid=' . base64_encode('billGenerator'));

@@ -31,12 +31,16 @@ $sch_phy_address = $model->getRows($tblAddress, $conditions);
                 <div class="pb-0 card-header border-bottom">
                     <div class="mb-3 d-sm-flex align-items-center">
                         <div>
-                            <h6 class="mb-0 text-lg font-weight-semibold">School Contact Details</h6>
+                            <h6 class="mb-0 text-lg font-weight-semibold"> Submitted Contact Details for
+                                <?php echo $sch_corporate_data['sch_name'] ?>
+                            </h6>
                         </div>
                         <div class="ms-auto d-flex">
-                            <button type="button" class="mb-0 btn btn-sm btn-dark me-2">
-                                Print report
-                            </button>
+                            <a type="button"
+                                href="../../app/adminRouter.php?pageid=<?php echo base64_encode('schoolProfile') ?>"
+                                class="mb-0 btn btn-sm btn-dark me-2">
+                                <strong>Back</strong>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -50,7 +54,7 @@ $sch_phy_address = $model->getRows($tblAddress, $conditions);
                                 <?php
                                 if (!empty($sch_phone_numbers)) {
                                     foreach ($sch_phone_numbers as $data) {
-                                ?>
+                                        ?>
                                         <blockquote class="blockquote text-white mb-0">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-4">
@@ -62,16 +66,24 @@ $sch_phy_address = $model->getRows($tblAddress, $conditions);
                                                 </div>
                                                 <div class="col-lg-4 col-md-4">
                                                     <div class="dropdown">
-                                                        <button class="btn bg-gradient-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <button class="btn bg-gradient-danger dropdown-toggle" type="button"
+                                                            id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
                                                             Action
                                                         </button>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                                                             <li>
                                                                 <form action="../../app/validator.php" method="post">
-                                                                    <input type="text" class="form-control" name="validation" value="<?php echo ($data['vetted'] == 1) ? 0 : 1 ?>" hidden />
-                                                                    <input type="text" class="form-control" name="reference" value="<?php echo $data['id'] ?>" hidden />
-                                                                    <button type="submit" class="dropdown-item" name="Update_phone_form"><?php echo ($data['vetted'] == 1) ? "Invalidate" : "Validate" ?></button>
+                                                                    <input type="text" class="form-control" name="validation"
+                                                                        value="<?php echo ($data['vetted'] == 1) ? 0 : 1 ?>"
+                                                                        hidden />
+                                                                    <input type="text" class="form-control" name="reference"
+                                                                        value="<?php echo $data['id'] ?>" hidden />
+                                                                    <button type="submit" class="dropdown-item"
+                                                                        name="Update_phone_form">
+                                                                        <?php echo ($data['vetted'] == 1) ? "Invalidate" : "Validate" ?>
+                                                                    </button>
                                                                 </form>
                                                             </li>
                                                         </ul>
@@ -88,11 +100,11 @@ $sch_phy_address = $model->getRows($tblAddress, $conditions);
                                                 '<footer class="blockquote-footer text-gradient text-dark text-sm ms-3">
                                     <strong>Pending Verification</strong> <cite title="Source Title">by admin</cite>
                                 </footer>'
-                                            ?>
+                                                ?>
 
                                         </blockquote>
                                         <hr>
-                                <?php
+                                        <?php
                                     }
                                 } else {
                                     echo '<blockquote class="blockquote text-white mb-0">
@@ -114,7 +126,7 @@ $sch_phy_address = $model->getRows($tblAddress, $conditions);
                                 <?php
                                 if (!empty($sch_email_address)) {
                                     foreach ($sch_email_address as $data) {
-                                ?>
+                                        ?>
                                         <blockquote class="blockquote text-white mb-0">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-4">
@@ -126,15 +138,23 @@ $sch_phy_address = $model->getRows($tblAddress, $conditions);
                                                 </div>
                                                 <div class="col-lg-4 col-md-4">
                                                     <div class="dropdown">
-                                                        <button class="btn bg-gradient-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <button class="btn bg-gradient-danger dropdown-toggle" type="button"
+                                                            id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
                                                             Action
                                                         </button>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                             <li>
                                                                 <form action="../../app/validator.php" method="post">
-                                                                    <input type="text" class="form-control" name="validation" value="<?php echo ($data['vetted'] == 1) ? 0 : 1 ?>" hidden />
-                                                                    <input type="text" class="form-control" name="reference" value="<?php echo $data['id'] ?>" hidden />
-                                                                    <button type="submit" class="dropdown-item" name="Update_email_form"><?php echo ($data['vetted'] == 1) ? "Invalidate" : "Validate" ?></button>
+                                                                    <input type="text" class="form-control" name="validation"
+                                                                        value="<?php echo ($data['vetted'] == 1) ? 0 : 1 ?>"
+                                                                        hidden />
+                                                                    <input type="text" class="form-control" name="reference"
+                                                                        value="<?php echo $data['id'] ?>" hidden />
+                                                                    <button type="submit" class="dropdown-item"
+                                                                        name="Update_email_form">
+                                                                        <?php echo ($data['vetted'] == 1) ? "Invalidate" : "Validate" ?>
+                                                                    </button>
                                                                 </form>
                                                             </li>
                                                         </ul>
@@ -151,11 +171,11 @@ $sch_phy_address = $model->getRows($tblAddress, $conditions);
                                                 '<footer class="blockquote-footer text-gradient text-dark text-sm ms-3">
                                     <strong>Pending Verification</strong> <cite title="Source Title">by admin</cite>
                                 </footer>'
-                                            ?>
+                                                ?>
 
                                         </blockquote>
                                         <hr>
-                                <?php
+                                        <?php
                                     }
                                 } else {
                                     echo '<blockquote class="blockquote text-white mb-0">
@@ -177,7 +197,7 @@ $sch_phy_address = $model->getRows($tblAddress, $conditions);
                                 <?php
                                 if (!empty($sch_phy_address)) {
                                     foreach ($sch_phy_address as $data) {
-                                ?>
+                                        ?>
                                         <blockquote class="blockquote text-white mb-0">
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6">
@@ -192,15 +212,23 @@ $sch_phy_address = $model->getRows($tblAddress, $conditions);
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="dropdown">
-                                                        <button class="btn bg-gradient-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <button class="btn bg-gradient-danger dropdown-toggle" type="button"
+                                                            id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
                                                             Action
                                                         </button>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                             <li>
                                                                 <form action="../../app/validator.php" method="post">
-                                                                    <input type="text" class="form-control" name="validation" value="<?php echo ($data['vetted'] == 1) ? 0 : 1 ?>" hidden />
-                                                                    <input type="text" class="form-control" name="reference" value="<?php echo $data['id'] ?>" hidden />
-                                                                    <button type="submit" class="dropdown-item" name="Update_address_form"><?php echo ($data['vetted'] == 1) ? "Invalidate" : "Validate" ?></button>
+                                                                    <input type="text" class="form-control" name="validation"
+                                                                        value="<?php echo ($data['vetted'] == 1) ? 0 : 1 ?>"
+                                                                        hidden />
+                                                                    <input type="text" class="form-control" name="reference"
+                                                                        value="<?php echo $data['id'] ?>" hidden />
+                                                                    <button type="submit" class="dropdown-item"
+                                                                        name="Update_address_form">
+                                                                        <?php echo ($data['vetted'] == 1) ? "Invalidate" : "Validate" ?>
+                                                                    </button>
                                                                 </form>
                                                             </li>
                                                         </ul>
@@ -217,11 +245,11 @@ $sch_phy_address = $model->getRows($tblAddress, $conditions);
                                                 '<footer class="blockquote-footer text-gradient text-dark text-sm ms-3">
                                     <strong>Pending Verification</strong> <cite title="Source Title">by admin</cite>
                                 </footer>'
-                                            ?>
+                                                ?>
 
                                         </blockquote>
                                         <hr>
-                                <?php
+                                        <?php
                                     }
                                 } else {
                                     echo '<blockquote class="blockquote text-white mb-0">

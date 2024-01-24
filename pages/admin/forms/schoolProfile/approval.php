@@ -20,9 +20,17 @@ $sch_approval_data = $model->getRows($tblName, $conditions);
                     <div class="pb-0 card-header border-bottom">
                         <div class="mb-3 d-sm-flex align-items-center">
                             <div>
-                                <h6 class="mb-0 text-lg font-weight-semibold">School Submitted Approval Details</h6>
+                                <h6 class="mb-0 text-lg font-weight-semibold"> Submitted Approval Details for
+                                    <?php echo $sch_corporate_data['sch_name'] ?>
+                                </h6>
                             </div>
-
+                            <div class="ms-auto d-flex">
+                                <a type="button"
+                                    href="../../app/adminRouter.php?pageid=<?php echo base64_encode('schoolProfile') ?>"
+                                    class="mb-0 btn btn-sm btn-dark me-2">
+                                    <strong>Back</strong>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <?php
@@ -39,7 +47,7 @@ $sch_approval_data = $model->getRows($tblName, $conditions);
                                             </a>
                                         </div>
                                         <div class="card-body px-0 pt-4">
-                                            
+
                                             <p class="text-primary font-weight-bold text-sm text-uppercase">
                                                 <?php echo $data['approval_date'] ?>
                                             </p>
@@ -92,6 +100,8 @@ $sch_approval_data = $model->getRows($tblName, $conditions);
                             </div>
                             <?php
                         }
+                    }else{
+                        echo 'No Submitted Approval Record';
                     }
                     ?>
                 </div>

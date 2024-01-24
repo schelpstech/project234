@@ -1,28 +1,18 @@
-<?php
-if (isset($_SESSION['ticketid'])) {
-    $tblName = '_tbl_conversation';
-    $conditions = [
-        'where' => [
-            '_tbl_conversation.ticketID' => $_SESSION['ticketid'],
-        ],
-        'joinl' => [
-            '_tbl_ticket' => ' on _tbl_ticket.ticketRefNumber = _tbl_conversation.ticketID',
-        ],
-        'order_by' => '_tbl_conversation.rec_time DESC',
-    ];
-    $chatHistory = $model->getRows($tblName, $conditions);
-
-    $tblName = '_tbl_ticket';
-    $conditions = [
-        'where' => [
-            'ticketRefNumber' => $_SESSION['ticketid'],
-        ],
-        'return_type' => 'single',
-    ];
-    $chatDetails = $model->getRows($tblName, $conditions);
-
-}
-?>
+<div class="pb-0 card-header border-bottom">
+    <div class="mb-3 d-sm-flex align-items-center">
+        <div>
+            <h6 class="mb-0 text-lg font-weight-semibold"> Support Tickets <?php echo $_SESSION['ticketid'] ?>  Created by ::
+                <?php echo $sch_corporate_data['sch_name'] ?>
+            </h6>
+        </div>
+        <div class="ms-auto d-flex">
+            <a type="button" href="../../app/adminRouter.php?pageid=<?php echo base64_encode('ticketLog') ?>"
+                class="mb-0 btn btn-sm btn-dark me-2">
+                <strong>Back</strong>
+            </a>
+        </div>
+    </div>
+</div>
 <div class="px-5 py-4 container-fluid">
     <div class="row gx-4">
         <div class="col-lg-8">

@@ -9,7 +9,7 @@
             <div class="card-header">
                 <h5>Reset School Password</h5>
             </div>
-            <form role="form" class="text-start" autocomplete="off" action="../../app/passwordHandler.php" method="post"
+            <form role="form" class="text-start" autocomplete="off" action="../../app/passwordReset.php" method="post"
                 enctype="multipart/form-data">
 
                 <div class="pt-0 card-body">

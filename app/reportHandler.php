@@ -1,7 +1,7 @@
 <?php
 include '../model/query.php';
 //Upload Academic Report
-if (isset($_POST['submit_academic_form']) && isset($_SESSION['current_page']) && ($_SESSION['current_page']) == 'Termly Report') {
+if (isset($_POST['submit_academic_form']) && isset($_SESSION['current_page']) && ($_SESSION['current_page']) == 'Termly Academic Report') {
 
     $tblName = 'academicreport';
     $academicData = [
@@ -23,7 +23,7 @@ if (isset($_POST['submit_academic_form']) && isset($_SESSION['current_page']) &&
         $model->redirect('./router.php?pageid=' . base64_encode('academic'));
     }
 
-} elseif (isset($_POST['Update_academic_form']) && isset($_SESSION['current_page']) && ($_SESSION['current_page']) == 'Termly Report') {
+} elseif (isset($_POST['Update_academic_form']) && isset($_SESSION['current_page']) && ($_SESSION['current_page']) == 'Termly Academic Report') {
     
     $tblName = 'academicreport';
     $condition = [
@@ -31,14 +31,13 @@ if (isset($_POST['submit_academic_form']) && isset($_SESSION['current_page']) &&
             'acad_record_id' => $_SESSION['reportRef'],
     ];
     $updateData = [
-        'schCode' => $_SESSION['active'],
         'examination' => htmlspecialchars($_POST['examination']),
         'examYear' => htmlspecialchars($_POST['examYear']),
         'classid' => htmlspecialchars($_POST['classid']),
         'numCandidates' => ($_POST['aboveCandidates'] + $_POST['avgCandidates'] + $_POST['belowCandidates']),
         'aboveCandidates' => htmlspecialchars($_POST['aboveCandidates']),
         'avgCandidates' => htmlspecialchars($_POST['avgCandidates']),
-        'belowCandidates' => htmlspecialchars($_POST['belowCandidates']),
+        'belowCandidates' => htmlspecialchars($_POST['belowCandidates'])
     ];
     
     if ($model->upDate($tblName, $updateData, $condition) == true) {
@@ -51,7 +50,7 @@ if (isset($_POST['submit_academic_form']) && isset($_SESSION['current_page']) &&
     }
 }
 //Jesus Time Report
-elseif (isset($_POST['submit_jesusTime_form']) && isset($_SESSION['current_page']) && ($_SESSION['current_page']) == 'Termly Report') {
+elseif (isset($_POST['submit_jesusTime_form']) && isset($_SESSION['current_page']) && ($_SESSION['current_page']) == 'JT Termly Report') {
 
     $tblName = '_termly_report_jesustime';
     $conditions = [

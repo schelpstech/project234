@@ -17,10 +17,18 @@
             <div class="card border shadow-xs mb-4">
                 <div class="card-header border-bottom pb-0">
                     <div class="d-sm-flex align-items-center">
-                        <div>
-                            <h6 class="font-weight-semibold text-lg mb-0">Facility list</h6>
-                            <p class="text-sm">See information about all Facilities available in the school</p>
-                        </div>
+                    <div>
+                                <h6 class="mb-0 text-lg font-weight-semibold"> Submitted Available Facilities in
+                                    <?php echo $sch_corporate_data['sch_name'] ?>
+                                </h6>
+                            </div>
+                            <div class="ms-auto d-flex">
+                                <a type="button"
+                                    href="../../app/adminRouter.php?pageid=<?php echo base64_encode('schoolProfile') ?>"
+                                    class="mb-0 btn btn-sm btn-dark me-2">
+                                    <strong>Back</strong>
+                                </a>
+                            </div>
                     </div>
                 </div>
                 <div class="card-body px-0 py-0">

@@ -3,20 +3,21 @@
         <table class="table table-flush" id="datatable-search">
             <thead class="thead-light">
                 <tr>
-                    <th class="text-secondary text-xs font-weight-semibold opacity-7">School Code</th>
-                    <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
+                    <th class="text-secondary text-xs font-weight-semibold opacity-7">S/N</th>
+                    <th class="text-secondary opacity-7">
                         School Name</th>
-                    <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
+                        <th class="text-secondary opacity-7">
                         Invoices</th>
-                    <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
+                        <th class="text-secondary opacity-7">
                         Approved Invoice</th>
-                    <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
+                        <th class="text-secondary opacity-7">
                        Pending Invoice</th>
                     <th class="text-secondary opacity-7">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
+                $count = 1;
                 if (!empty($invoiceReport)) {
                     foreach ($invoiceReport as $data) {
                         ?>
@@ -24,21 +25,14 @@
                             <td class="text-sm font-weight-normal">
 
                                 <div class="align-items-center">
-
-                                    <img <?php echo (isset($data['schLogo']))
-                                        ? 'src="../' . $data['schLogo'] . '" 
-                                        style=" max-width: 50%; max-height: 50%;" ' :
-                                        'src="../../assets/storage/logo/default_crsm_sch_logo_upload.png" alt="Image Preview"
-                                        style="max-width: 50%; max-height: 50%;" ' ?>>
-                                    <br>
                                     <h6 class="mtext-sm text-dark font-weight-semibold mb-0">
-                                        <?php echo $data['sch'] ?>
+                                        <?php echo  $count ++ ?>
                                     </h6>
                                 </div>
                             </td>
                             <td class="text-sm font-weight-normal">
                                 <h6 class="mtext-sm text-dark font-weight-semibold mb-0">
-                                    <?php echo $data['sch_name'] ?>
+                                    <?php echo $data['sch']." - ".$data['sch_name'] ?>
                                 </h6>
                             </td>
                             <td class="text-sm font-weight-normal">
@@ -64,8 +58,8 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <li><a class="dropdown-item"
-                                                href="./index.php?pageid=<?php echo base64_encode('schInvoicePage') ?>&schCode=<?php echo ($data['sch']) ?>">View
-                                                Invoice</a>
+                                                href="../../app/adminRouter.php?pageid=<?php echo base64_encode('schInvoicePage') ?>&schCode=<?php echo ($data['sch']) ?>">View
+                                               School Invoice</a>
                                         </li>
                                     </ul>
                                 </div>

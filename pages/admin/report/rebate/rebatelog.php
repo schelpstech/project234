@@ -18,6 +18,8 @@
                                     <th class="text-secondary text-xs font-weight-semibold opacity-7">Application Ref</th>
                                     <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
                                         Term</th>
+                                        <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
+                                        School Details</th>
                                     <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
                                         Number of Learners</th>
                                     <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
@@ -46,6 +48,14 @@
                                                     echo $data['termVariable'] ?>
                                                 </p>
                                             </td>
+                                            <td class="text-sm font-weight-normal">
+
+                                                <div class="align-items-center">
+                                                    <h6 class="mtext-sm text-dark font-weight-semibold mb-0">
+                                                        <?php echo $data['schCode'] ?>
+                                                    </h6>
+                                                </div>
+                                            </td>
                                             <td class="text-sm font-weight-normal" style="width:10%; word-wrap: normal;">
                                                 <p class=" text-sm text-dark font-weight-semibold mb-0">
                                                     <?php
@@ -55,7 +65,7 @@
                                             <td class="text-sm font-weight-normal" style="width:10%; word-wrap: normal;">
                                                 <p class=" text-sm text-dark font-weight-semibold mb-0">
                                                     <?php
-                                                    echo $data['amountRebate'] ?>
+                                                    echo $utility->money($data['amountRebate']) ?>
                                                 </p>
                                             </td>
                                             <td class="align-middle text-center text-sm">
@@ -77,7 +87,7 @@
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                         <li><a class="dropdown-item"
-                                                        href="./index.php?pageid=<?php echo base64_encode('rebateDetails') ?>&rebateRef=<?php echo ($data['rebateRef']) ?>&schCode=<?php echo ($data['schCode']) ?>">
+                                                        href="../../app/adminRouter.php?pageid=<?php echo base64_encode('rebateDetails') ?>&rebateRef=<?php echo ($data['rebateRef']) ?>&schCode=<?php echo ($data['schCode']) ?>">
                                                             View Application</a>
                                                         </li>
                                                     </ul>
