@@ -40,7 +40,7 @@ if (!isset($_SESSION['active']) || empty($_SESSION['active'])) {
     <link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
     <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
-    <script src="https://kit.fontawesome.com/349ee9c857.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
     <link href="../../assets/css/jquery.dataTables.css" rel="stylesheet" />
     <link id="pagestyle" href="../../assets/css/corporate-ui-dashboard.min.css?v=1.0.0" rel="stylesheet" />
