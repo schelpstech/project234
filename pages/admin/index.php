@@ -11,7 +11,7 @@ include './inc/navbar.php';
             <div class="col-md-12">
                 <div class="mx-2 mb-3 d-md-flex align-items-center">
                     <div class="mb-3 mb-md-0">
-                    <h4><?php echo $_SESSION['pageName'] ?? "" ?></h4>
+                        <h4><?php echo $_SESSION['pageName'] ?? "" ?></h4>
                     </div>
                     <button type="button"
                         class="mb-0 mb-2 btn btn-sm btn-white btn-icon d-flex align-items-center ms-md-auto mb-sm-0 me-2">
@@ -29,175 +29,135 @@ include './inc/navbar.php';
 
         <?php
 
-        if ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schoolProfile") {
-            $include = include "./report/profile/profile.php";
-        } 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schoolCreate") {
-            $include = include "./report/profile/createSchool.php";
-        }
+        $pageId = isset($_GET['pageid']) ? base64_decode($_GET['pageid']) : 'dashboard';
 
-//***Personnel Pages Starts
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "personnelProfile") {
-            $include = include "./report/personnel/personnelReport.php";
-        } 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schPersonnelList") {
-            $include = include "./report/personnel/personnelList.php";
-        } 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "personnelInfoPage") {
-            $include = include "./report/personnel/personnelInfo.php";
-        } 
-//***Personnel Pages Ends
+        switch ($pageId) {
+            //=== School Profile ===//
+            case 'schoolProfile':
+                $include = include "./report/profile/profile.php";
+                break;
+            case 'schoolCreate':
+                $include = include "./report/profile/createSchool.php";
+                break;
 
+            //=== Personnel ===//
+            case 'personnelProfile':
+                $include = include "./report/personnel/personnelReport.php";
+                break;
+            case 'schPersonnelList':
+                $include = include "./report/personnel/personnelList.php";
+                break;
+            case 'personnelInfoPage':
+                $include = include "./report/personnel/personnelInfo.php";
+                break;
 
-//**** Enrolment Starts
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "enrolmentTable") {
-            $include = include "./report/Enrolment/enrolmentList.php";
-        }
-        //View School  Enrolment Term 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "enrolmentbyTerm") {
-            $include = include "./report/Enrolment/enrolmentbyTerm.php";
-        }
-        //School Termly Enrolment  Details 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schEnrolmentDetails") {
-            $include = include "./report/Enrolment/enrolmentRecord.php";
-        }
-//**** Enrolment Ends
+            //=== Enrolment ===//
+            case 'enrolmentTable':
+                $include = include "./report/Enrolment/enrolmentList.php";
+                break;
+            case 'enrolmentbyTerm':
+                $pageName = "School Enrolment Record";
+                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">Termly Enrolment Record for School with Code :: ' . ($_SESSION['schCode'] ?? "") . '</h6>';
+                $pageDescription = "The terms for which Selected School has created enrolment records";
+                $_SESSION['schCode'] = $_GET['schCode'] ?? '';
+                $include = include "./report/enrolmentbyTerm.php";
+                break;
+            case 'schEnrolmentDetails':
+                $pageName = "School Invoice Details - Enrolment Record";
+                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">Termly Enrolment Record for School with Code :: ' . ($_SESSION['schCode'] ?? "") . '</h6>';
+                $pageDescription = "View and Validate Invoices of Selected School";
+                $_SESSION['termRef'] = $_GET['termRef'] ?? '';
+                $include = include "./report/enrolmentRecord.php";
+                break;
 
+            //=== Rebate ===//
+            case 'rebateManager':
+                $include = include "./report/rebate/rebatelog.php";
+                break;
+            case 'rebateDetails':
+                $pageName = "School Rebate Application Details";
+                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">Rebate Application Details for School with Code :: ' . ($_SESSION['schCode'] ?? "") . '</h6>';
+                $pageDescription = "View and Validate Rebate Application of Selected School";
+                $_SESSION['rebateRef'] = $_GET['rebateRef'] ?? '';
+                $include = include "./forms/rebateDetails.php";
+                break;
 
-//**** Rebate Starts
+            //=== Invoice ===//
+            case 'financeProfile':
+                $include = include "./report/invoice/financeProfile.php";
+                break;
+            case 'schInvoicePage':
+                $pageName = "School Invoice Details";
+                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">Invoices for School with Code :: ' . ($_SESSION['schCode'] ?? "") . '</h6>';
+                $pageDescription = "View and Validate Invoices of Selected School";
+                $_SESSION['schCode'] = $_GET['schCode'] ?? '';
+                $include = include "./report/transaction.php";
+                break;
+            case 'termlyRemittanceInvoice':
+                $include = include "./report/invoice/termlyInvoice.php";
+                break;
 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "rebateManager") {
-            $include = include "./report/rebate/rebatelog.php";
-        } 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "rebateDetails") {
-            $include = include "./report/rebate/rebateview.php";
-        }
-//**** Rebate Ends
+            //=== User & Logs ===//
+            case 'userProfile':
+                $include = include "./forms/userprofile.php";
+                break;
+            case 'activity_log':
+                $include = include "./report/activityLog.php";
+                break;
+            case 'ticketLog':
+                $include = include "./report/myTickets.php";
+                break;
+            case 'conversation':
+                $include = include "./forms/conversation.php";
+                break;
 
+            //=== School Profile Details ===//
+            case 'Corporate':
+                $include = include "./forms/schoolProfile/corporate.php";
+                break;
+            case 'Contact':
+                $include = include "./forms/schoolProfile/contact.php";
+                break;
+            case 'Classes':
+                $include = include "./report/schoolProfile/availableClasses.php";
+                break;
+            case 'Approval':
+                $include = include "./forms/schoolProfile/approval.php";
+                break;
+            case 'Facility':
+                $include = include "./forms/schoolProfile/facilities.php";
+                break;
 
-//******Invoice Manager Starts
-
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "financeProfile") {
-            $include = include "./report/invoice/financeProfile.php";
-        } 
-
-        //School Created Invoice  Details 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schInvoicePage") {
-            $include = include "./report/invoice/invoiceDetails.php";
-        }
-
-        //School Termly remittance Invoice  Details 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "termlyRemittanceInvoice") {
-            $include = include "./report/invoice/termlyInvoice.php";
-        }
-        
-//******Invoice Manager Ends
-
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "userProfile") {
-            $include = include "./forms/userprofile.php";
-        } elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "activity_log") {
-            $include = include "./report/activityLog.php";
-        }
-        //Support Tickets
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "ticketLog") {
-            $include = include "./report/myTickets.php";
-        } elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "conversation") {
-            $include = include "./forms/conversation.php";
-        }
-
-
-//******* School Profile Starts */
-        //Corporate Details 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Corporate") {
-            $include = include "./forms/schoolProfile/corporate.php";
-        }
-
-        //Contact Details 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Contact") {
-            $include = include "./forms/schoolProfile/contact.php";
-        }
-        //Available Class Details 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Classes") {
-            $include = include "./report/schoolProfile/availableClasses.php";
-        }
-        //Approval  Details 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Approval") {
-            $include = include "./forms/schoolProfile/approval.php";
-        }
-        //Facility  Details 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "Facility") {
-            $include = include "./forms/schoolProfile/facilities.php";
-        }
-
-//******* School Profile Ends */
-
-
-        //Reset School Password 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "ResetPassword") {
-            $include = include "./forms/accesscode.php";
-        }
-        
-            //Manage Session and Term
-            elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "managesession") {
-                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
-                                Create, Activate and Deactivate Terms and Session</h6>';
+            //=== Session Management ===//
+            case 'ResetPassword':
+                $include = include "./forms/accesscode.php";
+                break;
+            case 'managesession':
                 $pageName = "Academic Session Manager";
+                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">Create, Activate and Deactivate Terms and Session</h6>';
                 $pageDescription = "Manage Academic Session and Terms";
                 $include = include "./forms/managesession.php";
-            }
+                break;
 
-                //School Invoice  Details 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schInvoicePage") {
-            $pageName = "School Invoice Details";
-            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
-                            Invoices for School with Code :: '. $_SESSION['schCode'] ?? "".'
-                            </h6>';
-            $pageDescription = "View and Validate  Invoices of Selected School";
-            $_SESSION['schCode'] = $_GET['schCode'];
-            $include = include "./report/transaction.php";
-        }
-                //View School  Enrolment Term 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "enrolmentbyTerm") {
-            $pageName = "School Enrolment Record";
-            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
-                            Termly Enrolment Record for School with Code :: '. $_SESSION['schCode'] ?? "".'
-                            </h6>';
-            $pageDescription = "The terms for which Selected School has created enrolment records";
-            $_SESSION['schCode'] = $_GET['schCode'];
-            $include = include "./report/enrolmentbyTerm.php";
-        }
-                //School Termly Enrolment  Details 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "schEnrolmentDetails") {
-            $pageName = "School Invoice Details - Enrolment Record";
-            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
-                            Termly Enrolment Record for School with Code :: '. $_SESSION['schCode'] ?? "".'
-                            </h6>';
-            $pageDescription = "View and Validate  Invoices of Selected School";
-            $_SESSION['termRef'] = $_GET['termRef'];
-            $include = include "./report/enrolmentRecord.php";
-        }
-                //School Rebate Application  Details 
-        elseif ((isset($_GET['pageid'])) && base64_decode($_GET['pageid']) == "rebateDetails") {
-            $pageName = "School Rebate Application  Details";
-            $identifier = '<h6 class="font-weight-semibold text-lg mb-0">
-                            Rebate Application  Details for School with Code :: '. $_SESSION['schCode'] ?? "".'
-                            </h6>';
-            $pageDescription = "View and Validate  Rebate Application  of Selected School";
-            $_SESSION['rebateRef'] = $_GET['rebateRef'];
-            $include = include "./forms/rebateDetails.php";
-        }
-        else {
-            $include = include "./report/dashboard.php";
+            //=== Conference ===//
+            case 'conferenceReport':
+                $include = include "./report/conference/reg_report.php";
+                break;
+
+            //=== Default ===//
+            default:
+                $include = include "./report/dashboard.php";
+                break;
         }
         ?>
 
 
         <div class="card-header border-bottom pb-0">
             <div class="d-sm-flex align-items-center">
-                    <?php echo $_SESSION['pageDescription'] ?? "" ?>
+                <?php echo $_SESSION['pageDescription'] ?? "" ?>
             </div>
         </div>
         <?php
-        $include ;
+        $include;
         include './inc/footer.php';
         ?>

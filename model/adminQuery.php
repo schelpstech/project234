@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 if (file_exists('../../controller/start.inc.php')) {
     include '../../controller/start.inc.php';
@@ -8,12 +10,11 @@ if (file_exists('../../controller/start.inc.php')) {
     include '../../../controller/start.inc.php';
 } else {
     include './controller/start.inc.php';
-}
-;
+};
 
 
 if (isset($_SESSION['activeAdmin'])) {
-    
+
     //Active Term
     $tblName = 'tblcurrent_term';
     $conditions = [
@@ -161,7 +162,7 @@ if (isset($_SESSION['activeAdmin'])) {
     $activityLog = $model->getRows($tblName, $condition);
     $getallLog = $model->getRows($tblName, $conditioned);
 
-//*********Support Ticket Starts
+    //*********Support Ticket Starts
 
     //My Support Tickets
     $tblName = '_tbl_ticket';
@@ -184,7 +185,7 @@ if (isset($_SESSION['activeAdmin'])) {
             'order_by' => '_tbl_conversation.rec_time DESC',
         ];
         $chatHistory = $model->getRows($tblName, $conditions);
-    
+
         $tblName = '_tbl_ticket';
         $conditions = [
             'where' => [
@@ -193,13 +194,12 @@ if (isset($_SESSION['activeAdmin'])) {
             'return_type' => 'single',
         ];
         $chatDetails = $model->getRows($tblName, $conditions);
-    
     }
 
 
-//*********Support Ticket Ends
+    //*********Support Ticket Ends
 
-//*********Personnel Starts
+    //*********Personnel Starts
 
     //Personnel Profile Page
     $tableName = 'tbl_personnel_record';
@@ -251,7 +251,7 @@ if (isset($_SESSION['activeAdmin'])) {
         $schPersonnelInfo = $model->getRows($tableName, $condition);
     }
 
-//*********Personnel Ends
+    //*********Personnel Ends
 
 
 
@@ -308,7 +308,7 @@ if (isset($_SESSION['activeAdmin'])) {
 
 
 
- //******** Rebate Starts
+    //******** Rebate Starts
 
     $tblName = '_tbl_rebate_record';
     $conditions = [
@@ -333,7 +333,6 @@ if (isset($_SESSION['activeAdmin'])) {
         ];
         $rebateView = $model->getRows($tblName, $conditions);
     }
-
 }
 
 
@@ -348,7 +347,6 @@ if (isset($_SESSION['schCode'])) {
         ],
     ];
     $invoiceList = $model->getRows($tblName, $conditions);
-
 }
 //Finance Profile Page
 $tableName = '_tbl_termlyinvoice';

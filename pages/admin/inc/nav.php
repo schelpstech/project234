@@ -158,12 +158,11 @@
                     </a>
                     <div class="collapse " id="schreportmgr">
                         <ul class="nav border-start ms-4">
-                            
-                           
+
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="#">
+                                <a class="nav-link text-white opacity-9 " href="../../app/adminRouter.php?pageid=<?php echo base64_encode('conferenceReport') ?>">
                                     <span class="sidenav-mini-icon"> V </span>
-                                    <span class="sidenav-normal"> View </span>
+                                    <span class="sidenav-normal"> Conference Report </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
