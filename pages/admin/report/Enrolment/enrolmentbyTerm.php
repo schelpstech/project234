@@ -77,7 +77,7 @@
                                         </td>
                                         <td class="align-middle text-center text-sm">
                                             <?php
-                                            echo '<a  href="../../app/adminRouter.php?pageid=' . base64_encode("schEnrolmentDetails") . '&termRef='.$data["termID"].'" class="btn btn-dark btn-sm me-1" type="button">View Breakdown</a>';
+                                            echo '<a  href="../../app/adminRouter.php?pageid=' . base64_encode("schEnrolmentDetails") . '&schoolcode='.$sch_corporate_data['sch_code'].'&termRef='.$data["termID"].'" class="btn btn-dark btn-sm me-1" type="button">View Breakdown</a>';
                                             ?>
                                         </td>
                                     </tr>

@@ -1,3 +1,11 @@
+<?php
+$sch_count = $schoolCounts['total'] ?? 0;
+$sch_count_primary = $schoolCounts['primary'] ?? 0;
+$sch_count_secondary = $schoolCounts['secondary'] ?? 0;
+
+// Use recent logs instead of loading 100 logs always
+?>
+
 <div class="px-5 py-4 container-fluid">
     <div class="mt-4 row">
         <div class="col-md-6 col-12">
@@ -124,7 +132,7 @@
                                     <tr>
                                         <td>
                                             <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                <?php echo $data['object'] . "-" . $data['id'] ?>
+                                                <?php echo ($data['object'] ? $data['object'] : "No Username"). "-" . $data['id'] ?>
                                             </p>
                                         </td>
                                         <td>

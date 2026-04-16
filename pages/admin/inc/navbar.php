@@ -67,8 +67,8 @@
                     </a>
                     <ul class="px-2 py-3 dropdown-menu dropdown-menu-end me-sm-n4" aria-labelledby="dropdownMenuButton">
                         <?php
-                        if (!empty($notification_alert)) {
-                            foreach ($notification_alert as $data) {
+                        if (!empty($getallLog)) {
+                            foreach ($getallLog as $data) {
 
                                 ?>
                                 <li class="mb-2">

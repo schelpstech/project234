@@ -84,7 +84,7 @@ $sch_approval_data = $model->getRows($tblName, $conditions);
                                                                     value="<?php echo ($data['vetted'] == 1) ? 0 : 1 ?>"
                                                                     hidden />
                                                                 <input type="text" class="form-control" name="reference"
-                                                                    value="<?php echo $data['approval_rec_id'] ?>" hidden />
+                                                                    value="<?php echo $data['approval_id'] ?>" hidden />
                                                                 <button type="submit" class="dropdown-item"
                                                                     name="Update_approval_form">
                                                                     <?php echo ($data['vetted'] == 1) ? "Invalidate" : "Validate" ?>

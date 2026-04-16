@@ -171,7 +171,7 @@
                         <div class="mt-3 col-lg-2 text-md-end mt-md-0">
                           <button class="mb-0 text-white btn bg-info mt-lg-7" type="button" data-bs-toggle="modal" data-bs-target="#modal_invoice_validation" name="button"><i class="fa-solid fa-check me-2"></i>Validation Remarks</button>
                         </div>
-                        <div class="mt-3 col-lg-2 text-md-end mt-md-0">  
+                        <div class="mt-3 col-lg-2 text-md-end mt-md-0">
                           <button class="mb-0 text-white btn bg-dark mt-lg-7" onClick="window.print()" type="button" name="button"><i class="fa-solid fa-print me-2"></i>Print</button>
                         </div>
                       </div>
@@ -213,7 +213,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" name="invoice_validation_remarks" value="<?php echo $termlyRemittance['invReference'] ?? "" ?>"  class="btn btn-info">Submit Remarks</button>
+          <button type="submit" name="invoice_validation_remarks" value="<?php echo $termlyRemittance['invReference'] ?? "" ?>" class="btn btn-info">Submit Remarks</button>
         </div>
       </form>
     </div>

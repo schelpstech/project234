@@ -12,7 +12,7 @@
                     </div>
                     <div class="ms-auto d-flex">
                         <a type="button"
-                            href="../../app/adminRouter.php?pageid=<?php echo base64_encode('enrolmentbyTerm') ?>&schCode=<?php echo ($_SESSION['schCode']) ?>"
+                            href="../../app/adminRouter.php?pageid=<?php echo base64_encode('enrolmentbyTerm') ?>&schCode=<?php echo ($sch_corporate_data['sch_code']) ?>"
                             class="mb-0 btn btn-sm btn-dark me-2">
                             <strong>Back</strong>
                         </a>

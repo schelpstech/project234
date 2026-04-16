@@ -81,12 +81,12 @@
                                             case "Termly Remittance":
                                                 if ($invStatus == 0 && $vetting == 0) {
                                                     echo
-                                                    '<a href="../../app/adminRouter.php?pageid=' . base64_encode("termlyRemittanceInvoice") . '&termRef=' . $data["termRef"] . '"
+                                                    '<a href="../../app/adminRouter.php?pageid=' . base64_encode("termlyRemittanceInvoice") .'&schCode='. $data["schCode"]. '&termRef=' . $data["termRef"] . '"
                                                                     class="btn btn-dark btn-sm me-1" type="button">
                                                                     Pending Validation. Click to Validate
                                                         </a>';
                                                 } elseif ($invStatus == 0 && $vetting == 1) {
-                                                    echo '<a href="../../app/adminRouter.php?pageid=' . base64_encode("termlyRemittanceInvoice") . '&termRef=' . $data["termRef"] . '"
+                                                    echo '<a href="../../app/adminRouter.php?pageid=' . base64_encode("termlyRemittanceInvoice") . '&schCode='. $data["schCode"].'&termRef=' . $data["termRef"] . '"
                                                      class="btn btn-primary btn-sm me-1" type="button">Pending Payment</a>';
                                                 } elseif ($invStatus == 1 && $vetting == 1) {
                                                     echo '<a href="#" class="btn btn-warning btn-sm me-1" type="button">Payment Awaiting Confirmation</a>';

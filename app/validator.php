@@ -60,7 +60,7 @@ if (!empty($_SESSION['activeAdmin']) && isset($_SESSION['schCode'])) {
         $tblName = '_tbl_approval_record';
         $infoType = 'School Approval ';
         $condition = [
-            'approval_rec_id' => $_POST['reference']
+            'approval_id' => $_POST['reference']
         ];
         $contact_data = [
             'vetted' => $_POST['validation']
