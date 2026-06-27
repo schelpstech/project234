@@ -81,13 +81,13 @@
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="mb-1 text-sm font-weight-normal">
                                                     <span class="font-weight-bold">
-                                                        <?php echo $data['activity'] ?>
+                                                        <?php echo $utility->escape($data['activity'] ?? '') ?>
                                                     </span> by
-                                                    <?php echo $data['user_name'] ?>
+                                                    <?php echo $utility->escape($data['user_name'] ?? '') ?>
                                                 </h6>
                                                 <p class="mb-0 text-xs text-secondary">
                                                     <i class="fa fa-clock me-1"></i>
-                                                    <?php echo $data['rectime'] ?>
+                                                    <?php echo $utility->escape($data['rectime'] ?? '') ?>
                                                 </p>
                                             </div>
                                         </div>

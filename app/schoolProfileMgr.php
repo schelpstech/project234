@@ -36,7 +36,7 @@ if (isset($_POST['create_school_form']) && isset($_SESSION['pageName']) && ($_SE
         //corporate data
         $accessData = [
             'user_name' => htmlspecialchars($_POST['sch_code']),
-            'user_password' => 'abcd1234',
+            'user_password' => $utility->hashPassword('abcd1234'),
             'access_status' => '1'
         ];
 

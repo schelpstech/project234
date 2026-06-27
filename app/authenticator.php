@@ -1,166 +1,130 @@
 <?php
 include '../model/query.php';
 
-$tblName = '_tbl_sch_access';
-$tablename = 'log';
+$schoolLoginFallback = '../login/school.php';
+$adminLoginFallback = '../login/manager.php';
 
-// Check if log-in form is submitted from website
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    $utility->notifier('danger', 'Access Denied! You are attempting login from an unsecured page!');
+    $model->redirect($schoolLoginFallback);
+}
+
 if (isset($_POST['go_@head']) && $_POST['go_@head'] === ' login _now_ ') {
+    $userid = strtoupper(trim((string) ($_POST['school_code'] ?? '')));
+    $userpwd = (string) ($_POST['password'] ?? '');
 
-    // Retrieve form input
-
-    if (!isset($_POST["school_code"])) {
-        $notification_message .= 'School Code field must not be empty!.<br/>';
-    } else {
-        $userid = htmlspecialchars($_POST["school_code"]);
+    if ($userid === '' || $userpwd === '') {
+        $utility->notifier('danger', 'School code and password are required.');
+        $model->redirect($_SERVER['HTTP_REFERER'] ?? $schoolLoginFallback, $schoolLoginFallback);
     }
 
-    if (!isset($_POST["password"])) {
-        $notification_message .= 'Password field must not be empty!.<br/>';
-    } else {
-        $userpwd = ($_POST["password"]);
-    }
-
-    //check if username exist 
-
-    $conditions = array(
-        'return_type' => 'count',
-        'where' => array(
+    $login_details = $model->getRows('_tbl_sch_access', [
+        'return_type' => 'single',
+        'where' => [
             'user_name' => $userid,
-        )
-    );
-    $confirm_user = $model->getRows($tblName, $conditions);
+        ],
+    ]);
 
-
-    if ($confirm_user == 1) {
-
-        //select password 
-        $conditions = array(
-            'return_type' => 'single',
-            'where' => array(
-                'user_name' => $userid,
-            )
-        );
-        $login_details = $model->getRows($tblName, $conditions);
-
-        //Check Password
-
-        if (isset($login_details['user_password'])) {
-            $password = $login_details['user_password'];
-        }
-
-        if ($password === "abcd1234" && $password === $userpwd) {
-            //Check Active Status
-            if (isset($login_details['access_status']) && $login_details['access_status'] == 1) {
-                $_SESSION['active'] = $_POST["school_code"];
-                $user->recordLog($_POST["school_code"], 'Login Attempt', 'Successful - Access Granted');
-                $utility->notifier('success', 'You have been Successfully Logged in');
-                $model->redirect('./router.php?pageid=' . base64_encode('accesscode'));
-            } else {
-                $user->recordLog($_POST["school_code"], 'Login Attempt', 'Unsuccessful - Access Denied');
-                $utility->notifier('danger', 'Access Denied! Contact administrator');
-                $model->redirect($_SERVER['HTTP_REFERER']);
-            }
-        } elseif ($password != "abcd1234" && $password === $utility->inputEncode($userpwd)) {
-            //Check Active Status
-            if (isset($login_details['access_status']) && $login_details['access_status'] == 1) {
-                $_SESSION['active'] = $_POST["school_code"];
-                $user->recordLog($_POST["school_code"], 'Login Attempt', 'Successful - Access Granted');
-                $utility->notifier('success', 'You have been Successfully Logged in');
-                $model->redirect('./router.php?pageid=' . base64_encode('school_dashboard'));
-            } else {
-                $user->recordLog($_POST["school_code"], 'Login Attempt', 'Unsuccessful - Access Denied');
-                $utility->notifier('danger', 'Access Denied! Contact administrator');
-                $model->redirect($_SERVER['HTTP_REFERER']);
-            }
-        } else {
-            // Record Log Access for incorrect password
-            $user->recordLog($_POST["school_code"], 'Login Attempt', 'Unsuccessful - Wrong Password');
-            $utility->notifier('danger', 'Access Denied! Invalid Login Credentials!');
-            $model->redirect($_SERVER['HTTP_REFERER']);
-        }
-    } else {
-
-        //invalid Username
-        $user->recordLog($_POST["school_code"], 'Login Attempt', 'Unsuccessful - Invalid Username');
+    if (!$login_details) {
+        $user->recordLog($userid, 'Login Attempt', 'Unsuccessful - Invalid Username');
         $utility->notifier('danger', 'Access Denied! Invalid Login Credentials!');
-        $model->redirect($_SERVER['HTTP_REFERER']);
+        $model->redirect($_SERVER['HTTP_REFERER'] ?? $schoolLoginFallback, $schoolLoginFallback);
     }
+
+    $storedPassword = (string) ($login_details['user_password'] ?? '');
+    if (!$utility->verifySchoolPassword($userpwd, $storedPassword)) {
+        $user->recordLog($userid, 'Login Attempt', 'Unsuccessful - Wrong Password');
+        $utility->notifier('danger', 'Access Denied! Invalid Login Credentials!');
+        $model->redirect($_SERVER['HTTP_REFERER'] ?? $schoolLoginFallback, $schoolLoginFallback);
+    }
+
+    if (!isset($login_details['access_status']) || (int) $login_details['access_status'] !== 1) {
+        $user->recordLog($userid, 'Login Attempt', 'Unsuccessful - Access Denied');
+        $utility->notifier('danger', 'Access Denied! Contact administrator');
+        $model->redirect($_SERVER['HTTP_REFERER'] ?? $schoolLoginFallback, $schoolLoginFallback);
+    }
+
+    session_regenerate_id(true);
+    unset($_SESSION['activeAdmin']);
+    $_SESSION['active'] = $userid;
+
+    if ($utility->shouldMigratePassword($storedPassword)) {
+        $model->upDate('_tbl_sch_access', [
+            'user_password' => $utility->hashPassword($userpwd),
+        ], [
+            'user_name' => $userid,
+        ]);
+    }
+
+    $user->recordLog($userid, 'Login Attempt', 'Successful - Access Granted');
+    $utility->notifier('success', 'You have been Successfully Logged in');
+
+    $nextPage = hash_equals($userpwd, 'abcd1234') ? 'accesscode' : 'school_dashboard';
+    $model->redirect('./router.php?pageid=' . base64_encode($nextPage));
 } elseif (isset($_POST['adminAuthenticator']) && $_POST['adminAuthenticator'] === ' login _now_ ') {
-    // Retrieve form input
+    $userid = strtolower(trim((string) ($_POST['username'] ?? '')));
+    $userpwd = (string) ($_POST['password'] ?? '');
 
-    if (!isset($_POST["username"])) {
-        $notification_message .= 'Username field must not be empty!.<br/>';
-    } else {
-        $userid = htmlspecialchars($_POST["username"]);
+    if ($userid === '' || $userpwd === '') {
+        $utility->notifier('danger', 'Username and password are required.');
+        $model->redirect($_SERVER['HTTP_REFERER'] ?? $adminLoginFallback, $adminLoginFallback);
     }
 
-    if (!isset($_POST["password"])) {
-        $notification_message .= 'Password field must not be empty!.<br/>';
-    } else {
-        $userpwd = htmlspecialchars($_POST["password"]);
-    }
-
-    //check if username exist 
-    $tblName = "_tbl_admin_access";
-    $conditions = [
-        'return_type' => 'count',
+    $login_details = $model->getRows('_tbl_admin_access', [
+        'return_type' => 'single',
         'where' => [
             'accessName' => $userid,
-        ]
-    ];
-    $confirm_user = $model->getRows($tblName, $conditions);
+        ],
+    ]);
 
-
-    if ($confirm_user == 1) {
-
-        //select password 
-        $conditions = [
-            'return_type' => 'single',
-            'where' => [
-                'accessName' => $userid,
-            ]
-        ];
-        $login_details = $model->getRows($tblName, $conditions);
-
-        //Check Password
-
-        if (isset($login_details['accessKey'])) {
-            $password = $login_details['accessKey'];
-        }
-        if ($userpwd === convert_uudecode($password)) {
-            //Check Active Status
-            if (isset($login_details['accessStatus']) && $login_details['accessStatus'] == 1) {
-                $_SESSION['activeAdmin'] = $_POST["username"];
-                $user->recordLog($_POST["username"], 'Admin Login Attempt', 'Successful - Access Granted');
-                $utility->notifier('success', 'Hi Admin! You have been Successfully Logged in');
-                $model->redirect('../pages/admin');
-            } else {
-                $user->recordLog($_POST["username"], 'Admin Login Attempt', 'Unsuccessful - Access Denied');
-                $utility->notifier('danger', 'Access Denied! Contact administrator');
-                $model->redirect($_SERVER['HTTP_REFERER']);
-            }
-        } else {
-            // Record Log Access for incorrect password
-            $user->recordLog($_POST["username"], 'Admin Login Attempt', 'Unsuccessful - Wrong Password');
-            $utility->notifier('danger', 'Access Denied! Invalid Login Credentials!');
-            $model->redirect($_SERVER['HTTP_REFERER']);
-        }
-    } else {
-
-        //invalid Username
-        $user->recordLog($_POST["username"], 'Admin Login Attempt', 'Unsuccessful - Invalid Username');
+    if (!$login_details) {
+        $user->recordLog($userid, 'Admin Login Attempt', 'Unsuccessful - Invalid Username');
         $utility->notifier('danger', 'Access Denied! Invalid Login Credentials!');
-        $model->redirect($_SERVER['HTTP_REFERER']);
+        $model->redirect($_SERVER['HTTP_REFERER'] ?? $adminLoginFallback, $adminLoginFallback);
     }
-} elseif (isset($_POST['log_out_user']) && base64_decode($_POST['log_out_user']) == 'log_out_user_form') {
 
-    $user->recordLog($_SESSION['active'], 'Logout', 'Closed Session');
+    $storedPassword = (string) ($login_details['accessKey'] ?? '');
+    if (!$utility->verifyAdminPassword($userpwd, $storedPassword)) {
+        $user->recordLog($userid, 'Admin Login Attempt', 'Unsuccessful - Wrong Password');
+        $utility->notifier('danger', 'Access Denied! Invalid Login Credentials!');
+        $model->redirect($_SERVER['HTTP_REFERER'] ?? $adminLoginFallback, $adminLoginFallback);
+    }
+
+    if (!isset($login_details['accessStatus']) || (int) $login_details['accessStatus'] !== 1) {
+        $user->recordLog($userid, 'Admin Login Attempt', 'Unsuccessful - Access Denied');
+        $utility->notifier('danger', 'Access Denied! Contact administrator');
+        $model->redirect($_SERVER['HTTP_REFERER'] ?? $adminLoginFallback, $adminLoginFallback);
+    }
+
+    session_regenerate_id(true);
+    unset($_SESSION['active']);
+    $_SESSION['activeAdmin'] = $userid;
+
+    if ($utility->shouldMigratePassword($storedPassword)) {
+        $model->upDate('_tbl_admin_access', [
+            'accessKey' => $utility->hashPassword($userpwd),
+        ], [
+            'accessName' => $userid,
+        ]);
+    }
+
+    $user->recordLog($userid, 'Admin Login Attempt', 'Successful - Access Granted');
+    $utility->notifier('success', 'Hi Admin! You have been Successfully Logged in');
+    $model->redirect('../pages/admin');
+} elseif (isset($_POST['log_out_user']) && base64_decode((string) $_POST['log_out_user'], true) === 'log_out_user_form') {
+    $actor = $_SESSION['activeAdmin'] ?? $_SESSION['active'] ?? 'guest';
+    $fallback = isset($_SESSION['activeAdmin']) ? $adminLoginFallback : $schoolLoginFallback;
+
+    $user->recordLog($actor, 'Logout', 'Closed Session');
     $model->log_out_user();
-    session_start();
+
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+
     $utility->notifier('info', 'Logged out successfully!');
-    $model->redirect('../login/school.php');
-} else {
-    $utility->notifier('danger', 'Access Denied! You are attempting login from an unsecured page!');
-    $model->redirect('../view/index.php');
+    $model->redirect($fallback);
 }
+
+$utility->notifier('danger', 'Access Denied! You are attempting login from an unsecured page!');
+$model->redirect($schoolLoginFallback);

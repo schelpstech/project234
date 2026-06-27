@@ -22,12 +22,15 @@ class User
 
             if(isset($_SESSION['activeAdmin'])){
                 $user = $_SESSION['activeAdmin'];
-            }else{
+            } elseif (isset($_SESSION['active'])) {
                 $user = $_SESSION['active'];
+            } else {
+                $user = $object ?: 'guest';
             }
             // Bind parameters
             $query->bindParam(":user", $user);
-            $query->bindParam(":userip", $_SERVER['REMOTE_ADDR']);
+            $userIp = $_SERVER['REMOTE_ADDR'] ?? 'cli';
+            $query->bindParam(":userip", $userIp);
             $query->bindParam(":object", $object);
             $query->bindParam(":activity", $activity);
             $query->bindParam(":description", $description);

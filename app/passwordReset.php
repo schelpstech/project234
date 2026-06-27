@@ -13,13 +13,13 @@ if (isset($_POST['resetSchPassword']) && isset($_SESSION['activeAdmin'])) {
     $user_details = $model->getRows($tblName, $conditions);
 
     if (!empty($user_details)) {
-        if ($user_details['user_password'] !== "abcd1234") {
+        if (!$utility->verifySchoolPassword("abcd1234", (string) $user_details['user_password'])) {
 
             $condition = [
                 'user_name' => $_POST['schCode'],
             ];
             $password_data = [
-                'user_password' =>  $utility->inputEncode("abcd1234"),
+                'user_password' => $utility->hashPassword("abcd1234"),
             ];
 
             if ($model->upDate($tblName, $password_data, $condition) == true) {

@@ -8,14 +8,14 @@
           document.write(new Date().getFullYear())
         </script>
         CRSM Portal by
-        <a href="https://www.schelps.com.ng" class="text-secondary" target="_blank">SCHELPS
+        <a href="https://www.schelps.com.ng" class="text-secondary" target="_blank" rel="noopener noreferrer">SCHELPS
         </a>.
       </div>
     </div>
     <div class="col-lg-6">
       <ul class="nav nav-footer justify-content-center justify-content-lg-end">
         <li class="nav-item">
-          <a href="https://www.crsm.ng" class="nav-link text-xs text-muted" target="_blank">CRSM Website</a>
+          <a href="https://www.crsm.ng" class="nav-link text-xs text-muted" target="_blank" rel="noopener noreferrer">CRSM Website</a>
         </li>
       </ul>
     </div>
@@ -91,7 +91,6 @@
     Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
   }
 </script>
-<script async defer src="https://buttons.github.io/buttons.js"></script>
 <script src="../../assets/js/corporate-ui-dashboard.min.js?v=1.0.0"></script>
 <script src="../../assets/js/custom.js"></script>
 <script src="../../assets/js/ajax_jquery.js"></script>

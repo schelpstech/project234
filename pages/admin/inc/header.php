@@ -16,17 +16,11 @@ if (!isset($_SESSION['activeAdmin']) || empty($_SESSION['activeAdmin'])) {
     <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
 
-    <title>CRSM Portal - School</title>
+    <title>CRSM Portal - Admin</title>
 
     <meta name="keywords" content="CRSM Portal - School, CRSM, CRSM Schools, RCCG Schools">
     <meta name="description" content="Christ The Redeemers School Management Online Portal - School Users">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Sans:300,400,500,600,700,800|PT+Mono:300,400,500,600,700"
-        rel="stylesheet" />
+    <link href="../../assets/fonts/googlefont.css" rel="stylesheet" />
 
     <!-- Icons -->
     <link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />

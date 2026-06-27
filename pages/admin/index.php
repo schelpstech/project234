@@ -4,7 +4,13 @@ include './inc/nav.php';
 include './inc/navbar.php';
 
 
-$pageId = isset($_GET['pageid']) ? base64_decode($_GET['pageid']) : 'dashboard';
+$pageId = isset($_GET['pageid']) ? base64_decode((string) $_GET['pageid'], true) : 'dashboard';
+$pageId = is_string($pageId) && $pageId !== '' ? $pageId : 'dashboard';
+
+function adminRouteInput($value)
+{
+    return preg_replace('/[^A-Za-z0-9_.@-]/', '', trim((string) $value));
+}
 
 ?>
 
@@ -14,7 +20,7 @@ $pageId = isset($_GET['pageid']) ? base64_decode($_GET['pageid']) : 'dashboard';
             <div class="col-md-12">
                 <div class="mx-2 mb-3 d-md-flex align-items-center">
                     <div class="mb-3 mb-md-0">
-                        <h4><?php echo $_SESSION['pageName'] ?? ""; ?></h4>
+                        <h4><?php echo $utility->escape($_SESSION['pageName'] ?? ""); ?></h4>
                     </div>
                     <button type="button"
                         class="mb-0 mb-2 btn btn-sm btn-white btn-icon d-flex align-items-center ms-md-auto mb-sm-0 me-2">
@@ -24,7 +30,7 @@ $pageId = isset($_GET['pageid']) ? base64_decode($_GET['pageid']) : 'dashboard';
                             </span>
                         </span>
                         <span class="btn-inner--text">
-                            Session: <?php echo $currentTerm['termVariable'] ?? "No Active Term"; ?>
+                            Session: <?php echo $utility->escape($currentTerm['termVariable'] ?? "No Active Term"); ?>
                         </span>
                     </button>
                 </div>
@@ -67,18 +73,18 @@ $pageId = isset($_GET['pageid']) ? base64_decode($_GET['pageid']) : 'dashboard';
 
             case 'enrolmentbyTerm':
                 $pageName = "School Enrolment Record";
-                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">Termly Enrolment Record for School with Code :: ' . ($_SESSION['schCode'] ?? "") . '</h6>';
+                $_SESSION['schCode'] = adminRouteInput($_GET['schCode'] ?? ($_SESSION['schCode'] ?? ''));
+                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">Termly Enrolment Record for School with Code :: ' . $utility->escape($_SESSION['schCode']) . '</h6>';
                 $pageDescription = "The terms for which Selected School has created enrolment records";
-                $_SESSION['schCode'] = $_GET['schCode'] ?? '';
                 $viewFile = "./report/Enrolment/enrolmentbyTerm.php";
                 break;
 
             case 'schEnrolmentDetails':
                 $pageName = "School Invoice Details - Enrolment Record";
-                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">Termly Enrolment Record for School with Code :: ' . ($_SESSION['schCode'] ?? "") . '</h6>';
                 $pageDescription = "View and Validate Invoices of Selected School";
-                $_SESSION['termRef'] = $_GET['termRef'] ?? '';
-                $_SESSION['schCode'] = $_GET['schoolcode'] ?? '';
+                $_SESSION['termRef'] = adminRouteInput($_GET['termRef'] ?? ($_SESSION['termRef'] ?? ''));
+                $_SESSION['schCode'] = adminRouteInput($_GET['schoolcode'] ?? ($_SESSION['schCode'] ?? ''));
+                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">Termly Enrolment Record for School with Code :: ' . $utility->escape($_SESSION['schCode']) . '</h6>';
                 $viewFile = "./report/Enrolment/enrolmentRecord.php";
                 break;
 
@@ -89,9 +95,9 @@ $pageId = isset($_GET['pageid']) ? base64_decode($_GET['pageid']) : 'dashboard';
 
             case 'rebateDetails':
                 $pageName = "School Rebate Application Details";
-                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">Rebate Application Details for School with Code :: ' . ($_SESSION['schCode'] ?? "") . '</h6>';
                 $pageDescription = "View and Validate Rebate Application of Selected School";
-                $_SESSION['rebateRef'] = $_GET['rebateRef'] ?? '';
+                $_SESSION['rebateRef'] = adminRouteInput($_GET['rebateRef'] ?? ($_SESSION['rebateRef'] ?? ''));
+                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">Rebate Application Details for School with Code :: ' . $utility->escape($_SESSION['schCode'] ?? "") . '</h6>';
                 $viewFile = "./report/rebate/rebateview.php";
                 break;
 
@@ -102,9 +108,9 @@ $pageId = isset($_GET['pageid']) ? base64_decode($_GET['pageid']) : 'dashboard';
 
             case 'schInvoicePage':
                 $pageName = "School Invoice Details";
-                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">Invoices for School with Code :: ' . ($_SESSION['schCode'] ?? "") . '</h6>';
                 $pageDescription = "View and Validate Invoices of Selected School";
-                $_SESSION['schCode'] = $_GET['schCode'] ?? '';
+                $_SESSION['schCode'] = adminRouteInput($_GET['schCode'] ?? ($_SESSION['schCode'] ?? ''));
+                $identifier = '<h6 class="font-weight-semibold text-lg mb-0">Invoices for School with Code :: ' . $utility->escape($_SESSION['schCode']) . '</h6>';
                 $viewFile = "./report/invoice/invoiceDetails.php";
                 break;
 
@@ -185,7 +191,7 @@ $pageId = isset($_GET['pageid']) ? base64_decode($_GET['pageid']) : 'dashboard';
 
         <div class="card-header border-bottom pb-0">
             <div class="d-sm-flex align-items-center">
-                <?php echo $_SESSION['pageDescription'] ?? ""; ?>
+                <?php echo $utility->escape($_SESSION['pageDescription'] ?? ""); ?>
             </div>
         </div>
 

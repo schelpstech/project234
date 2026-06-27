@@ -5,19 +5,19 @@
           <div class="text-sm text-center copyright text-md-start">
             Copyright © <script>
               document.write(new Date().getFullYear())
-            </script> <a href="https://crsm.ng" class="text-sm text-body ms-1" target="_blank">CRSM Portal</a>
+            </script> <a href="https://crsm.ng" class="text-sm text-body ms-1" target="_blank" rel="noopener noreferrer">CRSM Portal</a>
           </div>
         </div>
         <div class="col-lg-6">
           <ul class="text-white nav nav-footer justify-content-center justify-content-lg-end">
             <li class="nav-item">
-              <a href="./manager.php" class="text-sm nav-link text-body" target="_blank">Secretariat</a>
+              <a href="./manager.php" class="text-sm nav-link text-body">Secretariat</a>
             </li>
             <li class="nav-item">
-              <a href="./manager.php" class="text-sm nav-link text-body" target="_blank">Board</a>
+              <a href="./manager.php" class="text-sm nav-link text-body">Board</a>
             </li>
             <li class="nav-item">
-              <a href="./school.php" class="text-sm nav-link text-body" target="_blank">School</a>
+              <a href="./school.php" class="text-sm nav-link text-body">School</a>
             </li>
           </ul>
         </div>
@@ -44,8 +44,6 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Corporate UI Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/corporate-ui-dashboard.min.js?v=1.0.0"></script>
     <!-- Custom scripts -->

@@ -13,7 +13,7 @@ include '../../model/dashboard.php';
                 <div class="mx-2 mb-3 d-md-flex align-items-center">
                     <div class="mb-3 mb-md-0">
                         <h5 class="mb-0 font-weight-bold">School code:
-                            <?php echo $_SESSION['active'] ?>
+                            <?php echo $utility->escape($_SESSION['active'] ?? '') ?>
                         </h5>
 
                     </div>
@@ -24,7 +24,7 @@ include '../../model/dashboard.php';
                                 <span class="visually-hidden">New</span>
                             </span>
                         </span>
-                        <span class="btn-inner--text">Session: 2022/2023</span>
+                        <span class="btn-inner--text">Session: <?php echo $utility->escape($currentTerm['termVariable'] ?? 'No Active Term') ?></span>
                     </button>
                 </div>
             </div>

@@ -1,201 +1,78 @@
 <?php
 include '../model/query.php';
 
+if (empty($_SESSION['active'])) {
+  $utility->notifier('danger', 'Access Denied! Please sign in again.');
+  $model->redirect('../login/school.php');
+}
 
-//School Dashboard
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'school_dashboard') {
+$pageId = isset($_GET['pageid']) ? base64_decode((string) $_GET['pageid'], true) : false;
+
+$routes = [
+  'corporate_form' => ['current_page' => 'corporate_form', 'include' => './forms/corporate.php'],
+  'availableClasses' => ['current_page' => 'availableClasses', 'include' => './forms/availableClasses.php'],
+  'contact_form' => ['current_page' => 'contact_form', 'include' => './forms/contact.php'],
+  'approval_record' => ['current_page' => 'approval_record', 'include' => './forms/approval.php'],
+  'facility_record' => ['current_page' => 'facility_record', 'include' => './forms/facilities.php'],
+  'add_personnel' => ['current_page' => 'add_personnel', 'include' => './forms/add_personnel.php'],
+  'editPersonnel' => ['current_page' => 'add_personnel', 'include' => './forms/editPersonnel.php', 'params' => ['personnelRef']],
+  'Personneldocs' => ['current_page' => 'add_personnel', 'include' => './forms/personnelDocs.php', 'params' => ['personnelRef']],
+  'post_vacancy' => ['current_page' => 'post_vacancy', 'include' => './forms/post_vacancy.php'],
+  'activity_log' => ['current_page' => 'activity_log', 'include' => './report/activityLog.php'],
+  'newTicket' => ['current_page' => 'newTicket', 'include' => './forms/ticket.php'],
+  'ticketLog' => ['current_page' => 'newTicket', 'include' => './report/myTickets.php'],
+  'conversation' => ['current_page' => 'newTicket', 'include' => './forms/conversation.php', 'params' => ['ticketid']],
+  'accesscode' => ['current_page' => 'Authentication', 'include' => './forms/accesscode.php'],
+  'userProfile' => ['current_page' => 'Authentication', 'include' => './forms/userprofile.php'],
+  'academic' => ['current_page' => 'Termly Academic Report', 'include' => './forms/academicReport.php'],
+  'editAcademic' => ['current_page' => 'Termly Academic Report', 'include' => './forms/modifyAcademicReport.php', 'params' => ['reportRef']],
+  'enrolment' => ['current_page' => 'availableClasses', 'include' => './forms/enrolment.php'],
+  'reBate' => ['current_page' => 'availableClasses', 'include' => './forms/rebate.php'],
+  'jesusTime' => ['current_page' => 'JT Termly Report', 'include' => './forms/jesusTime.php'],
+  'editJTreport' => ['current_page' => 'JT Termly Report', 'include' => './forms/editJTreport.php', 'params' => ['reportRef']],
+  'editEnrolment' => ['current_page' => 'availableClasses', 'include' => './forms/editEnrolment.php', 'params' => ['enrolmentRef', 'action']],
+  'billGenerator' => ['current_page' => 'availableClasses', 'include' => './forms/billgenerator.php'],
+  'transaction' => ['current_page' => 'Finance', 'include' => './report/transaction.php'],
+  'uploadEvidenceofPayment' => ['current_page' => 'Finance', 'include' => './forms/uploadpayment.php', 'params' => ['invoiceNum']],
+];
+
+unset(
+  $_SESSION['personnelRef'],
+  $_SESSION['ticketid'],
+  $_SESSION['reportRef'],
+  $_SESSION['enrolmentRef'],
+  $_SESSION['action'],
+  $_SESSION['invoiceNum']
+);
+
+if ($pageId === 'school_dashboard') {
   $_SESSION['pageid'] = 'school_dashboard';
   $_SESSION['page_name'] = 'Dashboard';
   $_SESSION['module'] = 'school';
   $model->redirect('../pages/school/index.php');
 }
-//School Corporate Form
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'corporate_form') {
-  $_SESSION['current_page'] = 'corporate_form';
-  $_SESSION['include'] = './forms/corporate.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-//School Available Classes Form
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'availableClasses') {
-  $_SESSION['current_page'] = 'availableClasses';
-  $_SESSION['include'] = './forms/availableClasses.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-//School Contact Form
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'contact_form') {
-  $_SESSION['current_page'] = 'contact_form';
-  $_SESSION['include'] = './forms/contact.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-//School Approval Record Form
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'approval_record') {
-  $_SESSION['current_page'] = 'approval_record';
-  $_SESSION['include'] = './forms/approval.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
+
+if (!is_string($pageId) || !isset($routes[$pageId])) {
+  $utility->notifier('danger', 'The requested page is not available.');
+  $model->redirect('../pages/school/index.php');
 }
 
-//School Facility Record Form
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'facility_record') {
-  $_SESSION['current_page'] = 'facility_record';
-  $_SESSION['include'] = './forms/facilities.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
+$route = $routes[$pageId];
+foreach ($route['params'] ?? [] as $param) {
+  if (!isset($_GET[$param])) {
+    $utility->notifier('danger', 'The requested page is missing required information.');
+    $model->redirect('../pages/school/index.php');
+  }
+  $_SESSION[$param] = sanitizeRouteValue($_GET[$param]);
 }
 
-//Add Personnel Record
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'add_personnel') {
-  $_SESSION['current_page'] = 'add_personnel';
-  $_SESSION['include'] = './forms/add_personnel.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
+$_SESSION['current_page'] = $route['current_page'];
+$_SESSION['include'] = $route['include'];
+$_SESSION['module'] = 'school';
 
-//Edit Personnel Record
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'editPersonnel' ) {
-  $_SESSION['current_page'] = 'add_personnel';
-  $_SESSION['personnelRef'] = $_GET['personnelRef'];
-  $_SESSION['include'] = './forms/editPersonnel.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-//Reupload Personnel Document Record
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'Personneldocs' ) {
-  $_SESSION['current_page'] = 'add_personnel';
-  $_SESSION['personnelRef'] = $_GET['personnelRef'];
-  $_SESSION['include'] = './forms/personnelDocs.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
+$model->redirect('../pages/school/formviewer.php');
 
-//Post Job Vacancy
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'post_vacancy') {
-  $_SESSION['current_page'] = 'post_vacancy';
-  $_SESSION['include'] = './forms/post_vacancy.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
+function sanitizeRouteValue($value)
+{
+  return preg_replace('/[^A-Za-z0-9_.-]/', '', trim((string) $value));
 }
-
-//View Activity Log
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'activity_log') {
-  $_SESSION['current_page'] = 'activity_log';
-  $_SESSION['include'] = './report/activityLog.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-
-//Support Ticket
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'newTicket') {
-  $_SESSION['current_page'] = 'newTicket';
-  $_SESSION['include'] = './forms/ticket.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'ticketLog') {
-  $_SESSION['current_page'] = 'newTicket';
-  $_SESSION['include'] = './report/myTickets.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'conversation' && isset($_GET['ticketid'])) {
-  $_SESSION['current_page'] = 'newTicket';
-  $_SESSION['include'] = './forms/conversation.php';
-  $_SESSION['ticketid'] = $_GET['ticketid'];
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-//Authentication
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'accesscode') {
-  $_SESSION['current_page'] = 'Authentication';
-  $_SESSION['include'] = './forms/accesscode.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'userProfile') {
-  $_SESSION['current_page'] = 'Authentication';
-  $_SESSION['include'] = './forms/userprofile.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'academic') {
-  $_SESSION['current_page'] = 'Termly Academic Report';
-  $_SESSION['include'] = './forms/academicReport.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'editAcademic') {
-  $_SESSION['current_page'] = 'Termly Academic Report';
-  $_SESSION['reportRef'] =  $_GET['reportRef'];
-  $_SESSION['include'] = './forms/modifyAcademicReport.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-
-
-//Report - Enrolment
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'enrolment') {
-  $_SESSION['current_page'] = 'availableClasses';
-  $_SESSION['include'] = './forms/enrolment.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-//Rebate Application
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'reBate') {
-  $_SESSION['current_page'] = 'availableClasses';
-  $_SESSION['include'] = './forms/rebate.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-//Report - Jesus Time
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'jesusTime') {
-  $_SESSION['current_page'] = 'JT Termly Report';
-  $_SESSION['include'] = './forms/jesusTime.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-
-if (isset($_GET['pageid']) && isset($_GET['reportRef']) && base64_decode($_GET['pageid']) == 'editJTreport') {
-  $_SESSION['reportRef'] = $_GET['reportRef'];
-  $_SESSION['current_page'] = 'JT Termly Report';
-  $_SESSION['include'] = './forms/editJTreport.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-if (isset($_GET['pageid']) && isset($_GET['enrolmentRef']) && base64_decode($_GET['pageid']) == 'editEnrolment') {
-  $_SESSION['enrolmentRef'] = $_GET['enrolmentRef'];
-  $_SESSION['action'] = $_GET['action'];
-  $_SESSION['current_page'] = 'availableClasses';
-  $_SESSION['include'] = './forms/editEnrolment.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-
-
-//Report - Invoice Generator
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'billGenerator') {
-  $_SESSION['current_page'] = 'availableClasses';
-  $_SESSION['include'] = './forms/billgenerator.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-
-//Report - Transaction Table
-if (isset($_GET['pageid']) && base64_decode($_GET['pageid']) == 'transaction') {
-  $_SESSION['current_page'] = 'Finance';
-  $_SESSION['include'] = './report/transaction.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-
-//Get Invoice Details
-if (isset($_GET['pageid']) && isset($_GET['invoiceNum']) && base64_decode($_GET['pageid']) == 'uploadEvidenceofPayment') {
-  $_SESSION['invoiceNum'] = $_GET['invoiceNum'];
-  $_SESSION['current_page'] = 'Finance';
-  $_SESSION['include'] = './forms/uploadpayment.php';
-  $_SESSION['module'] = 'school';
-  $model->redirect('../pages/school/formviewer.php');
-}
-?>

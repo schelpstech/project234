@@ -16,34 +16,17 @@ if (!isset($_SESSION['active']) || empty($_SESSION['active'])) {
     <title>
         CRSM Portal - School
     </title>
-    <link rel="canonical" href="https://www.creative-tim.com/product/corporate-ui-dashboard-pro" />
     <meta name="keywords" content="CRSM Portal - School, CRSM, CRSM Schools, RCCG Schools">
     <meta name="description" content="Christ The Redeemers School Management Online Portal - School Users">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Sans:300,400,500,600,700,800|PT+Mono:300,400,500,600,700"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="https://demos.creative-tim.com/argon-design-system-pro/assets/css/nucleo-icons.css"
-        type="text/css">
-    <link href rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet"
-        href="https://demos.creative-tim.com/corporate-ui-dashboard-pro/assets/css/corporate-ui-dashboard.min.css"
-        type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Sans:300,400,500,600,700,800|PT+Mono:300,400,500,600,700"
-        rel="stylesheet" />
-    <link
-        href="https://demos.creative-tim.com/corporate-ui-dashboard-pro/assets/css/corporate-ui-dashboard.min.css?v=1.0.0"
-        rel="stylesheet">
+    <link href="../../assets/fonts/googlefont.css" rel="stylesheet" />
     <link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
-    <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/css/autocomplete-theme-classic.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../assets/fontawesome/css/all.min.css" />
     <link href="../../assets/css/jquery.dataTables.css" rel="stylesheet" />
     <link id="pagestyle" href="../../assets/css/corporate-ui-dashboard.min.css?v=1.0.0" rel="stylesheet" />
+    <script src="../../assets/js/ckeditor.js"></script>
     <style>
         .async-hide {
             opacity: 0 !important
