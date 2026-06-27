@@ -53,6 +53,7 @@ include './inc/navbar.php';
                 './report/myTickets.php',
                 './report/profile/profile.php',
                 './report/profile/createSchool.php',
+                './report/profile/complianceMailer.php',
                 './report/profile/availableClasses.php',
                 './report/personnel/personnelReport.php',
                 './report/personnel/personnelList.php',

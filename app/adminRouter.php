@@ -17,6 +17,10 @@ $routes = [
         'pageName' => 'Create New CRSM School Profile',
         'pageDescription' => 'Create New CRSM School Profile on the CRSM Portal',
     ],
+    'complianceMailer' => [
+        'pageName' => 'Weekly Portal Compliance Mailer',
+        'pageDescription' => 'Queue, send and report CRSM portal compliance emails',
+    ],
     'personnelProfile' => [
         'pageName' => 'School Personnel Report',
         'pageDescription' => 'School Personnel Profile information',

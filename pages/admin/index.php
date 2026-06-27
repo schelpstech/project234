@@ -53,6 +53,10 @@ function adminRouteInput($value)
                 $viewFile = "./report/profile/createSchool.php";
                 break;
 
+            case 'complianceMailer':
+                $viewFile = "./report/profile/complianceMailer.php";
+                break;
+
             //=== Personnel ===//
             case 'personnelProfile':
                 $viewFile = "./report/personnel/personnelReport.php";
