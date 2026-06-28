@@ -26,6 +26,7 @@ if (!isset($_SESSION['active']) || empty($_SESSION['active'])) {
     <link rel="stylesheet" href="../../assets/fontawesome/css/all.min.css" />
     <link href="../../assets/css/jquery.dataTables.css" rel="stylesheet" />
     <link id="pagestyle" href="../../assets/css/corporate-ui-dashboard.min.css?v=1.0.0" rel="stylesheet" />
+    <link href="../../assets/css/portal-modern.css" rel="stylesheet" />
     <script src="../../assets/js/ckeditor.js"></script>
     <style>
         .async-hide {

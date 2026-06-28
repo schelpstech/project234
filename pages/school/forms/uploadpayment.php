@@ -1,14 +1,18 @@
+<?php
+if (empty($_SESSION['payment_csrf'])) {
+    $_SESSION['payment_csrf'] = bin2hex(random_bytes(32));
+}
+$paymentCsrf = $_SESSION['payment_csrf'];
+?>
 <div class="col-lg-8 offset-2 col-md-12 ">
     <div class="border shadow-xs card">
         <div class="pb-0 card-header border-bottom">
             <div class="mb-3 d-sm-flex align-items-center">
                 <div>
-                    <h6 class="mb-0 text-lg font-weight-semibold">CRSM School - Upload Evidence of Payment for Invoice #
+                    <h6 class="mb-0 text-lg font-weight-semibold">Bank Transfer Receipt Upload for Invoice #
                         <?php echo $_SESSION['invoiceNum'] ?>
                     </h6>
-                    <p class="mb-2 text-sm mb-sm-0">Information provided in this form will be vetted and will not be
-                        editable upon
-                        approval by the secretariat</p>
+                    <p class="mb-2 text-sm mb-sm-0">Use this only when payment was made by transfer or deposit. Online Paystack payments are confirmed automatically after verification.</p>
                 </div>
                 <div class="ms-auto d-flex">
                     <a type="button" href="../../app/router.php?pageid=<?php echo base64_encode('transaction') ?>"
@@ -20,6 +24,7 @@
 
             <form role="form" class="text-start" autocomplete="off" action="../../app/paymentHandler.php" method="post"
                 enctype="multipart/form-data">
+                <input type="hidden" name="paymentCsrf" value="<?php echo $utility->escape($paymentCsrf); ?>">
                 <hr>
                 <div class="row">
                     <div class="col-md-4">

@@ -6,7 +6,7 @@ include '../../model/dashboard.php';
 ?>
 
 
-<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+<main class="main-content position-relative border-radius-lg ">
     <div class="px-5 py-4 container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -30,6 +30,32 @@ include '../../model/dashboard.php';
             </div>
         </div>
         <hr class="my-0">
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card border shadow-xs">
+                    <div class="card-body py-3">
+                        <div class="d-flex flex-wrap align-items-center gap-3">
+                            <div class="me-auto">
+                                <h6 class="mb-1">Quick Actions</h6>
+                                <p class="text-sm mb-0">Jump straight to the portal tasks schools use most often.</p>
+                            </div>
+                            <a href="../../app/router.php?pageid=<?php echo base64_encode('corporate_form') ?>" class="btn btn-sm btn-outline-dark mb-0">
+                                Update Profile
+                            </a>
+                            <a href="../../app/router.php?pageid=<?php echo base64_encode('enrolment') ?>" class="btn btn-sm btn-outline-dark mb-0">
+                                Enrolment
+                            </a>
+                            <a href="../../app/router.php?pageid=<?php echo base64_encode('transaction') ?>" class="btn btn-sm btn-success mb-0">
+                                Finance
+                            </a>
+                            <a href="../../app/router.php?pageid=<?php echo base64_encode('newTicket') ?>" class="btn btn-sm btn-info mb-0">
+                                Support
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--
         <div class="row">
             <div class="position-relative overflow-hidden">

@@ -36,6 +36,7 @@ if (!isset($_SESSION['activeAdmin']) || empty($_SESSION['activeAdmin'])) {
     <link rel="stylesheet" type="text/css" href="../../assets/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/buttons.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/buttons.bootstrap4.min.css">
+    <link href="../../assets/css/portal-modern.css" rel="stylesheet" />
 
     <!-- JS -->
     <script src="../../assets/js/jquery-3.7.0.js"></script>

@@ -14,7 +14,7 @@ function adminRouteInput($value)
 
 ?>
 
-<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+<main class="main-content position-relative border-radius-lg ">
     <div class="px-5 py-4 container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -55,6 +55,10 @@ function adminRouteInput($value)
 
             case 'complianceMailer':
                 $viewFile = "./report/profile/complianceMailer.php";
+                break;
+
+            case 'complianceStatus':
+                $viewFile = "./report/profile/complianceStatus.php";
                 break;
 
             //=== Personnel ===//
@@ -110,6 +114,14 @@ function adminRouteInput($value)
                 $viewFile = "./report/invoice/financeProfile.php";
                 break;
 
+            case 'transactionManager':
+                $viewFile = "./report/invoice/transactionManager.php";
+                break;
+
+            case 'paymentReceipt':
+                $viewFile = "./report/invoice/paymentReceipt.php";
+                break;
+
             case 'schInvoicePage':
                 $pageName = "School Invoice Details";
                 $pageDescription = "View and Validate Invoices of Selected School";
@@ -120,6 +132,10 @@ function adminRouteInput($value)
 
             case 'termlyRemittanceInvoice':
                 $viewFile = "./report/invoice/termlyInvoice.php";
+                break;
+
+            case 'academicReportManager':
+                $viewFile = "./report/academic/academicReportManager.php";
                 break;
 
             //=== User & Logs ===//

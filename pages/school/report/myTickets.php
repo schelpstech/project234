@@ -4,7 +4,7 @@
             <div class="d-sm-flex align-items-center">
                 <div>
                     <h6 class="font-weight-semibold text-lg mb-0">My Support Tickets</h6>
-                    <p class="text-sm">See information about all personnel of the school</p>
+                    <p class="text-sm">Track open, answered and closed support requests.</p>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                                 <tr>
                                     <td>
                                         <p class="text-sm text-dark font-weight-semibold mb-0">
-                                            <?php echo $data['ticketRefNumber'] ?>
+                                            <?php echo $utility->escape($data['ticketRefNumber']) ?>
                                         </p>
                                     </td>
                                     <td>
@@ -38,10 +38,10 @@
                                             <?php
                                             switch ($data['ticketType']) {
                                                 case '1':
-                                                    echo '<strong> Enquiry - </strong>' . $data['ticketSubject'];
+                                                    echo '<strong>Enquiry - </strong>' . $utility->escape($data['ticketSubject']);
                                                     break;
                                                 case '2':
-                                                    echo '<strong>Complaint - </strong>' . $data['ticketSubject'];
+                                                    echo '<strong>Complaint - </strong>' . $utility->escape($data['ticketSubject']);
                                                     break;
                                             }
                                             ?>
@@ -50,17 +50,17 @@
                                     <td class="align-middle text-center text-sm">
                                         <?php
                                         if ($data['ticketStatus'] == 0) {
-                                            echo '<a  href="../../app/router.php?pageid=' . base64_encode('conversation') . '&ticketid='.$data['ticketRefNumber'].'" class="btn btn-danger btn-sm me-1" type="button">closed</a>';
+                                            echo '<a href="../../app/router.php?pageid=' . base64_encode('conversation') . '&ticketid=' . $utility->escape($data['ticketRefNumber']) . '" class="btn btn-secondary btn-sm me-1" type="button">Closed</a>';
                                         } elseif ($data['ticketStatus'] == 1 && $data['lastReply'] == 11) {
-                                            echo '<a href="../../app/router.php?pageid=' . base64_encode('conversation') . '&ticketid='.$data['ticketRefNumber'].'" class="btn btn-warning btn-sm me-1" type="button">Awaiting feedback</a>';
+                                            echo '<a href="../../app/router.php?pageid=' . base64_encode('conversation') . '&ticketid=' . $utility->escape($data['ticketRefNumber']) . '" class="btn btn-warning btn-sm me-1" type="button">Awaiting Feedback</a>';
                                         } elseif ($data['ticketStatus'] == 1 && $data['lastReply'] == 22) {
-                                            echo '<a href="../../app/router.php?pageid=' . base64_encode('conversation') . '&ticketid='.$data['ticketRefNumber'].'" class="btn btn-dark btn-sm me-1" type="button">Answered</a>';
+                                            echo '<a href="../../app/router.php?pageid=' . base64_encode('conversation') . '&ticketid=' . $utility->escape($data['ticketRefNumber']) . '" class="btn btn-success btn-sm me-1" type="button">Answered</a>';
                                         }
                                         ?>
                                     </td>
                                     <td class="align-middle">
                                         <p class="text-sm text-dark font-weight-semibold mb-0">
-                                            <?php echo $data['RecordTime'] ?>
+                                            <?php echo $utility->escape($data['RecordTime']) ?>
                                         </p>
                                     </td>
                                 </tr>

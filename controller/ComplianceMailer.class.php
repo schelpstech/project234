@@ -145,6 +145,68 @@ class ComplianceMailer
         }
     }
 
+    public function sendSchoolNotice(string $schoolCode, string $createdBy = 'admin'): array
+    {
+        $schoolCode = $this->safeRouteValue($schoolCode);
+        if ($schoolCode === '') {
+            return ['sent' => 0, 'failed' => 0, 'queued' => 0, 'message' => 'Invalid school code.'];
+        }
+
+        if (!$this->acquireLock('crsm_compliance_mail_single', 1)) {
+            return ['sent' => 0, 'failed' => 0, 'queued' => 0, 'message' => 'Another individual compliance mail is already being processed.'];
+        }
+
+        try {
+            $statuses = $this->getSchoolStatuses($schoolCode);
+            if (empty($statuses)) {
+                return ['sent' => 0, 'failed' => 0, 'queued' => 0, 'message' => 'School was not found.'];
+            }
+
+            $status = $statuses[0];
+            $recipient = $this->selectRecipientEmail($status);
+            $subject = 'Urgent Action Required: CRSM Portal Update, Enrolment and 2% Remittance Status';
+            $campaignKey = 'portal-compliance-manual-' . date('Ymd-His') . '-' . $schoolCode . '-' . bin2hex(random_bytes(3));
+            $campaignId = $this->getOrCreateCampaign($campaignKey, 'Manual CRSM Portal Compliance Notice', $subject, $createdBy);
+
+            if (!$recipient) {
+                $this->insertQueueRow($campaignId, $status, null, $subject, '', '', 'skipped_no_email');
+                $this->refreshCampaignCounts($campaignId);
+                return ['sent' => 0, 'failed' => 0, 'queued' => 0, 'message' => 'This school has no valid recipient email on the portal.'];
+            }
+
+            $sentLastHour = $this->countSentLastHour();
+            if ($sentLastHour >= 50) {
+                $payload = $this->buildMailPayload($status, $this->getActiveTerm(), bin2hex(random_bytes(24)));
+                $this->insertQueueRow($campaignId, $status, $recipient, $subject, $payload['html'], $payload['text'], 'queued', null, $payload['payload']);
+                $this->refreshCampaignCounts($campaignId);
+                return ['sent' => 0, 'failed' => 0, 'queued' => 1, 'message' => 'Hourly mail limit reached. The school notice was queued for the next send run.'];
+            }
+
+            $token = bin2hex(random_bytes(24));
+            $payload = $this->buildMailPayload($status, $this->getActiveTerm(), $token);
+            $queueId = $this->insertQueueRow($campaignId, $status, $recipient, $subject, $payload['html'], $payload['text'], 'queued', $token, $payload['payload']);
+            $item = $this->getQueueItem($queueId);
+
+            if (!$item || !$this->markSending($queueId)) {
+                $this->refreshCampaignCounts($campaignId);
+                return ['sent' => 0, 'failed' => 1, 'queued' => 0, 'message' => 'The notice could not be reserved for sending.'];
+            }
+
+            $result = $this->sendQueueItem($item);
+            if ($result['ok']) {
+                $this->markSent($queueId, $result['transaction_id']);
+                $this->refreshCampaignCounts($campaignId);
+                return ['sent' => 1, 'failed' => 0, 'queued' => 0, 'message' => 'Individual compliance notice sent.'];
+            }
+
+            $this->markFailed($queueId, (int) $item['attempts'] + 1, $result['error']);
+            $this->refreshCampaignCounts($campaignId);
+            return ['sent' => 0, 'failed' => 1, 'queued' => 0, 'message' => 'The notice could not be sent: ' . $result['error']];
+        } finally {
+            $this->releaseLock('crsm_compliance_mail_single');
+        }
+    }
+
     public function addSchoolEmail(string $schoolCode, string $email, string $adminUser): bool
     {
         $schoolCode = $this->safeRouteValue($schoolCode);
@@ -241,10 +303,11 @@ class ComplianceMailer
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getSchoolStatuses(): array
+    public function getSchoolStatuses(?string $schoolCode = null): array
     {
         $term = $this->getActiveTerm();
         $termId = (int) ($term['id'] ?? 0);
+        $schoolCode = $schoolCode !== null ? $this->safeRouteValue($schoolCode) : null;
 
         $stmt = $this->db->prepare("
             SELECT
@@ -346,9 +409,14 @@ class ComplianceMailer
                 WHERE invType = 'Termly Remittance'
                 GROUP BY schCode
             ) remittance ON remittance.schCode = scd.sch_code
+            " . ($schoolCode ? "WHERE scd.sch_code = ?" : "") . "
             ORDER BY scd.sch_name ASC
         ");
-        $stmt->execute([$termId, $termId]);
+        $params = [$termId, $termId];
+        if ($schoolCode) {
+            $params[] = $schoolCode;
+        }
+        $stmt->execute($params);
         $statuses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($statuses as &$status) {
@@ -655,7 +723,7 @@ class ComplianceMailer
         return $row ?: null;
     }
 
-    private function insertQueueRow(int $campaignId, array $status, ?string $recipient, string $subject, string $bodyHtml, string $bodyText, string $queueStatus, ?string $token = null, array $payload = []): void
+    private function insertQueueRow(int $campaignId, array $status, ?string $recipient, string $subject, string $bodyHtml, string $bodyText, string $queueStatus, ?string $token = null, array $payload = []): int
     {
         $token = $token ?: bin2hex(random_bytes(24));
         $stmt = $this->db->prepare("
@@ -677,6 +745,17 @@ class ComplianceMailer
             $token,
             $queueStatus,
         ]);
+
+        return (int) $this->db->lastInsertId();
+    }
+
+    private function getQueueItem(int $queueId): ?array
+    {
+        $stmt = $this->db->prepare('SELECT * FROM crsm_mail_queue WHERE id = ? LIMIT 1');
+        $stmt->execute([$queueId]);
+        $item = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $item ?: null;
     }
 
     private function updateQueueRow(int $queueId, string $recipient, string $subject, array $payload, string $queueStatus): void

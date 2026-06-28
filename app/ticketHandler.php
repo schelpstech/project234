@@ -1,9 +1,22 @@
 <?php
     include '../model/query.php';
 
+$ticketActionRequested = isset($_POST['submit_Ticket_form']) || isset($_POST['replyTicketForm']) || isset($_POST['closeTicketForm']);
+if ($ticketActionRequested) {
+    $postedCsrf = (string) ($_POST['ticketCsrf'] ?? '');
+    if (empty($_SESSION['ticket_csrf']) || !hash_equals($_SESSION['ticket_csrf'], $postedCsrf)) {
+        $utility->notifier('danger', 'Security check failed. Please reload the support page and try again.');
+        if (!empty($_SESSION['activeAdmin'])) {
+            $model->redirect('./adminRouter.php?pageid=' . base64_encode('ticketLog'));
+        }
+        $model->redirect('./router.php?pageid=' . base64_encode('ticketLog'));
+    }
+}
+
 //Add Ticket
 if (isset($_POST['submit_Ticket_form']) && isset($_SESSION['current_page']) && ($_SESSION['current_page']) == 'newTicket') {
     $reference = $utility->generateRandomDigits(8);
+    $schoolName = $sch_corporate_data['sch_name'] ?? ($_SESSION['active'] ?? 'School');
     //Create New Support Ticket
     if (
         (!empty($_POST['ticketType']))
@@ -23,11 +36,11 @@ if (isset($_POST['submit_Ticket_form']) && isset($_SESSION['current_page']) && (
             'sent_by' => $_SESSION['active'],
         ];
         if ($model->insert_data('_tbl_ticket', $ticket_data) == true && $model->insert_data('_tbl_conversation', $conversation_data) == true) {
-            $user->recordLog($_SESSION['active'], 'New Support Ticket', 'A new support ticket has been submitted for school with code : ' . $_POST['sch_name']);
-            $utility->notifier('success', 'You have Successfully submitted a new support for school with code: ' . $_POST['sch_name']);
+            $user->recordLog($_SESSION['active'], 'New Support Ticket', 'A new support ticket has been submitted for school with code : ' . $_SESSION['active']);
+            $utility->notifier('success', 'You have successfully submitted a new support ticket for ' . $schoolName . '.');
             $model->redirect('./router.php?pageid=' . base64_encode('ticketLog'));
         } else {
-            $utility->notifier('dark', 'There was an error submitting your support ticket for school with code: ' . $_POST['sch_name']);
+            $utility->notifier('dark', 'There was an error submitting your support ticket for ' . $schoolName . '.');
             $model->redirect('./router.php?pageid=' . base64_encode('newTicket'));
         }
     } else {
@@ -36,8 +49,54 @@ if (isset($_POST['submit_Ticket_form']) && isset($_SESSION['current_page']) && (
     }
 
 }
+//Close Ticket
+elseif (isset($_POST['closeTicketForm']) && (!empty($_SESSION['active']) || !empty($_SESSION['activeAdmin']))) {
+    $ticketId = preg_replace('/[^A-Za-z0-9_.@-]/', '', (string) ($_POST['ticketid'] ?? $_SESSION['ticketid'] ?? ''));
+    $schoolCode = !empty($_SESSION['active'])
+        ? $_SESSION['active']
+        : preg_replace('/[^A-Za-z0-9_.@-]/', '', (string) ($_POST['sch_code'] ?? $_SESSION['schCode'] ?? ''));
+    $actor = !empty($_SESSION['activeAdmin']) ? $_SESSION['activeAdmin'] : $_SESSION['active'];
+
+    if ($ticketId === '' || $schoolCode === '') {
+        $utility->notifier('danger', 'Ticket could not be verified.');
+        if (!empty($_SESSION['activeAdmin'])) {
+            $model->redirect('./adminRouter.php?pageid=' . base64_encode('ticketLog'));
+        }
+        $model->redirect('./router.php?pageid=' . base64_encode('ticketLog'));
+    }
+
+    try {
+        $stmt = $db_conn->prepare("
+            UPDATE _tbl_ticket
+            SET ticketStatus = 0,
+                RecordTime = ?
+            WHERE ticketRefNumber = ? AND schCode = ?
+        ");
+        $stmt->execute([date('Y-m-d H:i:s'), $ticketId, $schoolCode]);
+        if ($stmt->rowCount() < 1) {
+            throw new RuntimeException('Ticket close update did not match any record.');
+        }
+
+        $conversation = $db_conn->prepare("
+            INSERT INTO _tbl_conversation (schCode, ticketID, message, sent_by)
+            VALUES (?, ?, ?, ?)
+        ");
+        $conversation->execute([$schoolCode, $ticketId, 'Ticket closed by ' . $actor . '.', $actor]);
+
+        $user->recordLog($schoolCode, 'Support Ticket Closed', 'Support ticket #' . $ticketId . ' was closed by ' . $actor);
+        $utility->notifier('success', 'Ticket has been closed.');
+    } catch (Throwable $e) {
+        error_log('Close support ticket failed: ' . $e->getMessage());
+        $utility->notifier('danger', 'Unable to close the ticket. Please try again.');
+    }
+
+    if (!empty($_SESSION['activeAdmin'])) {
+        $model->redirect('./adminRouter.php?pageid=' . base64_encode('conversation') . '&ticketid=' . $ticketId . '&schCode=' . $schoolCode);
+    }
+    $model->redirect('./router.php?pageid=' . base64_encode('conversation') . '&ticketid=' . $ticketId);
+}
 //Reply Ticket
-elseif (isset($_POST['replyTicketForm']) && isset($_SESSION['current_page']) && ($_SESSION['current_page']) == 'newTicket') {
+elseif (isset($_POST['replyTicketForm']) && empty($_SESSION['activeAdmin']) && isset($_SESSION['current_page']) && ($_SESSION['current_page']) == 'newTicket') {
     //Support Ticket
     if (
         (!empty($_POST['sch_code']))
@@ -119,6 +178,9 @@ elseif (isset($_POST['replyTicketForm']) && isset($_SESSION['activeAdmin']) ) {
 }
 else {
     $utility->notifier('dark', 'Sorry we can not understand your request');
+    if (!empty($_SESSION['activeAdmin'])) {
+        $model->redirect('./adminRouter.php?pageid=' . base64_encode('ticketLog'));
+    }
     $model->redirect('./router.php?pageid=' . base64_encode('school_dashboard'));
 }
 ?>

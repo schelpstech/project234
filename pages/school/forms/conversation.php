@@ -1,34 +1,40 @@
+<?php
+if (empty($_SESSION['ticket_csrf'])) {
+    $_SESSION['ticket_csrf'] = bin2hex(random_bytes(32));
+}
+$ticketCsrf = $_SESSION['ticket_csrf'];
+$ticketOpen = (int) ($chatDetails['ticketStatus'] ?? 1) === 1;
+?>
 <div class="px-5 py-4 container-fluid">
     <div class="row gx-4">
         <div class="col-lg-8">
             <div class="card">
-                <div class="pb-0 card-header">
-                    <h6>Ticket
-                        <?php echo $_SESSION['ticketid']. " : ".$chatDetails['ticketSubject'] ?>:
-                    </h6>
+                <div class="pb-0 card-header border-bottom">
+                    <div class="d-sm-flex align-items-center">
+                        <div>
+                            <h6 class="mb-0">Ticket <?php echo $utility->escape($_SESSION['ticketid'] . ' : ' . $chatDetails['ticketSubject']); ?></h6>
+                            <p class="text-sm mb-0"><?php echo $ticketOpen ? 'Open conversation with CRSM support.' : 'This ticket is closed.'; ?></p>
+                        </div>
+                        <div class="ms-auto">
+                            <span class="badge badge-sm <?php echo $ticketOpen ? 'bg-gradient-success' : 'bg-gradient-secondary'; ?>">
+                                <?php echo $ticketOpen ? 'Open' : 'Closed'; ?>
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 <div class="p-3 card-body">
-                    <div class="timeline timeline-one-side" data-timeline-axis-style="dotted">
+                    <div class="support-thread">
                         <?php
                         if (!empty($chatHistory)) {
                             foreach ($chatHistory as $data) {
+                                $isSchool = ($data['sent_by'] === $_SESSION['active']);
                                 ?>
-                                <div class="mb-4 timeline-block">
-                                    <span class="timeline-step">
-                                        <i class="fas fa-tag"></i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="mb-0 text-sm text-dark font-weight-bold">
-                                            <?php echo $data['sent_by'] ?> <small><i> said : </i></small>
-                                        </h6>
-                                        <p class="mt-1 mb-0 text-xs text-secondary font-weight-bold">
-                                            
-                                        </p>
-                                        <p class="mt-3 mb-2 text-sm">
-                                            <?php echo ($data['message']) ?>
-                                        </p>
-                                        <span class="border-0 badge border-radius-xl badge-primary"><?php echo $data['RecordTime'] ?></span>
+                                <div class="support-message <?php echo $isSchool ? 'is-school' : 'is-admin'; ?>">
+                                    <div class="support-message-meta">
+                                        <strong class="text-sm"><?php echo $utility->escape($isSchool ? 'You' : 'CRSM Support'); ?></strong>
+                                        <span class="text-xs text-secondary"><?php echo $utility->escape($data['RecordTime']); ?></span>
                                     </div>
+                                    <div class="support-message-body"><?php echo nl2br($utility->escape($data['message'])); ?></div>
                                 </div>
                                 <?php
                             }
@@ -50,6 +56,7 @@
             </div>
             <form role="form" class="text-start" autocomplete="off" action="../../app/ticketHandler.php" method="post"
                 enctype="multipart/form-data">
+                <input type="hidden" name="ticketCsrf" value="<?php echo $utility->escape($ticketCsrf); ?>">
                 <hr>
                 <div class="row">
                     
@@ -82,14 +89,22 @@
                     <div class="col-md-12">
                         <label for="example-text-input" class="form-control-label">Message</i>:</label>
                         <div class="form-group">
-                            <textarea type="text" class="form-control"  name="ticketDetails"
-                                rows="10" ></textarea>
+                        <textarea type="text" class="form-control" name="ticketDetails"
+                                rows="8" <?php echo $ticketOpen ? '' : 'disabled'; ?>></textarea>
                         </div>
                     </div>
                 </div>
                 <hr>
-                <button type="submit" name="replyTicketForm" class="btn btn-dark active btn-lg w-100">Reply</button>
+                <button type="submit" name="replyTicketForm" class="btn btn-dark active btn-lg w-100" <?php echo $ticketOpen ? '' : 'disabled'; ?>>Reply</button>
             </form>
+            <?php if ($ticketOpen): ?>
+                <form action="../../app/ticketHandler.php" method="post" class="mt-3">
+                    <input type="hidden" name="ticketCsrf" value="<?php echo $utility->escape($ticketCsrf); ?>">
+                    <input type="hidden" name="ticketid" value="<?php echo $utility->escape($_SESSION['ticketid']); ?>">
+                    <input type="hidden" name="sch_code" value="<?php echo $utility->escape($_SESSION['active']); ?>">
+                    <button type="submit" name="closeTicketForm" class="btn btn-outline-danger w-100">Close Ticket</button>
+                </form>
+            <?php endif; ?>
         </div>
     </div>
         </div>

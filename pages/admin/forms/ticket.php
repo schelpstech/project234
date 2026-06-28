@@ -1,3 +1,9 @@
+<?php
+if (empty($_SESSION['ticket_csrf'])) {
+    $_SESSION['ticket_csrf'] = bin2hex(random_bytes(32));
+}
+$ticketCsrf = $_SESSION['ticket_csrf'];
+?>
 <div class="col-lg-8 offset-2 col-md-12 ">
     <div class="border shadow-xs card">
         <div class="pb-0 card-header border-bottom">
@@ -17,6 +23,7 @@
             </div>
             <form role="form" class="text-start" autocomplete="off" action="../../app/ticketHandler.php" method="post"
                 enctype="multipart/form-data">
+                <input type="hidden" name="ticketCsrf" value="<?php echo $utility->escape($ticketCsrf); ?>">
                 <hr>
                 <div class="row">
                     <div class="col-md-4">

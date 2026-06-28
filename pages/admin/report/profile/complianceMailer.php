@@ -12,7 +12,6 @@ try {
     $campaigns = $complianceMailer->getCampaigns();
     $queueReport = $complianceMailer->getQueueReport();
     $schoolsWithoutEmail = $complianceMailer->getSchoolsWithoutEmail();
-    $schoolStatuses = $complianceMailer->getSchoolStatuses();
     $mailerReady = true;
 } catch (Throwable $e) {
     error_log('Compliance mailer page failed: ' . $e->getMessage());
@@ -20,7 +19,6 @@ try {
     $campaigns = [];
     $queueReport = [];
     $schoolsWithoutEmail = [];
-    $schoolStatuses = [];
     $mailerReady = false;
 }
 
@@ -37,9 +35,6 @@ $statusBadge = function ($status) {
     return '<span class="badge badge-sm ' . $class . '">' . htmlspecialchars(str_replace('_', ' ', $status), ENT_QUOTES, 'UTF-8') . '</span>';
 };
 
-$yesNo = function ($condition) {
-    return $condition ? '<span class="badge badge-sm bg-gradient-success">Yes</span>' : '<span class="badge badge-sm bg-gradient-warning">No</span>';
-};
 ?>
 
 <style>
@@ -74,6 +69,11 @@ $yesNo = function ($condition) {
                         <div>
                             <h6 class="font-weight-semibold text-lg mb-0">Weekly Compliance Mail Queue</h6>
                             <p class="text-sm">Prepare the weekly board notice and send queued emails within the 50-mails-per-hour server limit.</p>
+                        </div>
+                        <div class="ms-auto">
+                            <a href="../../app/adminRouter.php?pageid=<?php echo base64_encode('complianceStatus'); ?>" class="btn btn-sm btn-outline-dark mb-0">
+                                Compliance Status
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -199,7 +199,7 @@ $yesNo = function ($condition) {
         </div>
         <div class="card-body px-0 py-0">
             <div class="table-responsive">
-                <table class="table table-flush" id="datatable-search">
+                <table class="table table-flush js-datatable" id="compliance-delivery-table">
                     <thead class="thead-light">
                         <tr>
                             <th>Queued</th>
@@ -241,45 +241,4 @@ $yesNo = function ($condition) {
         </div>
     </div>
 
-    <div class="border shadow-xs card mb-4 no-print">
-        <div class="card-header border-bottom pb-0">
-            <h6 class="font-weight-semibold text-lg mb-0">Portal Status Preview</h6>
-            <p class="text-sm">This is the same status source used to build each school email.</p>
-        </div>
-        <div class="card-body px-0 py-0">
-            <div class="table-responsive">
-                <table class="table table-flush">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>School</th>
-                            <th>Email</th>
-                            <th>Classes</th>
-                            <th>Teachers</th>
-                            <th>Missing Enrolment</th>
-                            <th>Unpaid Remittance</th>
-                            <th>Deficits</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($schoolStatuses as $status): ?>
-                            <tr>
-                                <td>
-                                    <strong><?php echo $utility->escape($status['sch_code']); ?></strong><br>
-                                    <span class="text-sm"><?php echo $utility->escape($status['sch_name']); ?></span>
-                                </td>
-                                <td><?php echo $yesNo(!empty($status['recipient_email'])); ?></td>
-                                <td><?php echo (int) $status['class_count']; ?></td>
-                                <td><?php echo (int) $status['teacher_count']; ?></td>
-                                <td><?php echo !empty($status['missing_classes']) ? $utility->escape(implode(', ', $status['missing_classes'])) : 'None'; ?></td>
-                                <td><?php echo $utility->money((float) $status['unpaid_remittance']); ?></td>
-                                <td class="text-sm">
-                                    <?php echo !empty($status['deficits']) ? $utility->escape(implode(' | ', $status['deficits'])) : 'None'; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 <?php endif; ?>

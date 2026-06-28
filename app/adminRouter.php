@@ -21,6 +21,10 @@ $routes = [
         'pageName' => 'Weekly Portal Compliance Mailer',
         'pageDescription' => 'Queue, send and report CRSM portal compliance emails',
     ],
+    'complianceStatus' => [
+        'pageName' => 'Compliance Status',
+        'pageDescription' => 'Review each school portal status and send individual compliance notices',
+    ],
     'personnelProfile' => [
         'pageName' => 'School Personnel Report',
         'pageDescription' => 'School Personnel Profile information',
@@ -116,6 +120,15 @@ $routes = [
         'pageName' => 'School Invoice List',
         'pageDescription' => 'School Finance Portal',
     ],
+    'transactionManager' => [
+        'pageName' => 'Transaction Manager',
+        'pageDescription' => 'Verify payments, manage Paystack transactions and issue receipts',
+    ],
+    'paymentReceipt' => [
+        'pageName' => 'Payment Receipt',
+        'pageDescription' => 'Printable CRSM payment receipt',
+        'params' => ['receiptNo' => 'receiptNo'],
+    ],
     'schInvoicePage' => [
         'pageName' => 'School Termly Invoice',
         'pageDescription' => 'View and Validate Invoices of Selected School',
@@ -130,9 +143,13 @@ $routes = [
         'pageName' => 'Conference Registration Report',
         'pageDescription' => 'View the registration details for Conference',
     ],
+    'academicReportManager' => [
+        'pageName' => 'Academic Report Analysis',
+        'pageDescription' => 'View and analyse submitted academic performance reports',
+    ],
 ];
 
-unset($_SESSION['personnelRef'], $_SESSION['ticketid'], $_SESSION['termRef'], $_SESSION['rebateRef']);
+unset($_SESSION['personnelRef'], $_SESSION['ticketid'], $_SESSION['termRef'], $_SESSION['rebateRef'], $_SESSION['receiptNo']);
 
 if (!is_string($pageId) || !isset($routes[$pageId])) {
     $_SESSION['pageName'] = 'Admin Dashboard';

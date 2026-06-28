@@ -63,6 +63,12 @@
                                     <span class="sidenav-normal"> Compliance Mailer</span>
                                 </a>
                             </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white opacity-9 " href="../../app/adminRouter.php?pageid=<?php echo base64_encode('complianceStatus') ?>">
+                                    <span class="sidenav-mini-icon"> S </span>
+                                    <span class="sidenav-normal"> Compliance Status</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -172,9 +178,9 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white opacity-9 " href="#">
+                                <a class="nav-link text-white opacity-9 " href="../../app/adminRouter.php?pageid=<?php echo base64_encode('academicReportManager') ?>">
                                     <span class="sidenav-mini-icon"> V </span>
-                                    <span class="sidenav-normal"> View </span>
+                                    <span class="sidenav-normal"> Academic Analysis </span>
                                 </a>
                             </li>
                         </ul>

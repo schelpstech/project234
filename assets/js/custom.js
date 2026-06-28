@@ -86,16 +86,28 @@ function preview3rdImage(input) {
 
 
 $(document).ready(function() {
-  var dataTable = $('#datatable-search').DataTable({
-    dom: 'Bfrtip',
-    buttons: [
-      '','copy', 'csv', 'excel', 'pdf' ,'print'// You can include other export options as needed
-    ]
+  var initializedTables = [];
+
+  $('#datatable-search, .js-datatable').each(function() {
+    if ($.fn.DataTable.isDataTable(this)) {
+      return;
+    }
+
+    var dataTable = $(this).DataTable({
+      dom: 'Bfrtip',
+      pageLength: 25,
+      lengthMenu: [10, 25, 50, 100],
+      autoWidth: false,
+      buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+    });
+
+    initializedTables.push(dataTable);
   });
 
-  // Create a separate print button
   $('#print-button').on('click', function() {
-    dataTable.button('4').trigger(); // '0' corresponds to the 'copy' button; adjust the index based on your needs
+    if (initializedTables[0]) {
+      initializedTables[0].button('.buttons-print').trigger();
+    }
   });
 });
 

@@ -1,7 +1,44 @@
 <?php
 include '../model/query.php';
-//Change Password
+require_once '../controller/PaystackPayment.class.php';
+
+if (isset($_POST['uploadPaymentEvidence']) || isset($_POST['initializePaystackPayment'])) {
+    $postedCsrf = (string) ($_POST['paymentCsrf'] ?? '');
+    if (empty($_SESSION['payment_csrf']) || !hash_equals($_SESSION['payment_csrf'], $postedCsrf)) {
+        $utility->notifier('danger', 'Security check failed. Please reload the finance page and try again.');
+        $model->redirect('./router.php?pageid=' . base64_encode('transaction'));
+    }
+}
+
+if (isset($_POST['initializePaystackPayment']) && isset($_SESSION['current_page']) && ($_SESSION['current_page']) == 'Finance') {
+    $invoiceReference = (string) ($_POST['invReference'] ?? '');
+    $paystack = new PaystackPayment($db_conn, $utility);
+
+    try {
+        $result = $paystack->initializeInvoicePayment($_SESSION['active'], $invoiceReference);
+
+        if ($result['ok'] && !empty($result['authorization_url']) && filter_var($result['authorization_url'], FILTER_VALIDATE_URL)) {
+            $user->recordLog($_SESSION['active'], 'Paystack Payment Initialized', 'Online payment initialized for invoice: ' . $invoiceReference);
+            header('Location: ' . $result['authorization_url'], true, 302);
+            exit;
+        }
+
+        $utility->notifier('danger', $result['message']);
+    } catch (Throwable $e) {
+        error_log('Paystack initialization failed: ' . $e->getMessage());
+        $utility->notifier('danger', 'Unable to start online payment. Please try again or upload receipt evidence.');
+    }
+
+    $model->redirect('./router.php?pageid=' . base64_encode('transaction'));
+}
+
 if (isset($_POST['uploadPaymentEvidence']) && isset($_SESSION['current_page']) && ($_SESSION['current_page']) == 'Finance') {
+    $invoiceReference = preg_replace('/[^A-Za-z0-9_.@-]/', '', (string) ($_POST['invReference'] ?? ''));
+    $paymentType = (string) ($_POST['paymentType'] ?? '');
+    if ($invoiceReference === '' || !in_array($paymentType, ['full'], true)) {
+        $utility->notifier('danger', 'Invalid payment submission. Please try again from the finance page.');
+        $model->redirect('./router.php?pageid=' . base64_encode('transaction'));
+    }
 
     $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
     $maxFileSize = 524288; // 500kb
@@ -14,7 +51,7 @@ if (isset($_POST['uploadPaymentEvidence']) && isset($_SESSION['current_page']) &
         $condition = [
             'where' => [
                 'schCode' => $_SESSION['active'],
-                'invReference' => $_POST['invReference'],
+                'invReference' => $invoiceReference,
                 'vetting' => 1
             ],
             'return_type' => 'count',
@@ -28,16 +65,16 @@ if (isset($_POST['uploadPaymentEvidence']) && isset($_SESSION['current_page']) &
             $paymentData = [
                 'transactionRef' => $utility->generateRandomDigits(10),
                 'schCode' => $_SESSION['active'],
-                'invoiceID' => $_POST['invReference'],
+                'invoiceID' => $invoiceReference,
                 'paymentEvidence' => $paymentEvidenceUploadPath . '/' . $_SESSION['fileName'],
-                'paymentType' => $_POST['paymentType'],
+                'paymentType' => $paymentType,
                 'submittedOn' => date("Y-m-d"),
             ];
              //Update Invoice Status
              $invTblName = '_tbl_termlyinvoice';
              $invCondition = [
                  'schCode' => $_SESSION['active'],
-                 'invReference' => $_POST['invReference']
+                 'invReference' => $invoiceReference
              ];
              $invoiceData = [
                  'invStatus' => 1

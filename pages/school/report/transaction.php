@@ -1,10 +1,16 @@
+<?php
+if (empty($_SESSION['payment_csrf'])) {
+    $_SESSION['payment_csrf'] = bin2hex(random_bytes(32));
+}
+$paymentCsrf = $_SESSION['payment_csrf'];
+?>
 <div class="border shadow-xs card">
     <div class="pb-0 card-header border-bottom">
         <div class="card-header border-bottom pb-0">
             <div class="d-sm-flex align-items-center">
                 <div>
                     <h6 class="font-weight-semibold text-lg mb-0">Transactions</h6>
-                    <p class="text-sm">See information about all personnel of the school</p>
+                    <p class="text-sm">Review invoices, upload bank-transfer receipts, or pay validated invoices online.</p>
                 </div>
             </div>
         </div>
@@ -36,13 +42,13 @@
                                 <tr>
                                     <td>
                                         <p class="text-sm text-dark font-weight-semibold mb-0">
-                                            <?php echo $data['invReference'] ?>
+                                            <?php echo $utility->escape($data['invReference']) ?>
                                         </p>
                                     </td>
                                     <td class=" text-center  align-middle">
                                         <p class="text-sm text-dark font-weight-semibold mb-0">
-                                            <?php echo $data['termVariable'] ?> -
-                                            <?php echo $data['invType'] ?>
+                                            <?php echo $utility->escape($data['termVariable']) ?> -
+                                            <?php echo $utility->escape($data['invType']) ?>
                                         </p>
                                     </td>
                                     <td class="text-center align-middle">
@@ -72,7 +78,20 @@
                                         if ($data['invStatus'] == 0 && $data['vetting'] == 0) {
                                             echo '<a  href="#" class="btn btn-dark btn-sm me-1" type="button">Pending Validation</a>';
                                         } elseif ($data['invStatus'] == 0 && $data['vetting'] == 1) {
-                                            echo '<a  href="../../app/router.php?pageid=' . base64_encode('uploadEvidenceofPayment') . '&invoiceNum=' . $data['invReference'] . '" class="btn btn-primary btn-sm me-1" type="button">Pending Payment: Upload Evidence of Payment</a>';
+                                            ?>
+                                            <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                                <form action="../../app/paymentHandler.php" method="post" class="mb-0">
+                                                    <input type="hidden" name="paymentCsrf" value="<?php echo $utility->escape($paymentCsrf); ?>">
+                                                    <input type="hidden" name="invReference" value="<?php echo $utility->escape($data['invReference']); ?>">
+                                                    <button type="submit" name="initializePaystackPayment" class="btn btn-success btn-sm mb-0">
+                                                        Pay Online
+                                                    </button>
+                                                </form>
+                                                <a href="../../app/router.php?pageid=<?php echo base64_encode('uploadEvidenceofPayment'); ?>&invoiceNum=<?php echo $utility->escape($data['invReference']); ?>" class="btn btn-primary btn-sm mb-0" type="button">
+                                                    Upload Receipt
+                                                </a>
+                                            </div>
+                                            <?php
                                         } elseif ($data['invStatus'] == 1 && $data['vetting'] == 1) {
                                             echo '<a href="#" class="btn btn-warning btn-sm me-1" type="button">Payment Awaiting Confirmation</a>';
                                         } elseif ($data['invStatus'] == 2 && $data['vetting'] == 1) {
@@ -85,7 +104,7 @@
 
                                     <td class="align-middle">
                                         <p class="text-sm text-dark font-weight-semibold mb-0">
-                                            <?php echo $data['recordTime'] ?>
+                                            <?php echo $utility->escape($data['recordTime']) ?>
                                         </p>
                                     </td>
                                 </tr>

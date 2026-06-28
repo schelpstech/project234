@@ -1,3 +1,13 @@
+<?php
+require_once __DIR__ . '/../../../../controller/AdminFinance.class.php';
+
+if (empty($_SESSION['admin_finance_csrf'])) {
+    $_SESSION['admin_finance_csrf'] = bin2hex(random_bytes(32));
+}
+
+$adminFinance = new AdminFinance($db_conn);
+$financeCsrf = $_SESSION['admin_finance_csrf'];
+?>
 <div class="border shadow-xs card">
     <div class="pb-0 card-header border-bottom">
         <div class="card-header border-bottom pb-0">
@@ -91,7 +101,19 @@
                                                 } elseif ($invStatus == 1 && $vetting == 1) {
                                                     echo '<a href="#" class="btn btn-warning btn-sm me-1" type="button">Payment Awaiting Confirmation</a>';
                                                 } elseif ($invStatus == 2 && $vetting == 1) {
-                                                    echo '<a href="#" class="btn btn-success btn-sm me-1" type="button">Payment Confirmed. Download Receipt</a>';
+                                                    $receipt = $adminFinance->getReceiptByInvoice($data['invReference']);
+                                                    if ($receipt) {
+                                                        echo '<a href="../../app/adminRouter.php?pageid=' . base64_encode('paymentReceipt') . '&receiptNo=' . $utility->escape($receipt['receipt_number']) . '" class="btn btn-success btn-sm me-1" type="button">View Receipt</a>';
+                                                    } else {
+                                                        ?>
+                                                        <form action="../../app/adminFinanceHandler.php" method="post" class="mb-0">
+                                                            <input type="hidden" name="financeCsrf" value="<?php echo $utility->escape($financeCsrf); ?>">
+                                                            <input type="hidden" name="invoiceReference" value="<?php echo $utility->escape($data['invReference']); ?>">
+                                                            <input type="hidden" name="schCode" value="<?php echo $utility->escape($data['schCode']); ?>">
+                                                            <button type="submit" name="issueReceipt" class="btn btn-success btn-sm mb-0">Issue Receipt</button>
+                                                        </form>
+                                                        <?php
+                                                    }
                                                 } else {
                                                     echo '<a href="#" class="btn btn-danger btn-sm me-1" type="button">Contact Support</a>';
                                                 }

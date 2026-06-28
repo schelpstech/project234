@@ -8,7 +8,11 @@ if (empty($_SESSION['activeAdmin'])) {
 }
 
 $mailer = new ComplianceMailer($db_conn, $utility);
-$returnUrl = '../pages/admin/index.php?pageid=' . base64_encode('complianceMailer');
+$returnPage = (string) ($_POST['returnPage'] ?? 'complianceMailer');
+if (!in_array($returnPage, ['complianceMailer', 'complianceStatus'], true)) {
+    $returnPage = 'complianceMailer';
+}
+$returnUrl = '../pages/admin/index.php?pageid=' . base64_encode($returnPage);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $utility->notifier('danger', 'Invalid request method.');
@@ -54,6 +58,24 @@ if (isset($_POST['sendComplianceMailQueue'])) {
     } catch (Throwable $e) {
         error_log('Compliance queue send failed: ' . $e->getMessage());
         $utility->notifier('danger', 'Unable to send queued compliance mails. Check the server log.');
+    }
+
+    $model->redirect($returnUrl);
+}
+
+if (isset($_POST['sendComplianceSchoolMail'])) {
+    $schoolCode = (string) ($_POST['schCode'] ?? '');
+
+    try {
+        $result = $mailer->sendSchoolNotice($schoolCode, $_SESSION['activeAdmin']);
+        $utility->notifier(
+            $result['failed'] > 0 ? 'warning' : (($result['sent'] > 0 || $result['queued'] > 0) ? 'success' : 'warning'),
+            $result['message'] . ' Sent: ' . $result['sent'] . ', queued: ' . $result['queued'] . ', failed: ' . $result['failed'] . '.'
+        );
+        $user->recordLog($_SESSION['activeAdmin'], 'Compliance School Mail', 'Individual compliance mail requested for school: ' . $schoolCode);
+    } catch (Throwable $e) {
+        error_log('Individual compliance mail failed: ' . $e->getMessage());
+        $utility->notifier('danger', 'Unable to process the individual compliance mail. Check the server log.');
     }
 
     $model->redirect($returnUrl);
