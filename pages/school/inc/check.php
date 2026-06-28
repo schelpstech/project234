@@ -62,8 +62,10 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
     <script src="https://kit.fontawesome.com/349ee9c857.js" crossorigin="anonymous"></script>
     <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
-    <link href="../../assets/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="../../assets/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="../../assets/css/buttons.dataTables.min.css" rel="stylesheet" />
     <link id="pagestyle" href="../../assets/css/corporate-ui-dashboard.min.css?v=1.0.0" rel="stylesheet" />
+    <link href="../../assets/css/portal-modern.css" rel="stylesheet" />
     <style>
         .async-hide {
             opacity: 0 !important
@@ -922,7 +924,11 @@
             });
     </script>
     <script src="../../assets/js/plugins/jquery-3.6.0.min.js"></script>
-    <script src="../../assets/js/plugins/datatables.js"></script>
+    <script src="../../assets/js/jquery.dataTables.min.js"></script>
+    <script src="../../assets/js/dataTables.buttons.min.js"></script>
+    <script src="../../assets/js/jszip.min.js"></script>
+    <script src="../../assets/js/buttons.html5.min.js"></script>
+    <script src="../../assets/js/buttons.print.min.js"></script>
     <script src="../../assets/js/core/popper.min.js"></script>
     <script src="../../assets/js/core/bootstrap.min.js"></script>
     <script src="../../assets/js/plugins/perfect-scrollbar.min.js"></script>

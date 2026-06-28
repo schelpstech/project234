@@ -88,20 +88,116 @@ function preview3rdImage(input) {
 $(document).ready(function() {
   var initializedTables = [];
 
-  $('#datatable-search, .js-datatable').each(function() {
-    if ($.fn.DataTable.isDataTable(this)) {
+  function isPortalDataTable(table) {
+    var $table = $(table);
+
+    if ($table.data('datatable') === false || $table.hasClass('no-datatable')) {
+      return false;
+    }
+
+    if ($table.find('thead th').length === 0 || $table.find('tbody').length === 0) {
+      return false;
+    }
+
+    return table.id === 'datatable-search'
+      || $table.hasClass('js-datatable')
+      || $table.hasClass('table-flush')
+      || $table.closest('.table-responsive').length > 0;
+  }
+
+  function tableLabels($table) {
+    var labels = [];
+    $table.find('thead th').each(function() {
+      labels.push($(this).text().replace(/\s+/g, ' ').trim());
+    });
+    return labels;
+  }
+
+  function applyMobileLabels($table) {
+    var labels = tableLabels($table);
+    $table.find('tbody tr').each(function() {
+      $(this).children('td').each(function(index) {
+        if (!$(this).attr('data-label') && labels[index]) {
+          $(this).attr('data-label', labels[index]);
+        }
+      });
+    });
+  }
+
+  function availableButtons() {
+    var buttonExtensions = [];
+    var buttons = ($.fn.dataTable && $.fn.dataTable.ext && $.fn.dataTable.ext.buttons) || {};
+    var buttonClass = 'btn btn-sm btn-outline-dark';
+
+    if (buttons.copyHtml5) {
+      buttonExtensions.push({ extend: 'copyHtml5', text: 'Copy', className: buttonClass });
+    }
+    if (buttons.csvHtml5) {
+      buttonExtensions.push({ extend: 'csvHtml5', text: 'CSV', className: buttonClass });
+    }
+    if (buttons.excelHtml5) {
+      buttonExtensions.push({ extend: 'excelHtml5', text: 'Excel', className: buttonClass });
+    }
+    if (buttons.print) {
+      buttonExtensions.push({ extend: 'print', text: 'Print', className: buttonClass });
+    }
+
+    return buttonExtensions;
+  }
+
+  if (!$.fn.DataTable) {
+    return;
+  }
+
+  $.fn.dataTable.ext.errMode = 'none';
+
+  $('table').filter(function() {
+    return isPortalDataTable(this);
+  }).each(function(index) {
+    var table = this;
+    var $table = $(table);
+    var exportButtons = availableButtons();
+
+    if ($.fn.DataTable.isDataTable(table)) {
       return;
     }
 
-    var dataTable = $(this).DataTable({
-      dom: 'Bfrtip',
-      pageLength: 25,
-      lengthMenu: [10, 25, 50, 100],
-      autoWidth: false,
-      buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
-    });
+    if (!table.id || $('[id="' + table.id + '"]').length > 1) {
+      table.id = 'portal-datatable-' + (index + 1);
+    }
 
-    initializedTables.push(dataTable);
+    $table.addClass('portal-data-table');
+    $table.closest('.table-responsive').addClass('portal-table-responsive');
+    applyMobileLabels($table);
+
+    try {
+      var dataTable = $table.DataTable({
+        dom: '<"portal-table-top"<"portal-table-length"l><"portal-table-buttons"B><"portal-table-filter"f>>rt<"portal-table-bottom"<"portal-table-info"i><"portal-table-pagination"p>>',
+        pageLength: parseInt($table.data('page-length'), 10) || 25,
+        lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, 'All']],
+        autoWidth: false,
+        deferRender: true,
+        order: [],
+        buttons: exportButtons,
+        language: {
+          search: '',
+          searchPlaceholder: 'Search table',
+          lengthMenu: 'Show _MENU_',
+          paginate: {
+            previous: 'Prev',
+            next: 'Next'
+          }
+        },
+        drawCallback: function() {
+          applyMobileLabels($table);
+        }
+      });
+
+      initializedTables.push(dataTable);
+    } catch (error) {
+      console.error('DataTable initialization failed for #' + table.id, error);
+      $table.addClass('datatable-init-failed');
+    }
   });
 
   $('#print-button').on('click', function() {

@@ -73,6 +73,48 @@ body {
   overflow-y: hidden !important;
 }
 
+.portal-table-top,
+.portal-table-bottom {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.portal-table-length,
+.portal-table-buttons,
+.portal-table-filter,
+.portal-table-info,
+.portal-table-pagination {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.portal-table-filter {
+  margin-left: auto;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+  float: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.dataTables_wrapper .dataTables_length select {
+  border: 1px solid #d6dce5;
+  border-radius: 0.45rem;
+  margin: 0 0.35rem;
+  padding: 0.35rem 1.75rem 0.35rem 0.65rem;
+}
+
 .table td,
 .table th {
   vertical-align: middle;
@@ -88,12 +130,12 @@ body {
 
 .dataTables_wrapper .dt-buttons,
 .dataTables_wrapper .dataTables_filter {
-  padding: 1rem 1rem 0;
+  padding: 0;
 }
 
 .dataTables_wrapper .dataTables_info,
 .dataTables_wrapper .dataTables_paginate {
-  padding: 0.75rem 1rem 1rem;
+  padding: 0;
 }
 
 .dataTables_wrapper .dataTables_filter input {
@@ -103,11 +145,23 @@ body {
   padding: 0.45rem 0.75rem;
 }
 
-.dt-button {
+.dt-button,
+.dataTables_wrapper .dt-button {
+  background: #fff !important;
   border-radius: 0.45rem !important;
   border-color: #d6dce5 !important;
   color: #344054 !important;
+  font-size: 0.75rem !important;
+  line-height: 1.25 !important;
   margin-right: 0.35rem !important;
+  padding: 0.45rem 0.7rem !important;
+}
+
+.dt-button:hover,
+.dataTables_wrapper .dt-button:hover {
+  background: #f8fafc !important;
+  border-color: #98a2b3 !important;
+  color: #1d2939 !important;
 }
 
 .payment-actions {
@@ -157,6 +211,104 @@ body {
 }
 
 @media (max-width: 768px) {
+  .portal-table-responsive {
+    overflow-x: visible;
+  }
+
+  .portal-table-top,
+  .portal-table-bottom {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 0.85rem;
+  }
+
+  .portal-table-length,
+  .portal-table-buttons,
+  .portal-table-filter,
+  .portal-table-info,
+  .portal-table-pagination {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .portal-table-filter {
+    margin-left: 0;
+  }
+
+  .dataTables_wrapper .dataTables_filter,
+  .dataTables_wrapper .dataTables_filter label,
+  .dataTables_wrapper .dataTables_filter input {
+    width: 100%;
+  }
+
+  .dataTables_wrapper .dataTables_filter input {
+    margin: 0.35rem 0 0;
+  }
+
+  .dataTables_wrapper .dataTables_paginate {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  table.portal-data-table {
+    border-collapse: separate !important;
+    border-spacing: 0 0.75rem !important;
+    width: 100% !important;
+  }
+
+  table.portal-data-table thead {
+    display: none;
+  }
+
+  table.portal-data-table tbody,
+  table.portal-data-table tr,
+  table.portal-data-table td {
+    display: block;
+    width: 100% !important;
+  }
+
+  table.portal-data-table tbody tr {
+    background: #fff;
+    border: 1px solid #e4e7ec;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+    overflow: hidden;
+  }
+
+  table.portal-data-table tbody td {
+    align-items: flex-start;
+    border-bottom: 1px solid #eef2f6;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    min-height: 2.75rem;
+    padding: 0.7rem 0.85rem !important;
+    text-align: right;
+    white-space: normal;
+  }
+
+  table.portal-data-table tbody td:last-child {
+    border-bottom: 0;
+  }
+
+  table.portal-data-table tbody td::before {
+    color: #667085;
+    content: attr(data-label);
+    flex: 0 0 42%;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  table.portal-data-table tbody td.dataTables_empty {
+    display: block;
+    text-align: center;
+  }
+
+  table.portal-data-table tbody td.dataTables_empty::before {
+    display: none;
+  }
+
   .support-message {
     max-width: 100%;
   }
